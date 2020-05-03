@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterapp2/bloc/profile_bloc.dart';
+import 'package:flutterapp2/bloc/profile_state.dart';
 import 'package:provider/provider.dart';
 
 import '../data/moor_database.dart';
@@ -83,3 +86,44 @@ class _HomePageState extends State<HomePage> {
   }
 }
 */
+
+class BmiPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("BMI Results"),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 16),
+        alignment: Alignment.center,
+        child: BlocBuilder<ProfileBloc, ProfileState>(
+          builder: (context, state) {
+            if (state is ProfileInitial) {
+              return buildInitialInput();
+            } else if (state is ProfileLoading) {
+              return buildLoading();
+            } else if (state is ProfileLoaded) {
+              return buildColumnWithData(context, state.weather);
+            } else if (state is ProfileError) {
+              return buildInitialInput();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget buildInitialInput() {
+    return Center(
+      child: CityInputField(),
+    );
+  }
+
+  Widget buildLoading() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+}
