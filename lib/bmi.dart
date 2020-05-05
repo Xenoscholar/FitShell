@@ -7,6 +7,7 @@ import 'bloc/profile_bloc.dart';
 import 'data/moor_database.dart';
 
 // import 'ui/home_page.dart';
+/*
 
 class Bmi extends StatelessWidget {
   @override
@@ -20,3 +21,4 @@ class Bmi extends StatelessWidget {
     );
   }
 }
+*/

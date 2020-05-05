@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/profile_rows.dart';
 
 import 'package:provider/provider.dart';
 
 import 'package:flutterapp2/data/moor_database.dart';
+
+import 'bloc/profile_bloc.dart';
+import 'bloc/profile_state.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -26,6 +30,7 @@ class _ProfileState extends State<ProfilePage> {
     Future<List<Profile>> myFuture;
 
     final AppDatabase database = Provider.of<AppDatabase>(context);
+    final ProfileBloc profileBloc = BlocProvider.of<ProfileBloc>(context);
 
     @override
     void dispose(TextEditingController myController) {
@@ -39,12 +44,12 @@ class _ProfileState extends State<ProfilePage> {
 
     }
 
-    @override
+    /*@override
     initState() {
       super.initState();
 
-      myFuture = database.getAllProfiles();
-    }
+
+    }*/
 
 
 
@@ -80,6 +85,11 @@ class _ProfileState extends State<ProfilePage> {
               ),
             ),
             alignment: Alignment.center,
+          ),
+          BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+
+              }
           ),
           Center(
               /*padding: EdgeInsets.all(20),*/
@@ -185,7 +195,7 @@ class _ProfileState extends State<ProfilePage> {
               ),
           ),
           RaisedButton(onPressed: () {
-            database.insertTask(Profile(id: null, isMale: true, age: int.parse(myController1.toString()), weight: int.parse(myController2.toString()), height: int.parse(myController3.toString())));
+            putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase);
             AlertDialog(
               title: Text('Profile Updated'),
               content: Text('Your profile has been updated.'),

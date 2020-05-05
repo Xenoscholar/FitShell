@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterapp2/bloc/profile_bloc.dart';
 import 'package:flutterapp2/data/moor_database.dart';
 import 'package:flutterapp2/splash_screen.dart';
 import 'package:flutterapp2/profile.dart';
@@ -12,17 +14,15 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    /*return MaterialApp(
+    return MaterialApp(
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
         ),
         debugShowCheckedModeBanner: false,
-        home: ProfilePage()
-    );*/
-
-    return Provider(
-      builder: (_) => AppDatabase(),
-      child: MaterialApp(home: ProfilePage()),
+        home: BlocProvider(
+            create: (context) => ProfileBloc(AppDatabase()),
+          child: ProfilePage(),
+        ),
     );
   }
 }

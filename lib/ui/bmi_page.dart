@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/bloc/profile_bloc.dart';
 import 'package:flutterapp2/bloc/profile_state.dart';
+import 'package:flutterapp2/models/profile_model.dart';
 import 'package:provider/provider.dart';
 
 import '../data/moor_database.dart';
@@ -87,6 +88,7 @@ class _HomePageState extends State<HomePage> {
 }
 */
 
+/*
 class BmiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -104,7 +106,7 @@ class BmiPage extends StatelessWidget {
             } else if (state is ProfileLoading) {
               return buildLoading();
             } else if (state is ProfileLoaded) {
-              return buildColumnWithData(context, state.weather);
+              return buildColumnWithData(context, state.profileModel);
             } else if (state is ProfileError) {
               return buildInitialInput();
             }
@@ -126,4 +128,70 @@ class BmiPage extends StatelessWidget {
     );
   }
 
+
+  Column buildColumnWithData(BuildContext context, ProfileModel profileModel) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        FutureBuilder(
+          future: profileModel.profileAttributes,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            return Text(snapshot.data["age"].toString());
+
+          },
+        ),
+        Text(
+          // Display the temperature with 1 decimal place
+          "${weather.temperatureCelsius.toStringAsFixed(1)} °C",
+          style: TextStyle(fontSize: 80),
+        ),
+        RaisedButton(
+          child: Text('See Details'),
+          color: Colors.lightBlue[100],
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) =>
+                    BlocProvider.value(
+                      value: BlocProvider.of<WeatherBloc>(context),
+                      child: WeatherDetailPage(
+                        masterWeather: weather,
+                      ),
+                    ),
+              ),
+            );
+          },
+        ),
+        CityInputField(),
+      ],
+    );
+  }
 }
+*/
+
+
+/*
+  class CityInputField extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+  return Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 50),
+  child: TextField(
+  onSubmitted: (value) => submitCityName(context, value),
+  textInputAction: TextInputAction.search,
+  decoration: InputDecoration(
+  hintText: "Enter a city",
+  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+  suffixIcon: Icon(Icons.search),
+  ),
+  ),
+  );
+  }
+
+
+  }
+
+*/
+
+
+
