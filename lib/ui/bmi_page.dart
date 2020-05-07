@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/bloc/profile_bloc.dart';
+import 'package:flutterapp2/bloc/profile_event.dart';
 import 'package:flutterapp2/bloc/profile_state.dart';
 import 'package:flutterapp2/models/profile_model.dart';
 import 'package:provider/provider.dart';
@@ -88,10 +89,12 @@ class _HomePageState extends State<HomePage> {
 }
 */
 
-/*
 class BmiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    loadInitialPageViaData(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("BMI Results"),
@@ -126,6 +129,10 @@ class BmiPage extends StatelessWidget {
     return Center(
       child: CircularProgressIndicator(),
     );
+  }
+
+  void loadInitialPageViaData(BuildContext context) {
+    BlocProvider.of<ProfileBloc>(context).add(GetProfile());
   }
 
 
@@ -167,7 +174,6 @@ class BmiPage extends StatelessWidget {
     );
   }
 }
-*/
 
 
 /*

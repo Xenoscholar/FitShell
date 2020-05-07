@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:js';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutterapp2/data/moor_database.dart';
 import 'package:flutterapp2/models/profile_model.dart';
 import 'bloc.dart';

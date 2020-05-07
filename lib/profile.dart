@@ -27,20 +27,22 @@ class _ProfileState extends State<ProfilePage> {
     final myController2 = TextEditingController();
     final myController3 = TextEditingController();
 
-    Future<List<Profile>> myFuture;
 
-    final AppDatabase database = Provider.of<AppDatabase>(context);
-    final ProfileBloc profileBloc = BlocProvider.of<ProfileBloc>(context);
+    /*final AppDatabase database = Provider.of<AppDatabase>(context);
+    final ProfileBloc profileBloc = BlocProvider.of<ProfileBloc>(context);*/
 
     @override
-    void dispose(TextEditingController myController) {
+    void dispose(TextEditingController myController1, TextEditingController myController2, TextEditingController myController3) {
       // Clean up the controller when the widget is disposed.
-      myController.dispose();
+      myController1.dispose();
+      myController2.dispose();
+      myController3.dispose();
       super.dispose();
     }
 
-    void putIntoo(AppDatabase database) {
-      database.insertTask(Profile(id: null, isMale: true, age: 18, weight: 156, height: 174));
+    void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3 ) {
+      database.insertTask(Profile(id: null, isMale: true, age: int.parse(controller1.text), weight: int.parse(controller2.text), height: int.parse(controller3.text)));
+      dispose(controller1, controller2, controller3);
 
     }
 
@@ -86,11 +88,11 @@ class _ProfileState extends State<ProfilePage> {
             ),
             alignment: Alignment.center,
           ),
-          BlocBuilder<ProfileBloc, ProfileState>(
+        /*  BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
 
               }
-          ),
+          ),*/
           Center(
               /*padding: EdgeInsets.all(20),*/
               child: ClipRRect(
@@ -194,13 +196,26 @@ class _ProfileState extends State<ProfilePage> {
                 ),
               ),
           ),
-          RaisedButton(onPressed: () {
-            putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase);
-            AlertDialog(
-              title: Text('Profile Updated'),
-              content: Text('Your profile has been updated.'),
-            );
-          },
+          Container(
+            alignment: Alignment.centerRight,
+            child: Column(
+              children: <Widget>[
+                RaisedButton(onPressed: () {
+                  putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase, myController1, myController2, myController3);
+                  AlertDialog(
+                    title: Text('Profile Updated'),
+                    content: Text('Your profile has been updated.'),
+                  );
+                },
+                  color: Colors.blue,
+                ),
+              Spacer(),
+          RaisedButton(
+              onPressed: null,
+            color: Colors.yellow,
+          ),
+              ],
+            ),
           ),
         ],
       ),
@@ -336,7 +351,7 @@ class _ProfileState extends State<ProfilePage> {
               ),
             ),
             RaisedButton(onPressed: () {
-              database.insertTask(Profile(id: null, isMale: true, age: int.parse(myController1.toString()), weight: int.parse(myController2.toString()), height: int.parse(myController3.toString())));
+              BlocProvider.of<ProfileBloc>(context).appDatabase.insertTask(Profile(id: null, isMale: true, age: int.parse(myController1.toString()), weight: int.parse(myController2.toString()), height: int.parse(myController3.toString())));
               AlertDialog(
                 title: Text('Profile Updated'),
                 content: Text('Your profile has been updated.'),
