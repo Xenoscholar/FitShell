@@ -121,7 +121,7 @@ class BmiPage extends StatelessWidget {
 
   Widget buildInitialInput() {
     return Center(
-      child: CityInputField(),
+      /*child: CityInputField(),*/
     );
   }
 
@@ -143,11 +143,11 @@ class BmiPage extends StatelessWidget {
         FutureBuilder(
           future: profileModel.profileAttributes,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return Text(snapshot.data["age"].toString());
+            return Text(snapshot.data[snapshot.data.length - 1].age.toString());
 
           },
         ),
-        Text(
+        /*Text(
           // Display the temperature with 1 decimal place
           "${weather.temperatureCelsius.toStringAsFixed(1)} °C",
           style: TextStyle(fontSize: 80),
@@ -169,7 +169,7 @@ class BmiPage extends StatelessWidget {
             );
           },
         ),
-        CityInputField(),
+        CityInputField(),*/
       ],
     );
   }

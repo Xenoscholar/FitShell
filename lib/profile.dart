@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterapp2/bmi.dart';
 import 'package:flutterapp2/profile_rows.dart';
+import 'package:flutterapp2/ui/bmi_page.dart';
 
 import 'package:provider/provider.dart';
 
@@ -211,7 +213,12 @@ class _ProfileState extends State<ProfilePage> {
                 ),
               Spacer(),
           RaisedButton(
-              onPressed: null,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Bmi()),
+                );
+              },
             color: Colors.yellow,
           ),
               ],
