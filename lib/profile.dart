@@ -44,7 +44,7 @@ class _ProfileState extends State<ProfilePage> {
 
     void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3 ) {
       database.insertTask(Profile(id: null, isMale: true, age: int.parse(controller1.text), weight: int.parse(controller2.text), height: int.parse(controller3.text)));
-      dispose(controller1, controller2, controller3);
+      /*dispose(controller1, controller2, controller3);*/
 
     }
 

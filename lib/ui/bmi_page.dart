@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/bloc/profile_bloc.dart';
 import 'package:flutterapp2/bloc/profile_event.dart';
@@ -139,37 +140,14 @@ class BmiPage extends StatelessWidget {
   Column buildColumnWithData(BuildContext context, ProfileModel profileModel) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         FutureBuilder(
           future: profileModel.profileAttributes,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return Text(snapshot.data[snapshot.data.length - 1].age.toString());
-
+            return Text(snapshot.data[0].age.toString());
           },
         ),
-        /*Text(
-          // Display the temperature with 1 decimal place
-          "${weather.temperatureCelsius.toStringAsFixed(1)} °C",
-          style: TextStyle(fontSize: 80),
-        ),
-        RaisedButton(
-          child: Text('See Details'),
-          color: Colors.lightBlue[100],
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) =>
-                    BlocProvider.value(
-                      value: BlocProvider.of<WeatherBloc>(context),
-                      child: WeatherDetailPage(
-                        masterWeather: weather,
-                      ),
-                    ),
-              ),
-            );
-          },
-        ),
-        CityInputField(),*/
       ],
     );
   }
