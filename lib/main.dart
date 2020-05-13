@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/bloc/profile_bloc.dart';
 import 'package:flutterapp2/data/moor_database.dart';
 import 'package:flutterapp2/nav_bloc/navigation_bloc.dart';
+import 'package:flutterapp2/sidebar/sidebar_layout.dart';
 import 'package:flutterapp2/splash_screen.dart';
 import 'package:flutterapp2/profile.dart';
 import 'package:provider/provider.dart';
@@ -20,20 +21,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.deepPurple,
         ),
         debugShowCheckedModeBanner: false,
-        home: MultiBlocProvider(
-         /* providers: ,
-            create: (context) => ProfileBloc(AppDatabase()),
-          child: ProfilePage(),*/
-          providers: [
-            BlocProvider<ProfileBloc>(
-              create: (context) => ProfileBloc(AppDatabase()),
-            ),
-            BlocProvider<NavigationBloc>(
-              create: (context) => NavigationBloc(),
-            ),
-          ],
-          child: ChildA(),
-        ),
+        home: SideBarLayout(),
     );
   }
 }
