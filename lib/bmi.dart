@@ -14,10 +14,10 @@ class Bmi extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BMI',
-      home: BlocProvider(
+      home: BmiPage(),/*BlocProvider(
         create: (context) => ProfileBloc(AppDatabase()),
         child: BmiPage(),
-      ),
+      ),*/
     );
   }
 }

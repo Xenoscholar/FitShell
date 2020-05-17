@@ -43,8 +43,23 @@ class _ProfileState extends State<ProfilePage> {
     }
 
     void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3 ) {
-      database.insertTask(Profile(id: null, isMale: true, age: int.parse(controller1.text), weight: int.parse(controller2.text), height: int.parse(controller3.text)));
       /*dispose(controller1, controller2, controller3);*/
+
+        FutureBuilder(
+          future: database.getAllProfiles(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if(snapshot.data.length == 0) {
+              database.insertTask(Profile(id: null, isMale: true, age: int.parse(controller1.text), weight: int.parse(controller2.text), height: int.parse(controller3.text)));
+            } else {
+              database.updateTask(Profile(id: null, isMale: true, age: int.parse(controller1.text), weight: int.parse(controller2.text), height: int.parse(controller3.text)));
+            }
+          },
+        );
+
+
+      /*if the size of the list of entries in the database is 0, then use the insertTask method with profile info
+      * if size is 1, then use the updateTask method to update the already existing entry
+      * ENTRY LIST SHOULD NEVER EXCEED 1!!!*/
 
     }
 

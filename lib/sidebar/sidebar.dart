@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterapp2/nav_bloc/navigation_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../bloc.navigation_bloc/navigation_bloc.dart';
 import '../sidebar/menu_item.dart';
 
 class SideBar extends StatefulWidget {
@@ -111,18 +111,42 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       ),
                       MenuItem(
                         icon: Icons.person,
-                        title: "My Account",
+                        title: "Profile",
                         onTap: () {
                           onIconPressed();
-                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MyAccountClickedEvent);
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.ProfileClickedEvent);
                         },
                       ),
                       MenuItem(
                         icon: Icons.shopping_basket,
-                        title: "My Orders",
+                        title: "Bmi",
                         onTap: () {
                           onIconPressed();
-                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MyOrdersClickedEvent);
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.BmiClickedEvent);
+                        },
+                      ),
+                      MenuItem(
+                        icon: Icons.home,
+                        title: "Body Fat",
+                        onTap: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.BodyFatClickedEvent);
+                        },
+                      ),
+                      MenuItem(
+                        icon: Icons.person,
+                        title: "Ideal Weight",
+                        onTap: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.IdealWeightClickedEvent);
+                        },
+                      ),
+                      MenuItem(
+                        icon: Icons.shopping_basket,
+                        title: "Bmr",
+                        onTap: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.BmrClickedEvent);
                         },
                       ),
                       MenuItem(

@@ -28,7 +28,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         final ProfileModel profileModel = ProfileModel(
             profileAttributes: appDatabase.getAllProfiles());
         yield ProfileLoaded(profileModel);
-      } on Error {
+      } on ProfileError {
         yield ProfileError(
             "Couldn't fetch profile data. Did you complete your profile?");
       }

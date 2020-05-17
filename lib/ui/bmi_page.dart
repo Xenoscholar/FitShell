@@ -1,3 +1,5 @@
+import 'dart:wasm';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -136,6 +138,10 @@ class BmiPage extends StatelessWidget {
     BlocProvider.of<ProfileBloc>(context).add(GetProfile());
   }
 
+  double calculateBMI(int weight, int height) {
+    return (703 * (weight / (height * height))).toDouble();
+  }
+
 
   Column buildColumnWithData(BuildContext context, ProfileModel profileModel) {
     return Column(
@@ -145,7 +151,10 @@ class BmiPage extends StatelessWidget {
         FutureBuilder(
           future: profileModel.profileAttributes,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return Text(snapshot.data[0].age.toString());
+            return Text(calculateBMI(snapshot.data[snapshot.data.length - 1].weight, snapshot.data[snapshot.data.length - 1].height).toString());
+
+            return Text((703 * (snapshot.data[snapshot.data.length - 1].weight / (snapshot.data[snapshot.data.length - 1].height * snapshot.data[snapshot.data.length - 1].height))).toString());
+
           },
         ),
       ],
