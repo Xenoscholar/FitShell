@@ -8,7 +8,7 @@ class ProfileModel extends Equatable {
   final int weight;
   final int height;
 */
-  final Future<List<Profile>> profileAttributes;
+  final List<Profile> profileAttributes;
 
   ProfileModel({
     @required this.profileAttributes

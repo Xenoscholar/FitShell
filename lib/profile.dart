@@ -42,10 +42,10 @@ class _ProfileState extends State<ProfilePage> {
       super.dispose();
     }
 
-    void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3 ) {
+    void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3 ) async {
       /*dispose(controller1, controller2, controller3);*/
 
-        FutureBuilder(
+       /* FutureBuilder(
           future: database.getAllProfiles(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if(snapshot.data.length == 0) {
@@ -55,6 +55,57 @@ class _ProfileState extends State<ProfilePage> {
             }
           },
         );
+*/
+        /*List<Profile> checkk = await database.getAllProfiles();*/
+
+        /*try {
+          Future<List<Profile>> checkk =  database.getAllProfiles();
+          *//*if (checkk.length == 0) {
+            database.insertTask(Profile(id: null,
+                isMale: true,
+                age: int.parse(controller1.text),
+                weight: int.parse(controller2.text),
+                height: int.parse(controller3.text)));
+          } else {*//*
+            database.updateTask(Profile(
+                isMale: true,
+                age: int.parse(controller1.text),
+                weight: int.parse(controller2.text),
+                height: int.parse(controller3.text)));
+         *//* }*//*
+        }on Error{
+          database.insertTask(Profile(
+              isMale: true,
+              age: int.parse(controller1.text),
+              weight: int.parse(controller2.text),
+              height: int.parse(controller3.text)));
+        }*/
+      if (database.getAllProfiles() == Error) {
+        /*database.getAllProfiles();*/
+
+        database.updateTask(Profile(
+            isMale: true,
+            age: int.parse(controller1.text),
+            weight: int.parse(controller2.text),
+            height: int.parse(controller3.text)));
+
+
+
+      } else {
+        database.updateTask(Profile(
+            isMale: true,
+            age: int.parse(controller1.text),
+            weight: int.parse(controller2.text),
+            height: int.parse(controller3.text)));
+      }
+
+        /*database.insertTask(Profile(
+            isMale: true,
+            age: int.parse(controller1.text),
+            weight: int.parse(controller2.text),
+            height: int.parse(controller3.text)));*/
+
+
 
 
       /*if the size of the list of entries in the database is 0, then use the insertTask method with profile info

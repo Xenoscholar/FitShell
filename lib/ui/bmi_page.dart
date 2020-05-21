@@ -125,6 +125,7 @@ class BmiPage extends StatelessWidget {
   Widget buildInitialInput() {
     return Center(
       /*child: CityInputField(),*/
+      child: Text('There was an error. Be sure to complete your profile.')
     );
   }
 
@@ -135,7 +136,15 @@ class BmiPage extends StatelessWidget {
   }
 
   void loadInitialPageViaData(BuildContext context) {
+    print('YASSSSSSSSSSSSSSSSSSSSSSS');
+
     BlocProvider.of<ProfileBloc>(context).add(GetProfile());
+
+    /*if(BlocProvider.of<ProfileBloc>(context).appDatabase.getAllProfiles() == null) {
+      throw Error();
+    }else{
+      BlocProvider.of<ProfileBloc>(context).add(GetProfile());
+    }*/
   }
 
   double calculateBMI(int weight, int height) {
@@ -148,7 +157,7 @@ class BmiPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        FutureBuilder(
+        /*FutureBuilder(
           future: profileModel.profileAttributes,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             return Text(calculateBMI(snapshot.data[snapshot.data.length - 1].weight, snapshot.data[snapshot.data.length - 1].height).toString());
@@ -156,7 +165,9 @@ class BmiPage extends StatelessWidget {
             return Text((703 * (snapshot.data[snapshot.data.length - 1].weight / (snapshot.data[snapshot.data.length - 1].height * snapshot.data[snapshot.data.length - 1].height))).toString());
 
           },
-        ),
+        ),*/
+
+    Text(profileModel.profileAttributes.toString()/* calculateBMI(profileModel.profileAttributes[profileModel.profileAttributes.length - 1].weight, profileModel.profileAttributes[profileModel.profileAttributes.length - 1].height).toString()*/)
       ],
     );
   }

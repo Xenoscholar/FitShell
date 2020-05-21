@@ -35,7 +35,50 @@ class AppDatabase extends _$AppDatabase {
 
 
   // All tables have getters in the generated class - we can select the tasks table
-  Future<List<Profile>> getAllProfiles() => select(profiles).get();
+  Future<List<Profile>> getAllProfiles() async {
+
+    List<Profile> checkkk = await select(profiles).get();
+
+
+    /*select(profiles).get();*/
+
+    /*throw Error();*/
+
+
+
+    if(checkkk.length == 0) {
+      throw Error();
+    } else {
+      return select(profiles).get();
+    }
+
+   /* if(select(profiles).get() == null) {
+      throw Error();*//*Future.error(Error());*//*
+    } else {
+      select(profiles).get();
+    }
+
+    switch(select(profiles).get()) {
+      case null: {
+        throw Error();
+      }
+      break;
+      case isNotNull(): {
+
+      }
+    }
+
+    FutureBuilde(
+        future: select(profiles).get(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if(snapshot.data == null) {
+            throw Error();
+          } else {
+            select(profiles).get();
+          }
+        }
+    );*/
+  }
 
   Future<Profile> getProfile() => select(profiles).getSingle();
 
@@ -48,5 +91,6 @@ class AppDatabase extends _$AppDatabase {
   Future updateTask(Profile profile) => update(profiles).replace(profile);
 
   Future deleteTask(Profile profile) => delete(profiles).delete(profile);
+
 
 }
