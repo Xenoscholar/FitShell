@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/bmi.dart';
 import 'package:flutterapp2/profile_rows.dart';
@@ -20,6 +21,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfileState extends State<ProfilePage> {
 
+  bool groupValue;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -28,6 +31,8 @@ class _ProfileState extends State<ProfilePage> {
     final myController1 = TextEditingController();
     final myController2 = TextEditingController();
     final myController3 = TextEditingController();
+
+
 
 
     /*final AppDatabase database = Provider.of<AppDatabase>(context);
@@ -63,14 +68,14 @@ class _ProfileState extends State<ProfilePage> {
 
           database.updateTask(Profile(
               id: checkk.length,
-              isMale: true,
+              isMale: groupValue,
               age: int.parse(controller1.text),
               weight: int.parse(controller2.text),
               height: int.parse(controller3.text)));
 
         }on Error{
           database.insertTask(Profile(
-              isMale: true,
+              isMale: groupValue,
               age: int.parse(controller1.text),
               weight: int.parse(controller2.text),
               height: int.parse(controller3.text)));
@@ -119,6 +124,7 @@ class _ProfileState extends State<ProfilePage> {
       * ENTRY LIST SHOULD NEVER EXCEED 1!!!*/
 
     }
+
 
     /*@override
     initState() {
@@ -211,6 +217,29 @@ class _ProfileState extends State<ProfilePage> {
                             Text('Gender:',
                               style: TextStyles.appNameTextStyle,
                             ),
+
+                            Center(
+                              child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text(
+                                        'Male',
+                                      style: TextStyle(
+                                        color: Colors.blue
+                                      ),
+                                    ),
+                                    Radio(value: true, groupValue: groupValue, activeColor: Colors.purple, onChanged: (bool e) => radioFunction(e)),
+                                    Text(
+                                      'Male',
+                                      style: TextStyle(
+                                          color: Colors.purpleAccent[100]
+                                      ),
+                                    ),
+                                    Radio(value: false, groupValue: groupValue, activeColor: Colors.purple, onChanged: (bool e) => radioFunction(e)),
+                                  ],
+                                ),
+                            ),
+
                             Spacer(),
                             CupertinoTextField(
                               keyboardType: TextInputType.number,
@@ -281,10 +310,11 @@ class _ProfileState extends State<ProfilePage> {
                     content: Text('Your profile has been updated.'),
                   );
                 },
-                  color: Colors.blue,
+                  color: Colors.red,
+                  child: Text('Save'),
                 ),
               Spacer(),
-          RaisedButton(
+          /*RaisedButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -292,7 +322,7 @@ class _ProfileState extends State<ProfilePage> {
                 );
               },
             color: Colors.yellow,
-          ),
+          ),*/
               ],
             ),
           ),
@@ -444,6 +474,14 @@ class _ProfileState extends State<ProfilePage> {
 
 
   }
+
+  void radioFunction(bool e) {
+    setState(() {
+      groupValue = e;
+    });
+  }
+
+
 
 
 }
