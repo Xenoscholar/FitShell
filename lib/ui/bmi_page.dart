@@ -167,7 +167,7 @@ class BmiPage extends StatelessWidget {
           },
         ),*/
 
-    Text(profileModel.profileAttributes.toString()/* calculateBMI(profileModel.profileAttributes[profileModel.profileAttributes.length - 1].weight, profileModel.profileAttributes[profileModel.profileAttributes.length - 1].height).toString()*/)
+    Text( calculateBMI(profileModel.profileAttributes[profileModel.profileAttributes.length - 1].weight, profileModel.profileAttributes[profileModel.profileAttributes.length - 1].height).toString())
       ],
     );
   }

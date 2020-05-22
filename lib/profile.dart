@@ -58,46 +58,52 @@ class _ProfileState extends State<ProfilePage> {
 */
         /*List<Profile> checkk = await database.getAllProfiles();*/
 
-        /*try {
-          Future<List<Profile>> checkk =  database.getAllProfiles();
-          *//*if (checkk.length == 0) {
-            database.insertTask(Profile(id: null,
-                isMale: true,
-                age: int.parse(controller1.text),
-                weight: int.parse(controller2.text),
-                height: int.parse(controller3.text)));
-          } else {*//*
-            database.updateTask(Profile(
-                isMale: true,
-                age: int.parse(controller1.text),
-                weight: int.parse(controller2.text),
-                height: int.parse(controller3.text)));
-         *//* }*//*
+        try {
+          List<Profile> checkk = await database.getAllProfiles();
+
+          database.updateTask(Profile(
+              id: checkk.length,
+              isMale: true,
+              age: int.parse(controller1.text),
+              weight: int.parse(controller2.text),
+              height: int.parse(controller3.text)));
+
         }on Error{
           database.insertTask(Profile(
               isMale: true,
               age: int.parse(controller1.text),
               weight: int.parse(controller2.text),
               height: int.parse(controller3.text)));
-        }*/
-      if (database.getAllProfiles() == Error) {
-        /*database.getAllProfiles();*/
+        }
 
-        database.updateTask(Profile(
+
+
+
+
+
+
+      /*if (database.getAllProfiles() == Error) {
+        *//*database.getAllProfiles();*//*
+
+        database.insertTask(Profile(
             isMale: true,
             age: int.parse(controller1.text),
             weight: int.parse(controller2.text),
             height: int.parse(controller3.text)));
+
 
 
 
       } else {
+        List<Profile> checkk = await database.getAllProfiles();
+
         database.updateTask(Profile(
+          id: checkk.length,
             isMale: true,
             age: int.parse(controller1.text),
             weight: int.parse(controller2.text),
             height: int.parse(controller3.text)));
-      }
+      }*/
 
         /*database.insertTask(Profile(
             isMale: true,
