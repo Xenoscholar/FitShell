@@ -64,13 +64,17 @@ class BmrNavPage extends StatelessWidget with NavigationStates {
     }*/
   }
 
-  double calculateIdealWeight(int height, bool gender /*add another bool argument for unit of measurement+*/ ) {
+  double calculateBMR(int height, int weight, bool gender, int age) {
+
+    double weightKg = weight / 2.205;
+    double heightCm = height * 2.54;
+
     if(gender == true) {
       /*place if statement here and return based on metric or customary*/
-      return ((((height - 60) * 1.41) + 56.2) * 2.2).toDouble();
+      return ((13.39 * weightKg) + (4.799 * heightCm) - (5.677 * age) + (88.362)).toDouble();
     } else {
       /*place if statement here and return based on metric or customary*/
-      return (((height - 60) * 1.36) + 53.1).toDouble();
+      return ((9.247 * weightKg) + (3.098 * heightCm) - (4.330 * age) + (447.593)).toDouble();
     }
   }
 
@@ -107,7 +111,7 @@ class BmrNavPage extends StatelessWidget with NavigationStates {
                 padding: EdgeInsets.all(40),
                 margin: EdgeInsets.only(bottom: 20),
                 child: Text(
-                  calculateIdealWeight(profileModel.profileAttributes[profileModel.profileAttributes.length - 1].height, profileModel.profileAttributes[profileModel.profileAttributes.length - 1].isMale).toString(),
+                  calculateBMR(profileModel.profileAttributes[profileModel.profileAttributes.length - 1].height,profileModel.profileAttributes[profileModel.profileAttributes.length - 1].weight, profileModel.profileAttributes[profileModel.profileAttributes.length - 1].isMale, profileModel.profileAttributes[profileModel.profileAttributes.length - 1].age).toInt().toString() + '  Calories/day',
                   style:TextStyle(
                       color: Colors.white
                   ),

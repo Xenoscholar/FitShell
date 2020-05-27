@@ -151,195 +151,269 @@ class BmiPage extends StatelessWidget {
   }
 
 
-  Container buildContainerWithData(BuildContext context, ProfileModel profileModel, double height, double width) {
-    return Container(
-      width: width,
-      height: height,
-      color: Colors.grey[800].withOpacity(.7),
-      child: Container(
-        color: Colors.grey[800].withOpacity(.7),
-        padding: EdgeInsets.all(20),
-        margin: EdgeInsets.all(30),
-        height: height,
-        width: width,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(bottom: 50),
-              child: Text(
-                  'BMI',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20
-              ),
-              ),
-            ),
+  SingleChildScrollView buildContainerWithData(BuildContext context, ProfileModel profileModel, double height, double width) {
+
+        return SingleChildScrollView(
+
+         child: Stack(
+           children: <Widget>[
+
+         Container(
+           decoration: BoxDecoration(
+             gradient: LinearGradient(
+               begin: Alignment.bottomLeft,
+                 end: Alignment.topRight,
+                 colors: [Colors.blue, Colors.purple],
+             ),
+           ),
+           child: Container(
+                color: Colors.grey[800].withOpacity(.7),
+                padding: EdgeInsets.only(left: 30,right: 30,bottom: 20,top: 40),
 
 
+                width: width,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 50),
+                      child: Text(
+                        'BMI',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20
+                        ),
+                      ),
+                    ),
 
-        Container(
-          color: Colors.green,
-            padding: EdgeInsets.all(40),
-            margin: EdgeInsets.only(bottom: 20),
-            child: Text(
-                calculateBMI(profileModel.profileAttributes[profileModel.profileAttributes.length - 1].weight, profileModel.profileAttributes[profileModel.profileAttributes.length - 1].height).toString(),
-              style:TextStyle(
-                  color: Colors.white
-              ),
-            )
-        ),
+                    Container(
+                      /*color: Colors.orange,*/
+                        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                        margin: EdgeInsets.only(bottom: 20),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xFF000000).withAlpha(60),
+                                blurRadius: 6.0,
+                                spreadRadius: 0.0,
+                                offset: Offset(
+                                  0.0,
+                                  3.0,
+                                ),
+                              ),
+                            ]),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10, top: 10),
+                              child: Text('What is BMR',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w200
+                              ),
+                            ),
+                          ],
+                        )
+                    ),
 
-            Padding(
-              padding: EdgeInsets.only(bottom: 35),
-              child: Text(
-                  'Moderate Condition',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 15,
+
+                    Container(
+                        /*color: Colors.green,*/
+                        padding: EdgeInsets.all(40),
+                        margin: EdgeInsets.only(bottom: 20),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+
+                                blurRadius: 6.0,
+                                spreadRadius: 0.0,
+                                offset: Offset(
+                                  0.0,
+                                  3.0,
+                                ),
+                              ),
+                            ]),
+                        child: Text(
+                          calculateBMI(profileModel.profileAttributes[profileModel
+                              .profileAttributes.length - 1].weight,
+                              profileModel.profileAttributes[profileModel
+                                  .profileAttributes.length - 1].height).toString(),
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        )
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 35),
+                      child: Text(
+                        'Moderate Condition',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+
+                    Column(/*Column for ranges of Bmi*/
+                      mainAxisSize: MainAxisSize.min,
+                      textDirection: TextDirection.ltr,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+
+                      /*mainAxisAlignment: MainAxisAlignmen,*/
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                color: Colors.blue,
+                                width: 20,
+                                height: 20,
+                                margin: EdgeInsets.only(right: 10),
+                              ),
+                              Text(
+                                'Underweight',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              Text('<18.5',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          color: Colors.blueGrey[800],
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                color: Colors.green,
+                                width: 20,
+                                height: 20,
+                                margin: EdgeInsets.only(right: 10),
+                              ),
+                              Text('Normal',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              Text('18.5 - 24.9',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                color: Colors.orange,
+                                width: 20,
+                                height: 20,
+                                margin: EdgeInsets.only(right: 10),
+                              ),
+                              Text('Overweight',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              Text('25 - 29.9',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                color: Colors.deepOrange,
+                                width: 20,
+                                height: 20,
+                                margin: EdgeInsets.only(right: 10),
+                              ),
+                              Text('Obese',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              Text('<30 - 34.9',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            textDirection: TextDirection.ltr,
+                            children: <Widget>[
+                              Container(
+                                color: Colors.red,
+                                width: 20,
+                                height: 20,
+                                margin: EdgeInsets.only(right: 10),
+                              ),
+                              Text('Very Obese',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              Text('35 +',
+                                textDirection: TextDirection.ltr,
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-            ),
-
-            Column( /*Column for ranges of Bmi*/
-              mainAxisSize: MainAxisSize.min,
-              textDirection: TextDirection.ltr,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         ),
+    ],
+    )
 
 
-              /*mainAxisAlignment: MainAxisAlignmen,*/
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.blue,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
-                      ),
-                      Text(
-                        'Underweight',
-                      style:TextStyle(
-                        color: Colors.white
-                      ),
-                      ),
-                      Text('<18.5',
-                        style:TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  color: Colors.grey[800],
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.green,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
-                      ),
-                      Text('Normal',
-                        style:TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                      Text('18.5 - 24.9',
-                        style:TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.orange,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
-                      ),
-                      Text('Overweight',
-                        style:TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                      Text('25 - 29.9',
-                        style:TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.deepOrange,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
-                      ),
-                      Text('Obese',
-                        style:TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                      Text('<30 - 34.9',
-                        style:TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    textDirection: TextDirection.ltr,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.red,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
-                      ),
-                      Text('Very Obese',
-                        style:TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                      Text('35 +',
-                        textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.right,
-                          style:TextStyle(
-                          color: Colors.white
-                      ),
-                ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+
+        );
+
+
+
   }
 }
 
