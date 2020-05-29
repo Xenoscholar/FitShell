@@ -98,6 +98,8 @@ class BmiPage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
+
+
     loadInitialPageViaData(context);
 
     return Scaffold(
@@ -178,11 +180,43 @@ class BmiPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 50),
                       child: Text(
-                        'BMI',
+                        'Calculations',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20
                         ),
+                      ),
+                    ),
+                    
+                    /*buttons for choosing calculations*/
+                    Container(
+                      color: Colors.transparent,
+                      child: Stack(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              RaisedButton(
+                                  onPressed: null,
+                                color: Colors.transparent,
+                                disabledColor: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(
+                                        color: Colors.purple,
+                                        width: 2,
+                                    ),
+                                ),
+                                child: Text(
+                                    'BMI',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w200,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                     ),
 
@@ -298,6 +332,7 @@ class BmiPage extends StatelessWidget {
                                 ),
                               ),
                             ],
+
                           ),
                         ),
                         Container(
@@ -317,11 +352,12 @@ class BmiPage extends StatelessWidget {
                                     color: Colors.white
                                 ),
                               ),
-                              Text('18.5 - 24.9',
-                                style: TextStyle(
-                                    color: Colors.white
+                                Text('18.5 - 24.9',
+                                  style: TextStyle(
+                                      color: Colors.white
+                                  ),
                                 ),
-                              ),
+
                             ],
                           ),
                         ),
