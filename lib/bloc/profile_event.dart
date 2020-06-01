@@ -6,13 +6,7 @@ abstract class ProfileEvent extends Equatable {
 }
 
 class GetProfile extends ProfileEvent {
-  /*final bool isMale;
-  final int age;
-  final int weight;
-  final int height;*/
-
-  const GetProfile(/*this.isMale,this.age,this.weight,this.height*/);
-
+  const GetProfile();
   @override
-  List<Object> get props => [/*isMale,age,weight,height*/];
+  List<Object> get props => [];
 }

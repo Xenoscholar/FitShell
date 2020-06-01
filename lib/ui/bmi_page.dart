@@ -6,7 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/bloc/profile_bloc.dart';
 import 'package:flutterapp2/bloc/profile_event.dart';
 import 'package:flutterapp2/bloc/profile_state.dart';
+import 'package:flutterapp2/calculation_bloc/calculation_bloc.dart';
+import 'package:flutterapp2/calculation_bloc/calculation_event.dart';
+import 'package:flutterapp2/calculation_bloc/calculation_state.dart';
 import 'package:flutterapp2/models/profile_model.dart';
+import 'package:flutterapp2/ui/ojk.dart';
+import 'package:flutterapp2/ui/unicornButton.dart';
 import 'package:provider/provider.dart';
 
 import '../data/moor_database.dart';
@@ -93,8 +98,12 @@ class _HomePageState extends State<HomePage> {
 */
 
 class BmiPage extends StatelessWidget {
+
+
+
   @override
   Widget build(BuildContext context) {
+    String calcPageValue = 'bmi';
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -154,13 +163,23 @@ class BmiPage extends StatelessWidget {
 
 
   SingleChildScrollView buildContainerWithData(BuildContext context, ProfileModel profileModel, double height, double width) {
+     /*ValueNotifier<String> _calcName = ValueNotifier<String>('bmi');
 
+     final Widget bmigoodJob1 = const Text('bmi job!');
+     final Widget bmrgoodJob2 = const Text('bmr job!');
+     final Widget bodyfatgoodJob3 = const Text('body fat job!');
+     final Widget leanbodymassgoodJob4 = const Text('lean body mass job!');
+     final Widget caloricgoodJob4 = const Text('caloric mass job!');
+     final Widget idealmassgoodJob4 = const Text('ideal mass job!');
+     final Widget macronutrientgoodJob4 = const Text('macro mass job!');
+*/
         return SingleChildScrollView(
 
          child: Stack(
            children: <Widget>[
 
          Container(
+
            decoration: BoxDecoration(
              gradient: LinearGradient(
                begin: Alignment.bottomLeft,
@@ -187,41 +206,191 @@ class BmiPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    
+
                     /*buttons for choosing calculations*/
-                    Container(
-                      color: Colors.transparent,
-                      child: Stack(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              RaisedButton(
-                                  onPressed: null,
-                                color: Colors.transparent,
-                                disabledColor: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(
-                                        color: Colors.purple,
-                                        width: 2,
+                    Center(
+                      child: Container(
+                        color: Colors.transparent,
+                        margin: EdgeInsets.only(bottom: 30),
+                        child: Column(
+                          children: <Widget>[
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  /*RaisedButton(
+                                      onPressed: null,
+                                    color: Colors.transparent,
+                                    disabledColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Colors.purple,
+                                            width: 2,
+                                        ),
                                     ),
-                                ),
-                                child: Text(
-                                    'BMI',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w200,
+                                    child: Text(
+                                        'BMI',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w200,
+                                      ),
+                                    ),
+                                  )*/
+                                  UnicornOutlineButton(
+                                      strokeWidth: 2,
+                                      radius: 24,
+                                      gradient:  LinearGradient(colors: [Colors.blue, Colors.purple]),
+                                      child: Text('BMI', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w100,color: Colors.white)),
+                                      onPressed: () => BlocProvider.of<CalculationBloc>(context).add(GetBmi())),
+
+                                  Container(
+                                    margin: EdgeInsets.only(left:10 ,right:10 ),
+                                    child: UnicornOutlineButton(
+                                        strokeWidth: 2,
+                                        radius: 24,
+                                        gradient:  LinearGradient(colors: [Colors.blue, Colors.purple]),
+                                        child: Text('Body Fat', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w100,color: Colors.white)),
+                                        onPressed: () => BlocProvider.of<CalculationBloc>(context).add(GetBodyFat())),
                                   ),
+
+                                  UnicornOutlineButton(
+                                      strokeWidth: 2,
+                                      radius: 24,
+                                      gradient:  LinearGradient(colors: [Colors.blue, Colors.purple]),
+                                      child: Text('  Ideal Weight  ', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w100,color: Colors.white)),
+                                      onPressed: () => BlocProvider.of<CalculationBloc>(context).add(GetIdealWeight()))
+                                ],
+                              ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10,top: 10),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  /*RaisedButton(
+                                      onPressed: null,
+                                    color: Colors.transparent,
+                                    disabledColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        side: BorderSide(
+                                            color: Colors.purple,
+                                            width: 2,
+                                        ),
+                                    ),
+                                    child: Text(
+                                        'BMI',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w200,
+                                      ),
+                                    ),
+                                  )*/
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 3),
+                                    child: UnicornOutlineButton(
+                                        strokeWidth: 2,
+                                        radius: 24,
+                                        gradient:  LinearGradient(colors: [Colors.blue, Colors.purple]),
+                                        child: Text('BMR', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w100,color: Colors.white)),
+                                        onPressed: () => BlocProvider.of<CalculationBloc>(context).add(GetBmr())),
+                                  ),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 3),
+                                    child: UnicornOutlineButton(
+                                        strokeWidth: 2,
+                                        radius: 24,
+                                        gradient:  LinearGradient(colors: [Colors.blue, Colors.purple]),
+                                        child: Text('   Caloric Maintenance   ', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w100,color: Colors.white)),
+                                        onPressed: () => BlocProvider.of<CalculationBloc>(context).add(GetCaloricMaintanence())),
+                                  ),
+
+
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                /*RaisedButton(
+                                    onPressed: null,
+                                  color: Colors.transparent,
+                                  disabledColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide(
+                                          color: Colors.purple,
+                                          width: 2,
+                                      ),
+                                  ),
+                                  child: Text(
+                                      'BMI',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                                  ),
+                                )*/
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 5),
+                                  child: UnicornOutlineButton(
+                                      strokeWidth: 2,
+                                      radius: 24,
+                                      gradient:  LinearGradient(colors: [Colors.blue, Colors.purple]),
+                                      child: Text('   Macronutrients   ', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w100,color: Colors.white)),
+                                      onPressed: () => BlocProvider.of<CalculationBloc>(context).add(GetMacronutrients())),
                                 ),
-                              )
-                            ],
-                          ),
-                        ],
+
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: UnicornOutlineButton(
+                                      strokeWidth: 2,
+                                      radius: 24,
+                                      gradient:  LinearGradient(colors: [Colors.blue, Colors.purple]),
+                                      child: Text('   Lean Body Mass   ', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w100,color: Colors.white)),
+                                      onPressed: () => BlocProvider.of<CalculationBloc>(context).add(GetLeanBodyMass())),
+                                ),
+
+
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
 
-                    Container(
-                      /*color: Colors.orange,*/
+//                    /*this is where the remaining widgets in the tree will be rebuilt
+//                    valueListenerBuilder goes here*/
+
+
+
+
+                    BlocBuilder<CalculationBloc, CalculationState>(
+                      builder: (context, state) {
+                        if (state is InitialCalculationState) {
+                          return initialbitch;
+                        } else if (state is BmiCalculation) {
+                          return bmrgoodJob1;
+                        } else if (state is BmrCalculation) {
+                          return bmrgoodJob2;
+                        } else if (state is IdealWeightCalculation) {
+                          return idealmassgoodJob4;
+                        }else if (state is CaloricMaintenanceCalculation) {
+                          return caloricgoodJob4;
+                        }else if (state is MacronutrientsCalculation) {
+                          return macronutrientgoodJob4;
+                        }else if (state is BodyFatCalculation) {
+                          return bodyfatgoodJob3;
+                        }else if (state is LeanBodyMassCalculation) {
+                          return leanbodymassgoodJob4;
+                        }
+                      },
+                    ),
+
+
+
+                    /*Container(
+                      *//*color: Colors.orange,*//*
                         padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                         margin: EdgeInsets.only(bottom: 20),
                         decoration: BoxDecoration(
@@ -262,7 +431,7 @@ class BmiPage extends StatelessWidget {
 
 
                     Container(
-                        /*color: Colors.green,*/
+                        *//*color: Colors.green,*//*
                         padding: EdgeInsets.all(40),
                         margin: EdgeInsets.only(bottom: 20),
                         decoration: BoxDecoration(
@@ -300,14 +469,14 @@ class BmiPage extends StatelessWidget {
                       ),
                     ),
 
-                    Column(/*Column for ranges of Bmi*/
+                    Column(*//*Column for ranges of Bmi*//*
                       mainAxisSize: MainAxisSize.min,
                       textDirection: TextDirection.ltr,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
 
-                      /*mainAxisAlignment: MainAxisAlignmen,*/
+                      *//*mainAxisAlignment: MainAxisAlignmen,*//*
                       children: <Widget>[
                         Container(
                           padding: EdgeInsets.all(10),
@@ -436,7 +605,7 @@ class BmiPage extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
+                    ),*/
                   ],
                 ),
               ),
@@ -451,6 +620,17 @@ class BmiPage extends StatelessWidget {
 
 
   }
+
+  final Widget initialbitch = const Text('Initial Bitch!');
+
+  final Widget bmrgoodJob1 = const Text('bmi job!');
+
+  final Widget bmrgoodJob2 = const Text('bmr job!');
+  final Widget bodyfatgoodJob3 = const Text('body fat job!');
+  final Widget leanbodymassgoodJob4 = const Text('lean body mass job!');
+  final Widget caloricgoodJob4 = const Text('caloric mass job!');
+  final Widget idealmassgoodJob4 = const Text('ideal mass job!');
+  final Widget macronutrientgoodJob4 = const Text('macro mass job!');
 }
 
 
