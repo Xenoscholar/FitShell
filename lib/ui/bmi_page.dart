@@ -222,7 +222,7 @@ class BmiPage extends StatelessWidget {
                         children: <Widget>[
                           Text('What is BMI?',
                           style: TextStyle(
-                            color: Colors.white
+                            color: Colors.white.withOpacity(.5)
                           ),
                           ),
                           IconButton(
@@ -288,7 +288,7 @@ class BmiPage extends StatelessWidget {
         profileModel.profileAttributes.length - 1]
             .height), 2).toString(),
 
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
               )),
           Padding(
             padding: EdgeInsets.only(bottom: 35),
@@ -300,126 +300,133 @@ class BmiPage extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            textDirection: TextDirection.ltr,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      color: Colors.blue,
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(right: 10),
-                    ),
-                    Text(
-                      'Underweight',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      '<18.5',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
+          Container(
+            height: 1,
+            color: Colors.grey.withOpacity(.5),
+          ),
+          Container(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              textDirection: TextDirection.ltr,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        color: Colors.blue,
+                        width: 20,
+                        height: 20,
+                        margin: EdgeInsets.only(right: 10),
+                      ),
+                      Text(
+                        'Underweight',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        '<18.5',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                color: Color(0xFF000000).withAlpha(60),
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      color: Colors.green,
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(right: 10),
-                    ),
-                    Text(
-                      'Normal',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      '18.5 - 24.9',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
+                Container(
+                  color: Color(0xFF000000).withAlpha(60),
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        color: Colors.green,
+                        width: 20,
+                        height: 20,
+                        margin: EdgeInsets.only(right: 10),
+                      ),
+                      Text(
+                        'Normal',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        '18.5 - 24.9',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      color: Colors.orange,
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(right: 10),
-                    ),
-                    Text(
-                      'Overweight',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      '25 - 29.9',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        color: Colors.orange,
+                        width: 20,
+                        height: 20,
+                        margin: EdgeInsets.only(right: 10),
+                      ),
+                      Text(
+                        'Overweight',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        '25 - 29.9',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      color: Colors.deepOrange,
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(right: 10),
-                    ),
-                    Text(
-                      'Obese',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      '<30 - 34.9',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        color: Colors.deepOrange,
+                        width: 20,
+                        height: 20,
+                        margin: EdgeInsets.only(right: 10),
+                      ),
+                      Text(
+                        'Obese',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        '<30 - 34.9',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  textDirection: TextDirection.ltr,
-                  children: <Widget>[
-                    Container(
-                      color: Colors.red,
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(right: 10),
-                    ),
-                    Text(
-                      'Very Obese',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      '35 +',
-                      textDirection: TextDirection.ltr,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    textDirection: TextDirection.ltr,
+                    children: <Widget>[
+                      Container(
+                        color: Colors.red,
+                        width: 20,
+                        height: 20,
+                        margin: EdgeInsets.only(right: 10),
+                      ),
+                      Text(
+                        'Very Obese',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        '35 +',
+                        textDirection: TextDirection.ltr,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -443,7 +450,7 @@ class BmiPage extends StatelessWidget {
           ),
           child: Container(
             color: Colors.grey[800].withOpacity(.7),
-            padding: EdgeInsets.only(left: 30, right: 30, bottom: 20, top: 40),
+            padding: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 40),
             width: width,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -459,8 +466,18 @@ class BmiPage extends StatelessWidget {
                 /*buttons for choosing calculations*/
                 Center(
                   child: Container(
-                    color: Colors.transparent,
+                    width: width,
                     margin: EdgeInsets.only(bottom: 30),
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[800],
+
+                          ),
+                        ]
+                    ),
                     child: Column(
                       children: <Widget>[
                         Row(
@@ -654,30 +671,41 @@ class BmiPage extends StatelessWidget {
 //                    /*this is where the remaining widgets in the tree will be rebuilt
 //                    valueListenerBuilder goes here*/
 
-                BlocBuilder<CalculationBloc, CalculationState>(
-                  builder: (context, state) {
-                    if (state is InitialCalculationState) {
-                      return initialbitch;
-                    } else if (state is BmiCalculation) {
-                      return bmiContainer(profileModel, context);
-                    } else if (state is BmrCalculation) {
-                      return bmrgoodJob2;
-                    } else if (state is IdealWeightCalculation) {
-                      return idealmassgoodJob4;
-                    } else if (state is CaloricMaintenanceCalculation) {
-                      return caloricgoodJob4;
-                    } else if (state is MacronutrientsCalculation) {
-                      return macronutrientgoodJob4;
-                    } else if (state is BodyFatCalculation) {
-                      return bodyfatgoodJob3;
-                    } else if (state is LeanBodyMassCalculation) {
-                      return leanbodymassgoodJob4;
-                    } else if (state is LoadingCalculation) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[800],
+
+                        ),
+                      ]
+                  ),
+                  child: BlocBuilder<CalculationBloc, CalculationState>(
+                    builder: (context, state) {
+                      if (state is InitialCalculationState) {
+                        return initialbitch;
+                      } else if (state is BmiCalculation) {
+                        return bmiContainer(profileModel, context);
+                      } else if (state is BmrCalculation) {
+                        return bmrgoodJob2;
+                      } else if (state is IdealWeightCalculation) {
+                        return idealmassgoodJob4;
+                      } else if (state is CaloricMaintenanceCalculation) {
+                        return caloricgoodJob4;
+                      } else if (state is MacronutrientsCalculation) {
+                        return macronutrientgoodJob4;
+                      } else if (state is BodyFatCalculation) {
+                        return bodyfatgoodJob3;
+                      } else if (state is LeanBodyMassCalculation) {
+                        return leanbodymassgoodJob4;
+                      } else if (state is LoadingCalculation) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
                 ),
 
                 /*Container(
