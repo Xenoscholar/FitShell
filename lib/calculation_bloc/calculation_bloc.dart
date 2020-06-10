@@ -4,7 +4,7 @@ import './bloc.dart';
 
 class CalculationBloc extends Bloc<CalculationEvent, CalculationState> {
   @override
-  CalculationState get initialState => InitialCalculationState();
+  CalculationState get initialState => BmiCalculation();
 
   @override
   Stream<CalculationState> mapEventToState(
@@ -12,7 +12,7 @@ class CalculationBloc extends Bloc<CalculationEvent, CalculationState> {
   ) async* {
     // TODO: Add Logic
 
-    yield BmiCalculation();
+    yield LoadingCalculation();
     // Branching the executed logic by checking the event type
     if (event is GetBodyFat) {
       yield BodyFatCalculation();

@@ -16,6 +16,12 @@ class BmrCalculation extends CalculationState {
   List<Object> get props => [];
 }
 
+class LoadingCalculation extends CalculationState {
+  const LoadingCalculation();
+  @override
+  List<Object> get props => [];
+}
+
 class LeanBodyMassCalculation extends CalculationState {
   const LeanBodyMassCalculation();
   @override
