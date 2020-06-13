@@ -14,93 +14,14 @@ import 'package:flutterapp2/definitnion_bloc/definition_bloc.dart';
 import 'package:flutterapp2/definitnion_bloc/definition_event.dart';
 import 'package:flutterapp2/definitnion_bloc/definition_state.dart';
 import 'package:flutterapp2/models/profile_model.dart';
+import 'package:flutterapp2/ui/LleanBody.dart';
 import 'package:flutterapp2/ui/ojk.dart';
 import 'package:flutterapp2/ui/unicornButton.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
 
 import '../data/moor_database.dart';
-/*
-import 'widget/new_task_input_widget.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    Future<List<Profile>> myFuture;
-
-    final database = Provider.of<AppDatabase>(context);
-
-    @override
-    initState() {
-      super.initState();
-
-      myFuture = database.getAllProfiles();
-    }
-
-
-
-
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Tasks'),
-        ),
-        body: Column(
-          children: <Widget>[
-            Expanded(child: _buildTaskList(context)),
-            NewTaskInput(),
-          ],
-        ));
-  }
-
-  StreamBuilder<List<Profile>> _buildTaskList(BuildContext context) {
-    final database = Provider.of<AppDatabase>(context);
-    return StreamBuilder(
-      stream: database.watchAllTasks(),
-      builder: (context, AsyncSnapshot<List<Profile>> snapshot) {
-        final tasks = snapshot.data ?? List();
-
-        return ListView.builder(
-          itemCount: tasks.length,
-          itemBuilder: (_, index) {
-            final itemTask = tasks[index];
-            return _buildListItem(itemTask, database);
-          },
-        );
-      },
-    );
-  }
-
-  Widget _buildListItem(Profile itemTask, AppDatabase database) {
-    return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: () => database.deleteTask(itemTask),
-        )
-      ],
-      child: CheckboxListTile(
-        title: Text(itemTask.name),
-        subtitle: Text(itemTask.dueDate?.toString() ?? 'No date'),
-        value: itemTask.completed,
-        onChanged: (newValue) {
-          database.updateTask(itemTask.copyWith(completed: newValue));
-        },
-      ),
-    );
-  }
-}
-*/
 
 class BmiPage extends StatelessWidget {
   @override
@@ -113,6 +34,7 @@ class BmiPage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
+        color: Colors.grey[850],
         /*padding: EdgeInsets.symmetric(vertical: 16),*/
         alignment: Alignment.center,
         child: BlocBuilder<ProfileBloc, ProfileState>(
@@ -135,13 +57,13 @@ class BmiPage extends StatelessWidget {
 
   Widget buildInitialInput() {
     return Center(
-        /*child: CityInputField(),*/
         child: Text('There was an error. Be sure to complete your profile.'));
   }
 
   Widget buildLoading() {
     return Center(
-      child: CircularProgressIndicator(),
+      child: CircularProgressIndicator(
+      ),
     );
   }
 
@@ -166,261 +88,261 @@ class BmiPage extends StatelessWidget {
 
 
 
-  Center bmiContainer(ProfileModel profileModel, BuildContext context) {
+  Column bmiContainer(ProfileModel profileModel, BuildContext context) {
 
 
 
 
-    return Center(
-      child: Column(
-        children: <Widget>[
-            BlocBuilder<DefinitionBloc, DefinitionState>(
-              bloc: BlocProvider.of<DefinitionBloc>(context),
-              builder: (context, state) {
-                if(state is TrueDefinition) {
-                  return Container(
-                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                      margin: EdgeInsets.only(bottom: 20),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFF000000).withAlpha(60),
-                              blurRadius: 6.0,
-                              spreadRadius: 0.0,
-                              offset: Offset(
-                                0.0,
-                                3.0,
-                              ),
-                            ),
-                          ]),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10, top: 10),
-                            child: Text(
-                              'What is BMR',
-                              style: TextStyle(fontSize: 20,
-                                  color: Colors.white),
-                            ),
-                          ),
-                          Text(
-                            'The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w200),
-                          ),
-                          IconButton(icon: Icon(Icons.cancel), onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(RemoveDefinition())),
-                        ],
-                      ));
-                } else if (state is FalseDefinition) {
-
-                 return Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text('What is BMI?',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(.5)
-                          ),
-                          ),
-                          IconButton(
-                            onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(GetDefinition()),
-                            icon: Icon(Icons.info),
-                          )
-                        ],
-                      )
-                  );
-                } else if (state is LoadingDefinition) {
-                  return Container(
-                    color: Colors.yellow,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                      ),
-                    ),
-                  );
-                }
-
-
-
-
-              }
-            ),
-          /*RawMaterialButton(
-            onPressed: () {},
-            elevation: 2.0,
-            fillColor: Colors.white,
-            child: Icon(
-              Icons.pause,
-              size: 35.0,
-            ),
-            padding: EdgeInsets.all(15.0),
-            shape: CircleBorder(),
-          )*/
-          Container(
-              padding: EdgeInsets.all(40),
-              margin: EdgeInsets.only(bottom: 20),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.green,
-                    width: 2,
-
+    return Column(
+      children: <Widget>[
+        Center(
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xff4a4a4a),
                   ),
-                  boxShadow: [
-                BoxShadow(
-                  blurRadius: 6.0,
-                  spreadRadius: 0.0,
-                  color: Colors.transparent,
-                  
-                ),
-              ]),
-              child: Text(
-    roundDouble(calculateBMI(
-        profileModel
-            .profileAttributes[
-        profileModel.profileAttributes.length - 1]
-            .weight,
-        profileModel
-            .profileAttributes[
-        profileModel.profileAttributes.length - 1]
-            .height), 2).toString(),
-
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-              )),
-          Padding(
-            padding: EdgeInsets.only(bottom: 35),
-            child: Text(
-              'Moderate Condition',
-              style: TextStyle(
-                color: Colors.green.withOpacity(.5),
-                fontSize: 15,
-              ),
+                ]
             ),
-          ),
-          Container(
-            height: 1,
-            color: Colors.grey.withOpacity(.5),
-          ),
-          Container(
-            padding: EdgeInsets.all(20),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              textDirection: TextDirection.ltr,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                  BlocBuilder<DefinitionBloc, DefinitionState>(
+                    bloc: BlocProvider.of<DefinitionBloc>(context),
+                    builder: (context, state) {
+                      if(state is TrueDefinition) {
+                        return Container(
+                            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                            margin: EdgeInsets.only(bottom: 20),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFF000000).withAlpha(60),
+                                    blurRadius: 6.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(
+                                      0.0,
+                                      3.0,
+                                    ),
+                                  ),
+                                ]),
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10, top: 10),
+                                  child: Text(
+                                    'What is BMR',
+                                    style: TextStyle(fontSize: 20,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                Text(
+                                  'The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w200),
+                                ),
+                                IconButton(icon: Icon(Icons.cancel), onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(RemoveDefinition())),
+                              ],
+                            ));
+                      } else if (state is FalseDefinition) {
+
+                       return Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text('What is BMI?',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(.5)
+                                ),
+                                ),
+                                IconButton(
+                                  onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(GetDefinition()),
+                                  icon: Icon(Icons.info),
+                                )
+                              ],
+                            )
+                        );
+                      } else if (state is LoadingDefinition) {
+                        return Container(
+                          color: Colors.yellow,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                            ),
+                          ),
+                        );
+                      }
+                    }
+                  ),
+
                 Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.blue,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.all(40),
+                    margin: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.green,
+                          width: 2,
+
+                        ),
+                        boxShadow: [
+                      BoxShadow(
+                        blurRadius: 6.0,
+                        spreadRadius: 0.0,
+                        color: Colors.transparent,
+
                       ),
-                      Text(
-                        'Underweight',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        '<18.5',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
+                    ]),
+                    child: Text(
+        roundDouble(calculateBMI(
+              profileModel
+                  .profileAttributes[
+              profileModel.profileAttributes.length - 1]
+                  .weight,
+              profileModel
+                  .profileAttributes[
+              profileModel.profileAttributes.length - 1]
+                  .height), 2).toString(),
+
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 35),
+                  child: Text(
+                    'Moderate Condition',
+                    style: TextStyle(
+                      color: Colors.green.withOpacity(.5),
+                      fontSize: 15,
+                    ),
                   ),
                 ),
                 Container(
-                  color: Color(0xFF000000).withAlpha(60),
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.green,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
-                      ),
-                      Text(
-                        'Normal',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        '18.5 - 24.9',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
+                  height: 1,
+                  color: Colors.grey.withOpacity(.5),
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.orange,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
-                      ),
-                      Text(
-                        'Overweight',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        '25 - 29.9',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.deepOrange,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
-                      ),
-                      Text(
-                        'Obese',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        '<30 - 34.9',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     textDirection: TextDirection.ltr,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Container(
-                        color: Colors.red,
-                        width: 20,
-                        height: 20,
-                        margin: EdgeInsets.only(right: 10),
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              color: Colors.blue,
+                              width: 20,
+                              height: 20,
+                              margin: EdgeInsets.only(right: 10),
+                            ),
+                            Text(
+                              'Underweight',
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                            Text(
+                              '<18.5',
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        'Very Obese',
-                        style: TextStyle(color: Colors.white),
+                      Container(
+                        color: Color(0xFF000000).withAlpha(60),
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              color: Colors.green,
+                              width: 20,
+                              height: 20,
+                              margin: EdgeInsets.only(right: 10),
+                            ),
+                            Text(
+                              'Normal',
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                            Text(
+                              '18.5 - 24.9',
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        '35 +',
-                        textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.right,
-                        style: TextStyle(color: Colors.white),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              color: Colors.orange,
+                              width: 20,
+                              height: 20,
+                              margin: EdgeInsets.only(right: 10),
+                            ),
+                            Text(
+                              'Overweight',
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                            Text(
+                              '25 - 29.9',
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              color: Colors.deepOrange,
+                              width: 20,
+                              height: 20,
+                              margin: EdgeInsets.only(right: 10),
+                            ),
+                            Text(
+                              'Obese',
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                            Text(
+                              '<30 - 34.9',
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          textDirection: TextDirection.ltr,
+                          children: <Widget>[
+                            Container(
+                              color: Colors.red,
+                              width: 20,
+                              height: 20,
+                              margin: EdgeInsets.only(right: 10),
+                            ),
+                            Text(
+                              'Very Obese',
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                            Text(
+                              '35 +',
+                              textDirection: TextDirection.ltr,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -428,8 +350,26 @@ class BmiPage extends StatelessWidget {
               ],
             ),
           ),
-        ],
-      ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 20),
+
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xff4a4a4a),
+                ),
+              ]
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text('data')
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -473,8 +413,7 @@ class BmiPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey[800],
-
+                            color: Color(0xff4a4a4a),
                           ),
                         ]
                     ),
@@ -483,25 +422,6 @@ class BmiPage extends StatelessWidget {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            /*RaisedButton(
-                                      onPressed: null,
-                                    color: Colors.transparent,
-                                    disabledColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Colors.purple,
-                                            width: 2,
-                                        ),
-                                    ),
-                                    child: Text(
-                                        'BMI',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w200,
-                                      ),
-                                    ),
-                                  )*/
                             UnicornOutlineButton(
                                 strokeWidth: 2,
                                 radius: 24,
@@ -551,25 +471,6 @@ class BmiPage extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              /*RaisedButton(
-                                      onPressed: null,
-                                    color: Colors.transparent,
-                                    disabledColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Colors.purple,
-                                            width: 2,
-                                        ),
-                                    ),
-                                    child: Text(
-                                        'BMI',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w200,
-                                      ),
-                                    ),
-                                  )*/
                               Padding(
                                 padding: const EdgeInsets.only(right: 3),
                                 child: UnicornOutlineButton(
@@ -610,25 +511,6 @@ class BmiPage extends StatelessWidget {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            /*RaisedButton(
-                                    onPressed: null,
-                                  color: Colors.transparent,
-                                  disabledColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      side: BorderSide(
-                                          color: Colors.purple,
-                                          width: 2,
-                                      ),
-                                  ),
-                                  child: Text(
-                                      'BMI',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w200,
-                                    ),
-                                  ),
-                                )*/
                             Padding(
                               padding: const EdgeInsets.only(right: 5),
                               child: UnicornOutlineButton(
@@ -671,22 +553,14 @@ class BmiPage extends StatelessWidget {
 //                    /*this is where the remaining widgets in the tree will be rebuilt
 //                    valueListenerBuilder goes here*/
 
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[800],
 
-                        ),
-                      ]
-                  ),
-                  child: BlocBuilder<CalculationBloc, CalculationState>(
+                  BlocBuilder<CalculationBloc, CalculationState>(
                     builder: (context, state) {
                       if (state is InitialCalculationState) {
                         return initialbitch;
                       } else if (state is BmiCalculation) {
-                        return bmiContainer(profileModel, context);
+                        /*return bmiContainer(profileModel, context);*/
+                        return LleanBody().LleanBody_(context,profileModel);
                       } else if (state is BmrCalculation) {
                         return bmrgoodJob2;
                       } else if (state is IdealWeightCalculation) {
@@ -706,225 +580,6 @@ class BmiPage extends StatelessWidget {
                       }
                     },
                   ),
-                ),
-
-                /*Container(
-                      */ /*color: Colors.orange,*/ /*
-                        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xFF000000).withAlpha(60),
-                                blurRadius: 6.0,
-                                spreadRadius: 0.0,
-                                offset: Offset(
-                                  0.0,
-                                  3.0,
-                                ),
-                              ),
-                            ]),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10, top: 10),
-                              child: Text('What is BMR',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white
-                                ),
-                              ),
-                            ),
-                            Text(
-                              'The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w200
-                              ),
-                            ),
-                          ],
-                        )
-                    ),
-
-
-                    Container(
-                        */ /*color: Colors.green,*/ /*
-                        padding: EdgeInsets.all(40),
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-
-                                blurRadius: 6.0,
-                                spreadRadius: 0.0,
-                                offset: Offset(
-                                  0.0,
-                                  3.0,
-                                ),
-                              ),
-                            ]),
-                        child: Text(
-                          calculateBMI(profileModel.profileAttributes[profileModel
-                              .profileAttributes.length - 1].weight,
-                              profileModel.profileAttributes[profileModel
-                                  .profileAttributes.length - 1].height).toString(),
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        )
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 35),
-                      child: Text(
-                        'Moderate Condition',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-
-                    Column(*/ /*Column for ranges of Bmi*/ /*
-                      mainAxisSize: MainAxisSize.min,
-                      textDirection: TextDirection.ltr,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-
-                      */ /*mainAxisAlignment: MainAxisAlignmen,*/ /*
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                color: Colors.blue,
-                                width: 20,
-                                height: 20,
-                                margin: EdgeInsets.only(right: 10),
-                              ),
-                              Text(
-                                'Underweight',
-                                style: TextStyle(
-                                    color: Colors.white
-                                ),
-                              ),
-                              Text('<18.5',
-                                style: TextStyle(
-                                    color: Colors.white
-                                ),
-                              ),
-                            ],
-
-                          ),
-                        ),
-                        Container(
-                          color: Colors.blueGrey[800],
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                color: Colors.green,
-                                width: 20,
-                                height: 20,
-                                margin: EdgeInsets.only(right: 10),
-                              ),
-                              Text('Normal',
-                                style: TextStyle(
-                                    color: Colors.white
-                                ),
-                              ),
-                                Text('18.5 - 24.9',
-                                  style: TextStyle(
-                                      color: Colors.white
-                                  ),
-                                ),
-
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                color: Colors.orange,
-                                width: 20,
-                                height: 20,
-                                margin: EdgeInsets.only(right: 10),
-                              ),
-                              Text('Overweight',
-                                style: TextStyle(
-                                    color: Colors.white
-                                ),
-                              ),
-                              Text('25 - 29.9',
-                                style: TextStyle(
-                                    color: Colors.white
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                color: Colors.deepOrange,
-                                width: 20,
-                                height: 20,
-                                margin: EdgeInsets.only(right: 10),
-                              ),
-                              Text('Obese',
-                                style: TextStyle(
-                                    color: Colors.white
-                                ),
-                              ),
-                              Text('<30 - 34.9',
-                                style: TextStyle(
-                                    color: Colors.white
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            textDirection: TextDirection.ltr,
-                            children: <Widget>[
-                              Container(
-                                color: Colors.red,
-                                width: 20,
-                                height: 20,
-                                margin: EdgeInsets.only(right: 10),
-                              ),
-                              Text('Very Obese',
-                                style: TextStyle(
-                                    color: Colors.white
-                                ),
-                              ),
-                              Text('35 +',
-                                textDirection: TextDirection.ltr,
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.white
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),*/
               ],
             ),
           ),
@@ -944,26 +599,3 @@ class BmiPage extends StatelessWidget {
   final Widget idealmassgoodJob4 = const Text('ideal mass job!');
   final Widget macronutrientgoodJob4 = const Text('macro mass job!');
 }
-
-/*
-  class CityInputField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-  return Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 50),
-  child: TextField(
-  onSubmitted: (value) => submitCityName(context, value),
-  textInputAction: TextInputAction.search,
-  decoration: InputDecoration(
-  hintText: "Enter a city",
-  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-  suffixIcon: Icon(Icons.search),
-  ),
-  ),
-  );
-  }
-
-
-  }
-
-*/
