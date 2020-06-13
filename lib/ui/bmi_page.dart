@@ -14,7 +14,14 @@ import 'package:flutterapp2/definitnion_bloc/definition_bloc.dart';
 import 'package:flutterapp2/definitnion_bloc/definition_event.dart';
 import 'package:flutterapp2/definitnion_bloc/definition_state.dart';
 import 'package:flutterapp2/models/profile_model.dart';
-import 'package:flutterapp2/ui/LleanBody.dart';
+import 'package:flutterapp2/ui/CalculationPages/BodyFatContainer.dart';
+import 'package:flutterapp2/ui/CalculationPages/CaloricMaintinenceContainer.dart';
+import 'package:flutterapp2/ui/CalculationPages/MacronutrientContainer.dart';
+import 'package:flutterapp2/ui/CalculationPages/bmrContainer.dart';
+import 'package:flutterapp2/ui/CalculationPages/idealBodyMassContainer.dart';
+import 'package:flutterapp2/ui/CalculationPages/idealWeight.dart';
+import 'package:flutterapp2/ui/CalculationPages/initialPage.dart';
+import 'package:flutterapp2/ui/bmiContainter.dart';
 import 'package:flutterapp2/ui/ojk.dart';
 import 'package:flutterapp2/ui/unicornButton.dart';
 import 'package:provider/provider.dart';
@@ -74,7 +81,6 @@ class BmiPage extends StatelessWidget {
 
   void loadInitialPageViaData(BuildContext context) {
     print('YASSSSSSSSSSSSSSSSSSSSSSS');
-
     BlocProvider.of<ProfileBloc>(context).add(GetProfile());
   }
 
@@ -557,22 +563,28 @@ class BmiPage extends StatelessWidget {
                   BlocBuilder<CalculationBloc, CalculationState>(
                     builder: (context, state) {
                       if (state is InitialCalculationState) {
-                        return initialbitch;
+                        return InitialPagee(context, profileModel);
                       } else if (state is BmiCalculation) {
                         /*return bmiContainer(profileModel, context);*/
-                        return LleanBody().LleanBody_(context,profileModel);
+                        return BmiContainer(context, profileModel);
                       } else if (state is BmrCalculation) {
-                        return bmrgoodJob2;
+                        /*return bmrgoodJob2;*/
+                        return BmrContainer(context, profileModel);
                       } else if (state is IdealWeightCalculation) {
-                        return idealmassgoodJob4;
+                        /*return idealmassgoodJob4;*/
+                        return IdealWeightContainer(context, profileModel);
                       } else if (state is CaloricMaintenanceCalculation) {
-                        return caloricgoodJob4;
+                       /* return caloricgoodJob4;*/
+                        return CaloricMaintanenceContainer(context, profileModel);
                       } else if (state is MacronutrientsCalculation) {
-                        return macronutrientgoodJob4;
+                       /* return macronutrientgoodJob4;*/
+                        return MacronutrientsContainer(context, profileModel);
                       } else if (state is BodyFatCalculation) {
-                        return bodyfatgoodJob3;
+                      /*  return bodyfatgoodJob3;*/
+                        return BodyFatContainer(context, profileModel);
                       } else if (state is LeanBodyMassCalculation) {
-                        return leanbodymassgoodJob4;
+                        /*return leanbodymassgoodJob4;*/
+                        return IdealBodyMassContainer(context, profileModel);
                       } else if (state is LoadingCalculation) {
                         return Center(
                           child: CircularProgressIndicator(),

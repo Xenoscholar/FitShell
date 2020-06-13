@@ -16,11 +16,11 @@ import 'dart:math';
 
 
 
-class InitialPagee extends StatelessWidget {
+class BodyFatContainer extends StatelessWidget {
   final BuildContext context;
   final ProfileModel profileModel;
 
-  const InitialPagee(this.context,this.profileModel);
+  const BodyFatContainer(this.context,this.profileModel);
 
   double calculateBMI(int weight, int height) {
     return (703 * (weight / (height * height))).toDouble();
