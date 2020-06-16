@@ -40,6 +40,11 @@ class BmiPage extends StatelessWidget {
     loadInitialPageViaData(context);
 
     return Scaffold(
+      /*appBar: AppBar(
+        title: Text('Calculations'),
+        centerTitle: true,
+        backgroundColor: Colors.grey[850],
+      ),*/
       body: Container(
         color: Colors.grey[850],
         /*padding: EdgeInsets.symmetric(vertical: 16),*/
@@ -402,7 +407,7 @@ class BmiPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: Text(
                     'Calculations',
                     style: TextStyle(color: Colors.white, fontSize: 20),
@@ -413,8 +418,8 @@ class BmiPage extends StatelessWidget {
                 Center(
                   child: Container(
                     width: width,
-                    margin: EdgeInsets.only(bottom: 30),
-                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(bottom: 10),
+                    padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
