@@ -29,7 +29,6 @@ import 'dart:math';
 
 import '../data/moor_database.dart';
 
-
 class BmiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -74,12 +73,11 @@ class BmiPage extends StatelessWidget {
 
   Widget buildLoading() {
     return Center(
-      child: CircularProgressIndicator(
-      ),
+      child: CircularProgressIndicator(),
     );
   }
 
-  double roundDouble(double value, int places){
+  double roundDouble(double value, int places) {
     double mod = pow(10.0, places);
     return ((value * mod).round().toDouble() / mod);
   }
@@ -93,17 +91,7 @@ class BmiPage extends StatelessWidget {
     return (703 * (weight / (height * height))).toDouble();
   }
 
-
-
-
-
-
-
-  Column bmiContainer(ProfileModel profileModel, BuildContext context) {
-
-
-
-
+  /*Column bmiContainer(ProfileModel profileModel, BuildContext context) {
     return Column(
       children: <Widget>[
         Center(
@@ -114,16 +102,16 @@ class BmiPage extends StatelessWidget {
                   BoxShadow(
                     color: Color(0xff4a4a4a),
                   ),
-                ]
-            ),
+                ]),
             child: Column(
               children: <Widget>[
-                  BlocBuilder<DefinitionBloc, DefinitionState>(
+                BlocBuilder<DefinitionBloc, DefinitionState>(
                     bloc: BlocProvider.of<DefinitionBloc>(context),
                     builder: (context, state) {
-                      if(state is TrueDefinition) {
+                      if (state is TrueDefinition) {
                         return Container(
-                            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                            padding: EdgeInsets.only(
+                                left: 20, right: 20, bottom: 20),
                             margin: EdgeInsets.only(bottom: 20),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
@@ -141,11 +129,12 @@ class BmiPage extends StatelessWidget {
                             child: Column(
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom: 10, top: 10),
+                                  padding: const EdgeInsets.only(
+                                      bottom: 10, top: 10),
                                   child: Text(
                                     'What is BMR',
-                                    style: TextStyle(fontSize: 20,
-                                        color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
                                   ),
                                 ),
                                 Text(
@@ -155,79 +144,105 @@ class BmiPage extends StatelessWidget {
                                       fontSize: 15,
                                       fontWeight: FontWeight.w200),
                                 ),
-                                IconButton(icon: Icon(Icons.cancel), onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(RemoveDefinition())),
+                                IconButton(
+                                    icon: Icon(Icons.cancel),
+                                    onPressed: () =>
+                                        BlocProvider.of<DefinitionBloc>(context)
+                                            .add(RemoveDefinition())),
                               ],
                             ));
                       } else if (state is FalseDefinition) {
-
-                       return Center(
+                        return Center(
                             child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text('What is BMI?',
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(.5)
-                                ),
-                                ),
-                                IconButton(
-                                  onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(GetDefinition()),
-                                  icon: Icon(Icons.info),
-                                )
-                              ],
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(
+                              'What is BMI?',
+                              style: TextStyle(
+                                  color: Colors.white.withOpacity(.5)),
+                            ),
+                            IconButton(
+                              onPressed: () =>
+                                  BlocProvider.of<DefinitionBloc>(context)
+                                      .add(GetDefinition()),
+                              icon: Icon(Icons.info),
                             )
-                        );
+                          ],
+                        ));
                       } else if (state is LoadingDefinition) {
                         return Container(
                           color: Colors.yellow,
                           child: Center(
-                            child: CircularProgressIndicator(
-                            ),
+                            child: CircularProgressIndicator(),
                           ),
                         );
                       }
-                    }
-                  ),
-
+                    }),
                 Container(
-                    padding: EdgeInsets.all(40),
-                    margin: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.green,
-                          width: 2,
-
-                        ),
-                        boxShadow: [
-                      BoxShadow(
-                        blurRadius: 6.0,
-                        spreadRadius: 0.0,
-                        color: Colors.transparent,
-
+                  width: MediaQuery.of(context).size.width,
+                  child: Stack(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.topLeft,
+                          child: Text(
+                              'foxy grandpa',style: TextStyle(color: Colors.pinkAccent),)
                       ),
-                    ]),
-                    child: Text(
-        roundDouble(calculateBMI(
-              profileModel
-                  .profileAttributes[
-              profileModel.profileAttributes.length - 1]
-                  .weight,
-              profileModel
-                  .profileAttributes[
-              profileModel.profileAttributes.length - 1]
-                  .height), 2).toString(),
-
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 35),
-                  child: Text(
-                    'Moderate Condition',
-                    style: TextStyle(
-                      color: Colors.green.withOpacity(.5),
-                      fontSize: 15,
-                    ),
+                      Column(
+                        children: <Widget>[
+                          Container(
+                              padding: EdgeInsets.all(40),
+                              margin: EdgeInsets.only(bottom: 20),
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Colors.transparent,
+                                    Colors.transparent
+                                  ]),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.green,
+                                    width: 2,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 6.0,
+                                      spreadRadius: 0.0,
+                                      color: Colors.transparent,
+                                    ),
+                                  ]),
+                              child: Text(
+                                roundDouble(
+                                        calculateBMI(
+                                            profileModel
+                                                .profileAttributes[profileModel
+                                                        .profileAttributes
+                                                        .length -
+                                                    1]
+                                                .weight,
+                                            profileModel
+                                                .profileAttributes[profileModel
+                                                        .profileAttributes
+                                                        .length -
+                                                    1]
+                                                .height),
+                                        2)
+                                    .toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300),
+                              )),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 35),
+                            child: Text(
+                              'Moderate Condition',
+                              style: TextStyle(
+                                color: Colors.green.withOpacity(.5),
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 Container(
@@ -255,11 +270,15 @@ class BmiPage extends StatelessWidget {
                             ),
                             Text(
                               'Underweight',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                             Text(
                               '<18.5',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                           ],
                         ),
@@ -278,11 +297,15 @@ class BmiPage extends StatelessWidget {
                             ),
                             Text(
                               'Normal',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                             Text(
                               '18.5 - 24.9',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                           ],
                         ),
@@ -300,11 +323,15 @@ class BmiPage extends StatelessWidget {
                             ),
                             Text(
                               'Overweight',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                             Text(
                               '25 - 29.9',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                           ],
                         ),
@@ -322,11 +349,15 @@ class BmiPage extends StatelessWidget {
                             ),
                             Text(
                               'Obese',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                             Text(
                               '<30 - 34.9',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                           ],
                         ),
@@ -344,13 +375,17 @@ class BmiPage extends StatelessWidget {
                             ),
                             Text(
                               'Very Obese',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                             Text(
                               '35 +',
                               textDirection: TextDirection.ltr,
                               textAlign: TextAlign.right,
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300),
                             ),
                           ],
                         ),
@@ -364,30 +399,24 @@ class BmiPage extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(top: 20),
-
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   color: Color(0xff4a4a4a),
                 ),
-              ]
-          ),
+              ]),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text('data')
-            ],
+            children: <Widget>[Text('data')],
           ),
         ),
       ],
     );
-  }
+  }*/
 
   SingleChildScrollView buildContainerWithData(BuildContext context,
       ProfileModel profileModel, double height, double width) {
-
-
     return SingleChildScrollView(
         child: Stack(
       children: <Widget>[
@@ -426,8 +455,7 @@ class BmiPage extends StatelessWidget {
                           BoxShadow(
                             color: Color(0xff4a4a4a),
                           ),
-                        ]
-                    ),
+                        ]),
                     child: Column(
                       children: <Widget>[
                         Row(
@@ -564,39 +592,38 @@ class BmiPage extends StatelessWidget {
 //                    /*this is where the remaining widgets in the tree will be rebuilt
 //                    valueListenerBuilder goes here*/
 
-
-                  BlocBuilder<CalculationBloc, CalculationState>(
-                    builder: (context, state) {
-                      if (state is InitialCalculationState) {
-                        return InitialPagee(context, profileModel);
-                      } else if (state is BmiCalculation) {
-                        /*return bmiContainer(profileModel, context);*/
-                        return BmiContainer(context, profileModel);
-                      } else if (state is BmrCalculation) {
-                        /*return bmrgoodJob2;*/
-                        return BmrContainer(context, profileModel);
-                      } else if (state is IdealWeightCalculation) {
-                        /*return idealmassgoodJob4;*/
-                        return IdealWeightContainer(context, profileModel);
-                      } else if (state is CaloricMaintenanceCalculation) {
-                       /* return caloricgoodJob4;*/
-                        return CaloricMaintanenceContainer(context, profileModel);
-                      } else if (state is MacronutrientsCalculation) {
-                       /* return macronutrientgoodJob4;*/
-                        return MacronutrientsContainer(context, profileModel);
-                      } else if (state is BodyFatCalculation) {
+                BlocBuilder<CalculationBloc, CalculationState>(
+                  builder: (context, state) {
+                    if (state is InitialCalculationState) {
+                      return InitialPagee(context, profileModel);
+                    } else if (state is BmiCalculation) {
+                      /*return bmiContainer(profileModel, context);*/
+                      return BmiContainer(context, profileModel);
+                    } else if (state is BmrCalculation) {
+                      /*return bmrgoodJob2;*/
+                      return BmrContainer(context, profileModel);
+                    } else if (state is IdealWeightCalculation) {
+                      /*return idealmassgoodJob4;*/
+                      return IdealWeightContainer(context, profileModel);
+                    } else if (state is CaloricMaintenanceCalculation) {
+                      /* return caloricgoodJob4;*/
+                      return CaloricMaintanenceContainer(context, profileModel);
+                    } else if (state is MacronutrientsCalculation) {
+                      /* return macronutrientgoodJob4;*/
+                      return MacronutrientsContainer(context, profileModel);
+                    } else if (state is BodyFatCalculation) {
                       /*  return bodyfatgoodJob3;*/
-                        return BodyFatContainer(context, profileModel);
-                      } else if (state is LeanBodyMassCalculation) {
-                        /*return leanbodymassgoodJob4;*/
-                        return IdealBodyMassContainer(context, profileModel);
-                      } else if (state is LoadingCalculation) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  ),
+                      return BodyFatContainer(context, profileModel);
+                    } else if (state is LeanBodyMassCalculation) {
+                      /*return leanbodymassgoodJob4;*/
+                      return IdealBodyMassContainer(context, profileModel);
+                    } else if (state is LoadingCalculation) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
               ],
             ),
           ),

@@ -119,45 +119,84 @@ class BmiContainer extends StatelessWidget {
                 ),
 
                 Container(
-                    padding: EdgeInsets.all(40),
-                    margin: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.green,
-                          width: 2,
+                  child: Row(
+                    children: <Widget>[
+                          Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Column(children: <Widget>[
+                                    Icon(Icons.whatshot, color: Colors.white30,),
+                                    Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
+                                    Text('1,717 Cal',style: TextStyle(color: Colors.white),)],),
+                                  /*margin: EdgeInsets.only(bottom: 50),*/
+                                  ),
+                                  Container(
+                                    child: Column(children: <Widget>[
+                                      Icon(Icons.whatshot, color: Colors.white30,),
+                                      Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
+                                      Text('1,717 Cal',style: TextStyle(color: Colors.white),)],),
+                                  ),
+                                ],
+                              ),
+                          Spacer(),
 
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 6.0,
-                            spreadRadius: 0.0,
-                            color: Colors.transparent,
+                          Column(
+                            children: <Widget>[
+                              Container(
+                                  padding: EdgeInsets.all(40),
+                                  margin: EdgeInsets.only(bottom: 20),
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Colors.green,
+                                        width: 2,
 
-                          ),
-                        ]),
-                    child: Text(
-                      roundDouble(calculateBMI(
-                          profileModel
-                              .profileAttributes[
-                          profileModel.profileAttributes.length - 1]
-                              .weight,
-                          profileModel
-                              .profileAttributes[
-                          profileModel.profileAttributes.length - 1]
-                              .height), 2).toString(),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 6.0,
+                                          spreadRadius: 0.0,
+                                          color: Colors.transparent,
 
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-                    )),
+                                        ),
+                                      ]),
+                                  child: Text(
+                                    roundDouble(calculateBMI(
+                                        profileModel
+                                            .profileAttributes[
+                                        profileModel.profileAttributes.length - 1]
+                                            .weight,
+                                        profileModel
+                                            .profileAttributes[
+                                        profileModel.profileAttributes.length - 1]
+                                            .height), 2).toString(),
+
+                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                                  )),
+
+
+
                 Padding(
-                  padding: EdgeInsets.only(bottom: 35),
-                  child: Text(
-                    'Moderate Condition',
-                    style: TextStyle(
-                      color: Colors.green.withOpacity(.5),
-                      fontSize: 15,
-                    ),
+                      padding: EdgeInsets.only(bottom: 35),
+                      child: Text(
+                        'Moderate Condition',
+                        style: TextStyle(
+                          color: Colors.green.withOpacity(.5),
+                          fontSize: 15,
+                        ),
+                      ),
+                ),
+                            ],
+                          ),
+                      Spacer(),
+                      Column(
+                        children: <Widget>[
+                          Text('texty bitch')
+                        ],
+                      ),
+
+                    ],
                   ),
                 ),
                 Container(
