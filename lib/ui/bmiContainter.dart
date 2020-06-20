@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/definitnion_bloc/definition_bloc.dart';
@@ -119,28 +120,70 @@ class BmiContainer extends StatelessWidget {
                 ),
 
                 Container(
+                  padding: EdgeInsets.all(10),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                           Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Column(children: <Widget>[
-                                    Icon(Icons.whatshot, color: Colors.white30,),
-                                    Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
-                                    Text('1,717 Cal',style: TextStyle(color: Colors.white),)],),
-                                  /*margin: EdgeInsets.only(bottom: 50),*/
-                                  ),
-                                  Container(
-                                    child: Column(children: <Widget>[
+                                  children: <Widget>[
+                                    Container(
+                                      child: Column(children: <Widget>[
                                       Icon(Icons.whatshot, color: Colors.white30,),
-                                      Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
-                                      Text('1,717 Cal',style: TextStyle(color: Colors.white),)],),
-                                  ),
-                                ],
-                              ),
-                          Spacer(),
+                                      Text('Ideal Weight',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
+                                      Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
+                                    /*margin: EdgeInsets.only(bottom: 50),*/
+                                      decoration: BoxDecoration(
+                                          gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: Colors.white10,
+                                            width: 2,
+
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 6.0,
+                                              spreadRadius: 0.0,
+                                              color: Colors.transparent,
+
+                                            ),
+                                          ]),
+                                      padding: EdgeInsets.all(15),
+                                        margin: EdgeInsets.only(left: 2),
+
+
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.all(15),
+                                      margin: EdgeInsets.only(left: 2),
+                                      decoration: BoxDecoration(
+                                          gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: Colors.white10,
+                                            width: 2,
+
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 6.0,
+                                              spreadRadius: 0.0,
+                                              color: Colors.transparent,
+
+                                            ),
+                                          ]),
+                                      child: Column(children: <Widget>[
+                                        Icon(Icons.whatshot, color: Colors.white30,),
+                                        Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
+                                        Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
+                                    ),
+                                  ],
+                                ),
+
 
                           Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Container(
                                   padding: EdgeInsets.all(40),
@@ -180,7 +223,7 @@ class BmiContainer extends StatelessWidget {
                 Padding(
                       padding: EdgeInsets.only(bottom: 35),
                       child: Text(
-                        'Moderate Condition',
+                        'Normal',
                         style: TextStyle(
                           color: Colors.green.withOpacity(.5),
                           fontSize: 15,
@@ -189,10 +232,36 @@ class BmiContainer extends StatelessWidget {
                 ),
                             ],
                           ),
-                      Spacer(),
                       Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Text('texty bitch')
+                          Container(
+                              child: Column(children: <Widget>[
+                                Icon(Icons.whatshot, color: Colors.white30,),
+                                Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
+                                Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
+                                Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
+                              /*margin: EdgeInsets.only(bottom: 50),*/
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.white10,
+                                    width: 2,
+
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 6.0,
+                                      spreadRadius: 0.0,
+                                      color: Colors.transparent,
+
+                                    ),
+                                  ]),
+                              padding: EdgeInsets.all(15),
+                              margin: EdgeInsets.only(right: 1),
+                          ),
                         ],
                       ),
 
@@ -200,9 +269,12 @@ class BmiContainer extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  margin: EdgeInsets.only(top: 15),
                   height: 1,
                   color: Colors.grey.withOpacity(.5),
                 ),
+
+
                 Container(
                   padding: EdgeInsets.all(20),
                   child: Column(

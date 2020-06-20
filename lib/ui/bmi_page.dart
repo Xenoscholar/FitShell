@@ -459,58 +459,65 @@ class BmiPage extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            UnicornOutlineButton(
-                                strokeWidth: 2,
-                                radius: 24,
-                                gradient: LinearGradient(
-                                    colors: [Colors.blue, Colors.purple]),
-                                child: Text('BMI',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w100,
-                                        color: Colors.white)),
-                                onPressed: () =>
-                                    BlocProvider.of<CalculationBloc>(context)
-                                        .add(GetBmi())),
-                            Container(
-                              margin: EdgeInsets.only(left: 10, right: 10),
-                              child: UnicornOutlineButton(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: UnicornOutlineButton(
+                                    strokeWidth: 2,
+                                    radius: 24,
+                                    gradient: LinearGradient(
+                                        colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
+                                    child: Text('             BMI             ',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w100,
+                                            color: Colors.white)),
+                                    onPressed: () =>
+                                        BlocProvider.of<CalculationBloc>(context)
+                                            .add(GetBmi())),
+                              ),
+
+
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: UnicornOutlineButton(
+                                      strokeWidth: 2,
+                                      radius: 24,
+                                      gradient: LinearGradient(
+                                          colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
+                                      child: Text('          Body Fat          ',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w100,
+                                              color: Colors.white)),
+                                      onPressed: () =>
+                                          BlocProvider.of<CalculationBloc>(context)
+                                              .add(GetBodyFat())),
+                                ),
+
+                              /*UnicornOutlineButton(
                                   strokeWidth: 2,
                                   radius: 24,
                                   gradient: LinearGradient(
                                       colors: [Colors.blue, Colors.purple]),
-                                  child: Text('Body Fat',
+                                  child: Text('  Ideal Weight  ',
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w100,
                                           color: Colors.white)),
                                   onPressed: () =>
                                       BlocProvider.of<CalculationBloc>(context)
-                                          .add(GetBodyFat())),
-                            ),
-                            UnicornOutlineButton(
-                                strokeWidth: 2,
-                                radius: 24,
-                                gradient: LinearGradient(
-                                    colors: [Colors.blue, Colors.purple]),
-                                child: Text('  Ideal Weight  ',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w100,
-                                        color: Colors.white)),
-                                onPressed: () =>
-                                    BlocProvider.of<CalculationBloc>(context)
-                                        .add(GetIdealWeight()))
-                          ],
-                        ),
+                                          .add(GetIdealWeight()))*/
+                            ],
+                          ),
+
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10, top: 10),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Padding(
+                              /*Padding(
                                 padding: const EdgeInsets.only(right: 3),
                                 child: UnicornOutlineButton(
                                     strokeWidth: 2,
@@ -526,7 +533,7 @@ class BmiPage extends StatelessWidget {
                                         BlocProvider.of<CalculationBloc>(
                                                 context)
                                             .add(GetBmr())),
-                              ),
+                              )*//*,
                               Padding(
                                 padding: const EdgeInsets.only(left: 3),
                                 child: UnicornOutlineButton(
@@ -543,7 +550,7 @@ class BmiPage extends StatelessWidget {
                                         BlocProvider.of<CalculationBloc>(
                                                 context)
                                             .add(GetCaloricMaintanence())),
-                              ),
+                              ),*/
                             ],
                           ),
                         ),
@@ -556,7 +563,7 @@ class BmiPage extends StatelessWidget {
                                   strokeWidth: 2,
                                   radius: 24,
                                   gradient: LinearGradient(
-                                      colors: [Colors.blue, Colors.purple]),
+                                      colors: [Colors.purpleAccent, Colors.deepPurpleAccent],),
                                   child: Text('   Macronutrients   ',
                                       style: TextStyle(
                                           fontSize: 16,
@@ -572,7 +579,7 @@ class BmiPage extends StatelessWidget {
                                   strokeWidth: 2,
                                   radius: 24,
                                   gradient: LinearGradient(
-                                      colors: [Colors.blue, Colors.purple]),
+                                      colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
                                   child: Text('   Lean Body Mass   ',
                                       style: TextStyle(
                                           fontSize: 16,
