@@ -21,6 +21,7 @@ class BmiContainer extends StatelessWidget {
   final BuildContext context;
   final ProfileModel profileModel;
 
+
   const BmiContainer(this.context,this.profileModel);
 
   double calculateBMI(int weight, int height) {
@@ -35,6 +36,8 @@ class BmiContainer extends StatelessWidget {
 
   @override
   Column build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Column(
       children: <Widget>[
         Center(
@@ -236,32 +239,37 @@ class BmiContainer extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Container(
-                              child: Column(children: <Widget>[
-                                Icon(Icons.whatshot, color: Colors.white30,),
-                                Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                                Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                                Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
-                              /*margin: EdgeInsets.only(bottom: 50),*/
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.white10,
-                                    width: 2,
+                            /*padding: const EdgeInsets.only(right: 20),*/
+                              Container(
+                                  child: Container(
+                                    child: Column(children: <Widget>[
+                                      Icon(Icons.whatshot, color: Colors.white30,),
+                                      Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
+                                      Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
+                                      Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
+                                    width: (width * .22) - 4.2 ,
 
                                   ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 6.0,
-                                      spreadRadius: 0.0,
-                                      color: Colors.transparent,
+                                  /*margin: EdgeInsets.only(bottom: 50),*/
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Colors.white10,
+                                        width: 2,
 
-                                    ),
-                                  ]),
-                              padding: EdgeInsets.all(15),
-                              margin: EdgeInsets.only(right: 1),
-                          ),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 6.0,
+                                          spreadRadius: 0.0,
+                                          color: Colors.transparent,
+
+                                        ),
+                                      ]),
+                                  padding: EdgeInsets.all(15),
+                                  margin: EdgeInsets.only(right: 1),
+                              ),
                         ],
                       ),
 
