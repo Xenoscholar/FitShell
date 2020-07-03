@@ -453,7 +453,7 @@ class BmiPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Color(0xff4a4a4a),
+                            color: Colors.deepPurpleAccent.withAlpha(30),
                           ),
                         ]),
                     child: Column(
