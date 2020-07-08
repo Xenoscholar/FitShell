@@ -24,7 +24,7 @@ class BmiContainer extends StatelessWidget {
 
   const BmiContainer(this.context,this.profileModel);
 
-  double calculateBMI(int weight, int height) {
+  double calculateBMI(double weight, double height) {
     return (703 * (weight / (height * height))).toDouble();
   }
 

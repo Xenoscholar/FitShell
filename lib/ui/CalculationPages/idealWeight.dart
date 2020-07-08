@@ -22,7 +22,7 @@ class IdealWeightContainer extends StatelessWidget {
 
   const IdealWeightContainer(this.context,this.profileModel);
 
-  double calculateIdealWeight(int height, bool gender /*add another bool argument for unit of measurement+*/ ) {
+  double calculateIdealWeight(double height, bool gender /*add another bool argument for unit of measurement+*/ ) {
     if(gender == true) {
       /*place if statement here and return based on metric or customary*/
       return ((((height - 60) * 1.41) + 56.2) * 2.2).toDouble();

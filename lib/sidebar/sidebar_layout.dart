@@ -4,7 +4,6 @@ import 'package:flutterapp2/bloc/profile_bloc.dart';
 import 'package:flutterapp2/calculation_bloc/calculation_bloc.dart';
 import 'package:flutterapp2/data/moor_database.dart';
 import 'package:flutterapp2/definitnion_bloc/definition_bloc.dart';
-import 'package:flutterapp2/nav_bloc/navigation_bloc.dart';
 
 import 'sidebar.dart';
 
@@ -17,9 +16,6 @@ class SideBarLayout extends StatelessWidget {
           BlocProvider<ProfileBloc>(
             create: (context) => ProfileBloc(AppDatabase()),
           ),
-          BlocProvider<NavigationBloc>(
-            create: (context) => NavigationBloc(),
-          ),
           BlocProvider<DefinitionBloc>(
             create: (context) => DefinitionBloc(),
           ),
@@ -27,16 +23,7 @@ class SideBarLayout extends StatelessWidget {
             create: (context) => CalculationBloc(),
           )
         ],
-        child: Stack(
-          children: <Widget>[
-            BlocBuilder<NavigationBloc, NavigationStates>(
-              builder: (context, navigationState) {
-                return navigationState as Widget;
-              },
-            ),
-            SideBar(),
-          ],
-        ),
+        child: SideBar(),
       ),
     );
   }

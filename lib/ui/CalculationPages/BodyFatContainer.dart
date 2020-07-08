@@ -20,9 +20,10 @@ class BodyFatContainer extends StatelessWidget {
   final BuildContext context;
   final ProfileModel profileModel;
 
+
   const BodyFatContainer(this.context,this.profileModel);
 
-  double calculateBMI(int weight, int height) {
+  double calculateBMI(double weight, double height) {
     return (703 * (weight / (height * height))).toDouble();
   }
 
@@ -34,6 +35,8 @@ class BodyFatContainer extends StatelessWidget {
 
   @override
   Column build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Column(
       children: <Widget>[
         Center(
@@ -42,7 +45,7 @@ class BodyFatContainer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xff4a4a4a),
+                    color: Colors.deepPurpleAccent.withAlpha(30),
                   ),
                 ]
             ),
@@ -73,13 +76,13 @@ class BodyFatContainer extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10, top: 10),
                                   child: Text(
-                                    'What is BMR',
+                                    'What is Body Fat?',
                                     style: TextStyle(fontSize: 20,
                                         color: Colors.white),
                                   ),
                                 ),
                                 Text(
-                                  'The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).',
+                                  'The body fat percentage (BFP) of a human or other living being is the total mass of fat divided by total body mass, multiplied by 100; body fat includes essential body fat and storage body fat. Essential body fat is necessary to maintain life and reproductive functions.',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
@@ -94,7 +97,7 @@ class BodyFatContainer extends StatelessWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                Text('What is BMI?',
+                                Text('What is Body Fat?',
                                   style: TextStyle(
                                       color: Colors.white.withOpacity(.5)
                                   ),
@@ -119,51 +122,178 @@ class BodyFatContainer extends StatelessWidget {
                 ),
 
                 Container(
-                    padding: EdgeInsets.all(40),
-                    margin: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.green,
-                          width: 2,
+                  padding: EdgeInsets.all(1),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        child: Column(children: <Widget>[
+                          Icon(Icons.whatshot, color: Colors.white30,),
+                          Text('Ideal Weight',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
+                          Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
+/*margin: EdgeInsets.only(bottom: 50),*/
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white10,
+                              width: 2,
+
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 6.0,
+                                spreadRadius: 0.0,
+                                color: Colors.transparent,
+
+                              ),
+                            ]),
+                        padding: EdgeInsets.all(12),
+                        margin: EdgeInsets.only(top: 5),
+
+
+                      ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(15),
+                            margin: EdgeInsets.only(left: 2),
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white10,
+                                  width: 2,
+
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 6.0,
+                                    spreadRadius: 0.0,
+                                    color: Colors.transparent,
+
+                                  ),
+                                ]),
+                            child: Column(children: <Widget>[
+                              Icon(Icons.whatshot, color: Colors.white30,),
+                              Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
+                              Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
+                          ),
+
+                          Container(
+                              padding: EdgeInsets.all(40),
+                              margin: EdgeInsets.only(bottom: 1,top: 15),
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.green,
+                                    width: 2,
+
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 12.0,
+                                      spreadRadius: 13.0,
+                                      color: Colors.green.withAlpha(50),
+
+                                    ),
+                                  ]),
+                              child: Text(
+                                roundDouble(calculateBMI(
+                                    profileModel
+                                        .profileAttributes[
+                                    profileModel.profileAttributes.length - 1]
+                                        .weight,
+                                    profileModel
+                                        .profileAttributes[
+                                    profileModel.profileAttributes.length - 1]
+                                        .height), 2).toString(),
+
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                              )),
+                          Padding(child: Text('Normal',style: TextStyle(color: Colors.greenAccent),),
+                            padding: EdgeInsets.only(top: 15),
+
+                          )
+
+                        ],
+                      ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      Container(
+                        child: Container(
+                          child: Column(children: <Widget>[
+                            Icon(Icons.whatshot, color: Colors.white30,),
+                            Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
+                            Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
+                            Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
 
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 6.0,
-                            spreadRadius: 0.0,
-                            color: Colors.transparent,
+/*margin: EdgeInsets.only(bottom: 50),*/
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white10,
+                              width: 2,
 
-                          ),
-                        ]),
-                    child: Text(
-                      roundDouble(calculateBMI(
-                          profileModel
-                              .profileAttributes[
-                          profileModel.profileAttributes.length - 1]
-                              .weight,
-                          profileModel
-                              .profileAttributes[
-                          profileModel.profileAttributes.length - 1]
-                              .height), 2).toString(),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 6.0,
+                                spreadRadius: 0.0,
+                                color: Colors.transparent,
 
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 35),
-                  child: Text(
-                    'Moderate Condition',
-                    style: TextStyle(
-                      color: Colors.green.withOpacity(.5),
-                      fontSize: 15,
-                    ),
+                              ),
+                            ]),
+                        padding: EdgeInsets.all(7),
+                        margin: EdgeInsets.only(top: 4),
+                      ),
+
+                    ],
                   ),
                 ),
                 Container(
+                  margin: EdgeInsets.only(top: 15),
                   height: 1,
-                  color: Colors.grey.withOpacity(.5),
+                  color: Colors.deepPurpleAccent.withAlpha(60),
                 ),
+
+
                 Container(
                   padding: EdgeInsets.all(20),
                   child: Column(
@@ -175,7 +305,6 @@ class BodyFatContainer extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.all(10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
                               color: Colors.blue,
@@ -189,6 +318,7 @@ class BodyFatContainer extends StatelessWidget {
                             ),
                             Text(
                               '<18.5',
+                              textAlign: TextAlign.end,
                               style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
                             ),
                           ],
@@ -293,13 +423,13 @@ class BodyFatContainer extends StatelessWidget {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
 
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xff4a4a4a),
+                  color: Colors.deepPurpleAccent.withAlpha(30),
                 ),
               ]
           ),

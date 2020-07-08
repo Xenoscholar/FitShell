@@ -53,15 +53,15 @@ class _ProfileState extends State<ProfilePage> {
             id: checkk.length,
             isMale: groupValue,
             age: int.parse(controller1.text),
-            weight: int.parse(controller2.text),
-            height: int.parse(controller3.text)));
+            weight: double.parse(controller2.text),
+            height: double.parse(controller3.text)));
 
       }on Error{
         database.insertTask(Profile(
             isMale: groupValue,
             age: int.parse(controller1.text),
-            weight: int.parse(controller2.text),
-            height: int.parse(controller3.text)));
+            weight: double.parse(controller2.text),
+            height: double.parse(controller3.text)));
       }
     }
 
