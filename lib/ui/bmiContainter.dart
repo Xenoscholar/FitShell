@@ -33,10 +33,86 @@ class BmiContainer extends StatelessWidget {
     return ((value * mod).round().toDouble() / mod);
   }
 
+  Color calcCircleColor(double calculation) {
+    
+    if ((calculation > 0) & (calculation < 18.5)) {
+      return Colors.blue;
+    } else if ((calculation >= 18.5) & (calculation < 25)) {
+      return Colors.green;
+    } else if ((calculation >= 25) & (calculation < 30)) {
+      return Colors.orange;
+    } else if ((calculation >= 30) & (calculation < 35)) {
+      return Colors.deepOrange;
+    } else if (calculation >= 35) {
+      return Colors.red;
+    }
+    
+  }
+
+  Color calcHighlightleColor(double calculation, int tier) {
+
+    switch(tier) {
+      case 1: {
+        if ((calculation > 0) & (calculation < 18.5)) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+
+      case 2: {
+        if ((calculation >= 18.5) & (calculation < 25)) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+
+      case 3: {
+        if ((calculation >= 25) & (calculation < 30)) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+
+      case 4: {
+        if ((calculation >= 30) & (calculation < 35)) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+
+      case 5: {
+        if (calculation >= 35) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+    }
+
+  }
+
 
   @override
   Column build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    double bmiScore = (roundDouble(calculateBMI(
+        profileModel
+            .profileAttributes[
+        profileModel.profileAttributes.length - 1]
+            .weight,
+        profileModel
+            .profileAttributes[
+        profileModel.profileAttributes.length - 1]
+            .height), 2));
 
     return Column(
       children: <Widget>[
@@ -77,13 +153,15 @@ class BmiContainer extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10, top: 10),
                                   child: Text(
-                                    'What is BMR',
+                                    'What is BMI?',
                                     style: TextStyle(fontSize: 20,
                                         color: Colors.white),
                                   ),
                                 ),
                                 Text(
-                                  'The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).',
+                                  'Body Mass Index (BMI) is a measurement of a person’s weight in regards to their height. It is used to give an approximation of a person’s total body fat.'
+                                'BMI usually correlates with total body fat. Typically, body fat increases as BMI score increases.',
+                                /*The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).*/
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
@@ -206,7 +284,7 @@ class BmiContainer extends StatelessWidget {
                                   gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                    color: Colors.green,
+                                    color: calcCircleColor(bmiScore),
                                     width: 2,
 
                                   ),
@@ -214,24 +292,16 @@ class BmiContainer extends StatelessWidget {
                                     BoxShadow(
                                       blurRadius: 12.0,
                                       spreadRadius: 13.0,
-                                      color: Colors.green.withAlpha(50),
+                                      color: calcCircleColor(bmiScore).withAlpha(50),
 
                                     ),
                                   ]),
                               child: Text(
-                                roundDouble(calculateBMI(
-                                    profileModel
-                                        .profileAttributes[
-                                    profileModel.profileAttributes.length - 1]
-                                        .weight,
-                                    profileModel
-                                        .profileAttributes[
-                                    profileModel.profileAttributes.length - 1]
-                                        .height), 2).toString(),
+                                bmiScore.toString(),
 
                                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
                               )),
-                          Padding(child: Text('Normal',style: TextStyle(color: Colors.greenAccent),),
+                          Padding(child: Text('Normal',style: TextStyle(color: calcCircleColor(bmiScore)),),
                             padding: EdgeInsets.only(top: 15),
 
                           )
@@ -304,6 +374,7 @@ class BmiContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Container(
+                        color: calcHighlightleColor(bmiScore, 1),
                         padding: EdgeInsets.all(10),
                         child: Row(
                           children: <Widget>[
@@ -326,7 +397,7 @@ class BmiContainer extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        color: Color(0xFF000000).withAlpha(60),
+                        color: calcHighlightleColor(bmiScore, 2),
                         padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -349,6 +420,7 @@ class BmiContainer extends StatelessWidget {
                         ),
                       ),
                       Container(
+                        color: calcHighlightleColor(bmiScore, 3),
                         padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -371,6 +443,7 @@ class BmiContainer extends StatelessWidget {
                         ),
                       ),
                       Container(
+                        color: calcHighlightleColor(bmiScore, 4),
                         padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -393,6 +466,7 @@ class BmiContainer extends StatelessWidget {
                         ),
                       ),
                       Container(
+                        color: calcHighlightleColor(bmiScore, 5),
                         padding: EdgeInsets.all(10),
                         child: Row(
                           textDirection: TextDirection.ltr,
