@@ -549,6 +549,20 @@ class Goal {
   }
 }
 
+class Measurement {
+  int id;
+  String unit;
+
+  Measurement(this.id, this.unit);
+
+  static List<Measurement> getMeasurements() {
+    return <Measurement>[
+      Measurement(1, 'Metric'),
+      Measurement(2, 'Imperial'),
+    ];
+  }
+}
+
 
 
 class _ProfileState extends State<ProfilePage> {
@@ -565,6 +579,12 @@ class _ProfileState extends State<ProfilePage> {
     });
   }
 
+  onChangeDropdownItem3(Measurement selectedMeasurement) {
+    setState(() {
+      _selectedMeasurement = selectedMeasurement;
+    });
+  }
+
   List<Activity> _companies = Activity.getCompanies();
   List<DropdownMenuItem<Activity>> _dropdownMenuItemsActivities;
   Activity _selectedCompany;
@@ -573,6 +593,10 @@ class _ProfileState extends State<ProfilePage> {
   List<DropdownMenuItem<Goal>> _dropdownMenuItemsGoals;
   Goal _selectedGoal;
 
+  List<Measurement> _measurements = Measurement.getMeasurements();
+  List<DropdownMenuItem<Measurement>> _dropdownMenuItemsMeasurements;
+  Measurement _selectedMeasurement;
+
   @override
   void initState() {
     _dropdownMenuItemsActivities= buildDropdownMenuItems(_companies);
@@ -580,6 +604,9 @@ class _ProfileState extends State<ProfilePage> {
 
     _dropdownMenuItemsGoals= buildDropdownMenuItems2(_goals);
     _selectedGoal = _dropdownMenuItemsGoals[0].value;
+
+    _dropdownMenuItemsMeasurements= buildDropdownMenuItems3(_measurements);
+    _selectedMeasurement = _dropdownMenuItemsMeasurements[0].value;
     super.initState();
   }
 
@@ -614,6 +641,19 @@ class _ProfileState extends State<ProfilePage> {
     return items;
   }
 
+  List<DropdownMenuItem<Measurement>> buildDropdownMenuItems3(List measurements) {
+    List<DropdownMenuItem<Measurement>> items = List();
+    for (Measurement measurement in measurements) {
+      items.add(
+        DropdownMenuItem(
+          value: measurement,
+          child: Text(measurement.unit),
+        ),
+      );
+    }
+    return items;
+  }
+
 
   bool groupValue;
 
@@ -625,6 +665,11 @@ class _ProfileState extends State<ProfilePage> {
     final myController1 = TextEditingController();
     final myController2 = TextEditingController();
     final myController3 = TextEditingController();
+
+    final myController4 = TextEditingController();
+    final myController5 = TextEditingController();
+    final myController6 = TextEditingController();
+
 
 
 
@@ -796,6 +841,30 @@ class _ProfileState extends State<ProfilePage> {
 
 
                             ],),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 13,bottom: 13),
+                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('System:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                              Container(
+                                  padding: EdgeInsets.only(left: 7,right: 7),
+                                  margin: EdgeInsets.only(left: 10,right: 0),
+                                  width: (width * .55) - 10,
+                                  decoration: BoxDecoration(
+                                    color: Colors.deepPurpleAccent.withAlpha(40),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: DropdownButton(
+                                    value: _selectedMeasurement,
+                                    items: _dropdownMenuItemsMeasurements,
+                                    onChanged: onChangeDropdownItem3,
+                                    isExpanded: true,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    focusColor: Colors.grey.withOpacity(.5),
+                                  )
+                              ), ],),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 13,bottom: 13),

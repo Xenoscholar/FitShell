@@ -24,23 +24,28 @@ class _ProfileState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     final myController1 = TextEditingController();
     final myController2 = TextEditingController();
     final myController3 = TextEditingController();
 
 
-
-
-    */
-/*final AppDatabase database = Provider.of<AppDatabase>(context);
-    final ProfileBloc profileBloc = BlocProvider.of<ProfileBloc>(context);*//*
+    final AppDatabase database = Provider.of<AppDatabase>(context);
+    final ProfileBloc profileBloc = BlocProvider.of<ProfileBloc>(context);
 
 
     @override
-    void dispose(TextEditingController myController1, TextEditingController myController2, TextEditingController myController3) {
+    void dispose(TextEditingController myController1,
+        TextEditingController myController2,
+        TextEditingController myController3) {
       // Clean up the controller when the widget is disposed.
       myController1.dispose();
       myController2.dispose();
@@ -48,26 +53,33 @@ class _ProfileState extends State<ProfilePage> {
       super.dispose();
     }
 
-    void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3 ) async {
-      */
-/*dispose(controller1, controller2, controller3);*//*
+    void putIntoo(AppDatabase database, TextEditingController controller1,
+        TextEditingController controller2,
+        TextEditingController controller3) async {
+      dispose(controller1, controller2, controller3);
 
 
-      */
-/* FutureBuilder(
-          future: database.getAllProfiles(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if(snapshot.data.length == 0) {
-              database.insertTask(Profile(id: null, isMale: true, age: int.parse(controller1.text), weight: int.parse(controller2.text), height: int.parse(controller3.text)));
-            } else {
-              database.updateTask(Profile(id: null, isMale: true, age: int.parse(controller1.text), weight: int.parse(controller2.text), height: int.parse(controller3.text)));
-            }
-          },
-        );
-*//*
+      FutureBuilder(
+        future: database.getAllProfiles(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data.length == 0) {
+            database.insertTask(Profile(id: null,
+                isMale: true,
+                age: int.parse(controller1.text),
+                weight: int.parse(controller2.text),
+                height: int.parse(controller3.text)));
+          } else {
+            database.updateTask(Profile(id: null,
+                isMale: true,
+                age: int.parse(controller1.text),
+                weight: int.parse(controller2.text),
+                height: int.parse(controller3.text)));
+          }
+        },
+      );
 
-      */
-/*List<Profile> checkk = await database.getAllProfiles();*//*
+
+      List<Profile> checkk = await database.getAllProfiles();
 
 
       try {
@@ -79,8 +91,7 @@ class _ProfileState extends State<ProfilePage> {
             age: int.parse(controller1.text),
             weight: int.parse(controller2.text),
             height: int.parse(controller3.text)));
-
-      }on Error{
+      } on Error {
         database.insertTask(Profile(
             isMale: groupValue,
             age: int.parse(controller1.text),
@@ -89,18 +100,8 @@ class _ProfileState extends State<ProfilePage> {
       }
 
 
-
-
-
-
-
-      */
-/*if (database.getAllProfiles() == Error) {
-        *//*
-*/
-/*database.getAllProfiles();*//*
-*/
-/*
+      if (database.getAllProfiles() == Error) {
+        database.getAllProfiles();
         database.insertTask(Profile(
             isMale: true,
             age: int.parse(controller1.text),
@@ -109,41 +110,33 @@ class _ProfileState extends State<ProfilePage> {
       } else {
         List<Profile> checkk = await database.getAllProfiles();
         database.updateTask(Profile(
-          id: checkk.length,
+            id: checkk.length,
             isMale: true,
             age: int.parse(controller1.text),
             weight: int.parse(controller2.text),
             height: int.parse(controller3.text)));
-      }*//*
+      }
 
 
-      */
-/*database.insertTask(Profile(
-            isMale: true,
-            age: int.parse(controller1.text),
-            weight: int.parse(controller2.text),
-            height: int.parse(controller3.text)));*//*
+      database.insertTask(Profile(
+          isMale: true,
+          age: int.parse(controller1.text),
+          weight: int.parse(controller2.text),
+          height: int.parse(controller3.text)));
 
 
-
-
-
-      */
-/*if the size of the list of entries in the database is 0, then use the insertTask method with profile info
+      if the size of the list of entries in the database is 0, then use the insertTask method with profile info
       * if size is 1, then use the updateTask method to update the already existing entry
-      * ENTRY LIST SHOULD NEVER EXCEED 1!!!*//*
+      * ENTRY LIST SHOULD NEVER EXCEED 1!!!
 
 
-    }
+      }
 
 
-    */
-/*@override
+    @override
     initState() {
       super.initState();
-    }*//*
-
-
+    }
 
 
     return Scaffold(
@@ -179,15 +172,12 @@ class _ProfileState extends State<ProfilePage> {
             ),
             alignment: Alignment.center,
           ),
-          */
-/*  BlocBuilder<ProfileBloc, ProfileState>(
-              builder: (context, state) {
-              }
-          ),*//*
+          BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {}
+          ),
 
           Center(
-            */
-/*padding: EdgeInsets.all(20),*//*
+            padding: EdgeInsets.all(20),
 
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -242,14 +232,20 @@ class _ProfileState extends State<ProfilePage> {
                                       color: Colors.blue
                                   ),
                                 ),
-                                Radio(value: true, groupValue: groupValue, activeColor: Colors.purple, onChanged: (bool e) => radioFunction(e)),
+                                Radio(value: true,
+                                    groupValue: groupValue,
+                                    activeColor: Colors.purple,
+                                    onChanged: (bool e) => radioFunction(e)),
                                 Text(
                                   'Male',
                                   style: TextStyle(
                                       color: Colors.purpleAccent[100]
                                   ),
                                 ),
-                                Radio(value: false, groupValue: groupValue, activeColor: Colors.purple, onChanged: (bool e) => radioFunction(e)),
+                                Radio(value: false,
+                                    groupValue: groupValue,
+                                    activeColor: Colors.purple,
+                                    onChanged: (bool e) => radioFunction(e)),
                               ],
                             ),
                           ),
@@ -318,7 +314,10 @@ class _ProfileState extends State<ProfilePage> {
             child: Column(
               children: <Widget>[
                 RaisedButton(onPressed: () {
-                  putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase, myController1, myController2, myController3);
+                  putIntoo(BlocProvider
+                      .of<ProfileBloc>(context)
+                      .appDatabase, myController1, myController2,
+                      myController3);
                   AlertDialog(
                     title: Text('Profile Updated'),
                     content: Text('Your profile has been updated.'),
@@ -328,16 +327,15 @@ class _ProfileState extends State<ProfilePage> {
                   child: Text('Save'),
                 ),
                 Spacer(),
-                */
-/*RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Bmi()),
-                );
-              },
-            color: Colors.yellow,
-          ),*//*
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Bmi()),
+                    );
+                  },
+                  color: Colors.yellow,
+                ),
 
               ],
             ),
@@ -348,7 +346,7 @@ class _ProfileState extends State<ProfilePage> {
 
 
     return Provider<int>(
-      child:Scaffold(
+      child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -382,8 +380,7 @@ class _ProfileState extends State<ProfilePage> {
               alignment: Alignment.center,
             ),
             Center(
-              */
-/*padding: EdgeInsets.all(20),*//*
+              padding: EdgeInsets.all(20),
 
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
@@ -478,7 +475,14 @@ class _ProfileState extends State<ProfilePage> {
               ),
             ),
             RaisedButton(onPressed: () {
-              BlocProvider.of<ProfileBloc>(context).appDatabase.insertTask(Profile(id: null, isMale: true, age: int.parse(myController1.toString()), weight: int.parse(myController2.toString()), height: int.parse(myController3.toString())));
+              BlocProvider
+                  .of<ProfileBloc>(context)
+                  .appDatabase
+                  .insertTask(Profile(id: null,
+                  isMale: true,
+                  age: int.parse(myController1.toString()),
+                  weight: int.parse(myController2.toString()),
+                  height: int.parse(myController3.toString())));
               AlertDialog(
                 title: Text('Profile Updated'),
                 content: Text('Your profile has been updated.'),
@@ -489,8 +493,6 @@ class _ProfileState extends State<ProfilePage> {
         ),
       ),
     );
-
-
   }
 
   void radioFunction(bool e) {
@@ -500,6 +502,5 @@ class _ProfileState extends State<ProfilePage> {
   }
 
 
-
-
-}*/
+}
+*/
