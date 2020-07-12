@@ -549,16 +549,16 @@ class Goal {
   }
 }
 
-class Measurement {
+class Measurementt {
   int id;
   String unit;
 
-  Measurement(this.id, this.unit);
+  Measurementt(this.id, this.unit);
 
-  static List<Measurement> getMeasurements() {
-    return <Measurement>[
-      Measurement(1, 'Metric'),
-      Measurement(2, 'Imperial'),
+  static List<Measurementt> getMeasurements() {
+    return <Measurementt>[
+      Measurementt(1, 'Metric'),
+      Measurementt(2, 'Imperial'),
     ];
   }
 }
@@ -579,7 +579,7 @@ class _ProfileState extends State<ProfilePage> {
     });
   }
 
-  onChangeDropdownItem3(Measurement selectedMeasurement) {
+  onChangeDropdownItem3(Measurementt selectedMeasurement) {
     setState(() {
       _selectedMeasurement = selectedMeasurement;
     });
@@ -593,9 +593,9 @@ class _ProfileState extends State<ProfilePage> {
   List<DropdownMenuItem<Goal>> _dropdownMenuItemsGoals;
   Goal _selectedGoal;
 
-  List<Measurement> _measurements = Measurement.getMeasurements();
-  List<DropdownMenuItem<Measurement>> _dropdownMenuItemsMeasurements;
-  Measurement _selectedMeasurement;
+  List<Measurementt> _measurements = Measurementt.getMeasurements();
+  List<DropdownMenuItem<Measurementt>> _dropdownMenuItemsMeasurements;
+  Measurementt _selectedMeasurement;
 
   @override
   void initState() {
@@ -641,9 +641,9 @@ class _ProfileState extends State<ProfilePage> {
     return items;
   }
 
-  List<DropdownMenuItem<Measurement>> buildDropdownMenuItems3(List measurements) {
-    List<DropdownMenuItem<Measurement>> items = List();
-    for (Measurement measurement in measurements) {
+  List<DropdownMenuItem<Measurementt>> buildDropdownMenuItems3(List measurements) {
+    List<DropdownMenuItem<Measurementt>> items = List();
+    for (Measurementt measurement in measurements) {
       items.add(
         DropdownMenuItem(
           value: measurement,
@@ -682,7 +682,7 @@ class _ProfileState extends State<ProfilePage> {
       super.dispose();
     }
 
-    void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3 ) async {
+    void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3, TextEditingController controller4, TextEditingController controller5, TextEditingController controller6, Activity activity, Goal goal, Measurementt measurement) async {
 
       try {
         List<Profile> checkk = await database.getAllProfiles();
@@ -692,16 +692,31 @@ class _ProfileState extends State<ProfilePage> {
             isMale: groupValue,
             age: int.parse(controller1.text),
             weight: double.parse(controller2.text),
-            height: double.parse(controller3.text)));
+            height: double.parse(controller3.text),
+          activity: InsertActivity(activity),
+          goal: InsertGoal(goal),
+          isMetric: InsertMeasurement(measurement),
+          hip: double.parse(controller4.text),
+          neck: double.parse(controller5.text),
+          waist: double.parse(controller6.text),
+        ));
 
       }on Error{
         database.insertTask(Profile(
             isMale: groupValue,
             age: int.parse(controller1.text),
             weight: double.parse(controller2.text),
-            height: double.parse(controller3.text)));
+            height: double.parse(controller3.text),
+          activity: InsertActivity(activity),
+          goal: InsertGoal(goal),
+          isMetric: InsertMeasurement(measurement),
+          hip: double.parse(controller4.text),
+          neck: double.parse(controller5.text),
+          waist: double.parse(controller6.text),
+        ));
       }
     }
+
 
 
 
@@ -876,7 +891,7 @@ class _ProfileState extends State<ProfilePage> {
                                   inputFormatters: <TextInputFormatter>[
                                     WhitelistingTextInputFormatter.digitsOnly
                                   ],
-                                  controller: myController3,
+                                  controller: myController1,
                                   maxLength: 3,
                                   maxLengthEnforced: true,
                                   decoration: BoxDecoration(
@@ -900,7 +915,7 @@ class _ProfileState extends State<ProfilePage> {
                                   inputFormatters: <TextInputFormatter>[
                                     WhitelistingTextInputFormatter.digitsOnly
                                   ],
-                                  controller: myController3,
+                                  controller: myController2,
                                   maxLength: 3,
                                   maxLengthEnforced: true,
                                   decoration: BoxDecoration(
@@ -997,7 +1012,7 @@ class _ProfileState extends State<ProfilePage> {
                                   inputFormatters: <TextInputFormatter>[
                                     WhitelistingTextInputFormatter.digitsOnly
                                   ],
-                                  controller: myController3,
+                                  controller: myController4,
                                   maxLength: 3,
                                   maxLengthEnforced: true,
                                   decoration: BoxDecoration(
@@ -1021,7 +1036,7 @@ class _ProfileState extends State<ProfilePage> {
                                   inputFormatters: <TextInputFormatter>[
                                     WhitelistingTextInputFormatter.digitsOnly
                                   ],
-                                  controller: myController3,
+                                  controller: myController5,
                                   maxLength: 3,
                                   maxLengthEnforced: true,
                                   decoration: BoxDecoration(
@@ -1045,7 +1060,7 @@ class _ProfileState extends State<ProfilePage> {
                                   inputFormatters: <TextInputFormatter>[
                                     WhitelistingTextInputFormatter.digitsOnly
                                   ],
-                                  controller: myController3,
+                                  controller: myController6,
                                   maxLength: 3,
                                   maxLengthEnforced: true,
                                   decoration: BoxDecoration(
@@ -1078,6 +1093,95 @@ class _ProfileState extends State<ProfilePage> {
       groupValue = e;
     });
   }
+
+  int InsertActivity (Activity activity){
+    switch(activity.name) {
+      case 'Basal Metabolic Rate (BMR)': {
+        return 1;
+      }
+      break;
+
+      case 'Sedentary: Little or no exercise': {
+        return 2;
+      }
+      break;
+
+      case 'Light: Exercise 1-3 times/week': {
+        return 3;
+      }
+      break;
+
+      case 'moderate: Exercise 4-5 times/week': {
+        return 4;
+      }
+      break;
+
+      case 'Active: Daily Exercise or intense exercise 3-4 times/week': {
+        return 5;
+      }
+      break;
+
+      case 'Very Active: Intense exercise 6-7 times/week': {
+        return 6;
+      }
+      break;
+
+      case 'Extra Active: Intense Exercise daily': {
+        return 7;
+      }
+      break;
+
+    }
+
+
+  }
+
+  int InsertGoal (Goal goal){
+    switch(goal.name) {
+      case 'Lose Weight': {
+        return 1;
+      }
+      break;
+
+      case 'Maintain weight': {
+        return 2;
+      }
+      break;
+
+      case 'Build Muscle': {
+        return 3;
+      }
+      break;
+
+      case 'Recomposition (Gain Muscle + Lose Fat': {
+        return 4;
+      }
+      break;
+
+    }
+
+
+  }
+
+  bool InsertMeasurement (Measurementt measurement){
+    switch(measurement.unit) {
+      case 'Metric': {
+        return true;
+      }
+      break;
+
+      case 'Imperial': {
+        return false;
+      }
+      break;
+
+
+    }
+
+
+  }
+
+
 
 
 
