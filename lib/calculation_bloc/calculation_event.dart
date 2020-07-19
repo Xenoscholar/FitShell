@@ -51,5 +51,54 @@ class GetCaloricMaintanence extends CalculationEvent {
   List<Object> get props => [];
 }
 
+//These are the extra calculations
+
+class GetOneRepMax extends CalculationEvent {
+  const GetOneRepMax();
+  @override
+  List<Object> get props => [];
+}
+
+
+class GetProteinIntake extends CalculationEvent {
+  const GetProteinIntake();
+  @override
+  List<Object> get props => [];
+}
+
+
+class GetCreatineIntake extends CalculationEvent {
+  const GetCreatineIntake();
+  @override
+  List<Object> get props => [];
+}
+
+
+class GetCaloricDeficit extends CalculationEvent {
+  const GetCaloricDeficit();
+  @override
+  List<Object> get props => [];
+}
+
+
+class GetMacroSplit extends CalculationEvent {
+  const GetMacroSplit();
+  @override
+  List<Object> get props => [];
+}
+
+
+class GetMaxHeartRate extends CalculationEvent {
+  const GetMaxHeartRate();
+  @override
+  List<Object> get props => [];
+}
+
+class GetTargetHeartRate extends CalculationEvent {
+  const GetTargetHeartRate();
+  @override
+  List<Object> get props => [];
+}
+
 
 

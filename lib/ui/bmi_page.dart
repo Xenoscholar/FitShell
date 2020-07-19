@@ -18,6 +18,7 @@ import 'package:flutterapp2/ui/CalculationPages/BodyFatContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/CaloricMaintinenceContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/MacronutrientContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/bmrContainer.dart';
+import 'package:flutterapp2/ui/CalculationPages/extra_calc_dropdown.dart';
 import 'package:flutterapp2/ui/CalculationPages/idealBodyMassContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/idealWeight.dart';
 import 'package:flutterapp2/ui/CalculationPages/initialPage.dart';
@@ -30,6 +31,11 @@ import 'dart:math';
 import '../data/moor_database.dart';
 
 class BmiPage extends StatelessWidget {
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     String calcPageValue = 'bmi';
@@ -90,6 +96,37 @@ class BmiPage extends StatelessWidget {
   double calculateBMI(int weight, int height) {
     return (703 * (weight / (height * height))).toDouble();
   }
+
+
+
+
+
+
+  /*onChangeDropdownItem(Activity selectedCompany) {
+    setState(() {
+      _selectedCompany = selectedCompany;
+    });
+  }
+
+
+
+  List<Activity> _companies = Activity.getCompanies();
+  List<DropdownMenuItem<Activity>> _dropdownMenuItemsActivities;
+  Activity _selectedCompany;
+
+
+  List<DropdownMenuItem<Activity>> buildDropdownMenuItems(List companies) {
+    List<DropdownMenuItem<Activity>> items = List();
+    for (Activity company in companies) {
+      items.add(
+        DropdownMenuItem(
+          value: company,
+          child: Text(company.name),
+        ),
+      );
+    }
+    return items;
+  }*/
 
   /*Column bmiContainer(ProfileModel profileModel, BuildContext context) {
     return Column(
@@ -602,7 +639,32 @@ class BmiPage extends StatelessWidget {
                               ),
                             ),
                           ],
-                        )
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10,bottom: 10),
+                          child: Text('More:',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w300),),
+                        ),
+                        Container(
+                                padding: EdgeInsets.only(left: 7,right: 7),
+                                margin: EdgeInsets.only(left: 10,right: 0),
+                                decoration: BoxDecoration(
+                                  color: Colors.deepPurpleAccent.withAlpha(40),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                width: (width * .55) - 10,
+                                child: /*DropdownButton(
+                                  value: _selectedCompany,
+                                  items: _dropdownMenuItemsActivities,
+                                  onChanged: onChangeDropdownItem,
+                                  isExpanded: true,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                  focusColor: Colors.grey.withOpacity(.5),
+                                )*/
+                                ExtraCalcDropDown(),
+                            ),
                       ],
                     ),
                   ),

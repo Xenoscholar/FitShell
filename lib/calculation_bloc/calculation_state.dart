@@ -57,3 +57,49 @@ class BmiCalculation extends CalculationState {
   @override
   List<Object> get props => [];
 }
+
+
+//These are the extra calculations
+
+
+class OneRepMaxCalculation extends CalculationState {
+  const OneRepMaxCalculation();
+  @override
+  List<Object> get props => [];
+}
+
+class ProteinIntakeCalculation extends CalculationState {
+  const ProteinIntakeCalculation();
+  @override
+  List<Object> get props => [];
+}
+
+class CreatineIntakeCalculation extends CalculationState {
+  const CreatineIntakeCalculation();
+  @override
+  List<Object> get props => [];
+}
+
+class CalorieDeficitCalculation extends CalculationState {
+  const CalorieDeficitCalculation();
+  @override
+  List<Object> get props => [];
+}
+
+class MacroSplitCalculation extends CalculationState {
+  const MacroSplitCalculation();
+  @override
+  List<Object> get props => [];
+}
+
+class MaxHeartRateCalculation extends CalculationState {
+  const MaxHeartRateCalculation();
+  @override
+  List<Object> get props => [];
+}
+
+class TargetHeartRateCalculation extends CalculationState {
+  const TargetHeartRateCalculation();
+  @override
+  List<Object> get props => [];
+}

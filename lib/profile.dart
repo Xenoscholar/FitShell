@@ -499,6 +499,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/bloc/profile_bloc.dart';
 import 'package:flutterapp2/bmi.dart';
 import 'package:flutterapp2/profile_rows.dart';
+import 'package:flutterapp2/ui/CalculationPages/DropDowns/activity.dart';
+import 'package:flutterapp2/ui/CalculationPages/DropDowns/gender.dart';
 import 'package:flutterapp2/ui/bmi_page.dart';
 import 'package:flutterapp2/ui/unicornButton.dart';
 
@@ -670,6 +672,9 @@ class _ProfileState extends State<ProfilePage> {
     final myController5 = TextEditingController();
     final myController6 = TextEditingController();
 
+    ActivityDropDown activityDrop = ActivityDropDown();
+    GenderDropDown genderDropDown = GenderDropDown();
+
 
 
 
@@ -682,37 +687,37 @@ class _ProfileState extends State<ProfilePage> {
       super.dispose();
     }
 
-    void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3, TextEditingController controller4, TextEditingController controller5, TextEditingController controller6, Activity activity, Goal goal, Measurementt measurement) async {
+    void putIntoo(AppDatabase database, TextEditingController controller1, TextEditingController controller2, TextEditingController controller3, TextEditingController controller4, TextEditingController controller5, TextEditingController controller6, ActivityDropDown activitya, GenderDropDown genderDropDownb, Goal goal, Measurementt measurement) async {
 
       try {
         List<Profile> checkk = await database.getAllProfiles();
 
         database.updateTask(Profile(
             id: checkk.length,
-            isMale: groupValue,
-            age: int.parse(controller1.text),
+            isMale: InsertGender(genderDropDownb),
+            age: int.tryParse(controller1.text),
             weight: double.parse(controller2.text),
             height: double.parse(controller3.text),
-          activity: InsertActivity(activity),
+          activity: InsertActivity(activitya),
           goal: InsertGoal(goal),
           isMetric: InsertMeasurement(measurement),
-          hip: double.parse(controller4.text),
-          neck: double.parse(controller5.text),
-          waist: double.parse(controller6.text),
+          hip: double.tryParse(controller4.text),
+          neck: double.tryParse(controller5.text),
+          waist: double.tryParse(controller6.text),
         ));
 
       }on Error{
         database.insertTask(Profile(
-            isMale: groupValue,
+            isMale: InsertGender(genderDropDownb),
             age: int.parse(controller1.text),
             weight: double.parse(controller2.text),
             height: double.parse(controller3.text),
-          activity: InsertActivity(activity),
+          activity: InsertActivity(activitya),
           goal: InsertGoal(goal),
           isMetric: InsertMeasurement(measurement),
-          hip: double.parse(controller4.text),
-          neck: double.parse(controller5.text),
-          waist: double.parse(controller6.text),
+          hip: double.tryParse(controller4.text),
+          neck: double.tryParse(controller5.text),
+          waist: double.tryParse(controller6.text),
         ));
       }
     }
@@ -810,6 +815,7 @@ class _ProfileState extends State<ProfilePage> {
                                               color: Colors.white)),
                                     ],
                                   ),
+                                  onPressed: () => putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase, myController1, myController2, myController3, myController4, myController4, myController6, activityDrop, genderDropDown, _selectedGoal, _selectedMeasurement),
                                   /*onPressed: () =>
                                       BlocProvider.of<CalculationBloc>(context)
                                           .add(GetMacronutrients())*/),
@@ -822,39 +828,18 @@ class _ProfileState extends State<ProfilePage> {
                       child: Column(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(top: 13,bottom: 2),
-                            child: Row(mainAxisAlignment: MainAxisAlignment.start,mainAxisSize: MainAxisSize.max,children: <Widget>[Text(
-                                'Gender: ',
-                            style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                Container(
-                                  width: (width * .58) - 5,
-                                  padding: EdgeInsets.only(left: 30),
-                                  margin: EdgeInsets.only(right: 5),
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Text(
-                                          'Male',
-                                          style: TextStyle(
-                                              color: Colors.blue
-                                          ),
-                                        ),
-                                        Radio(value: true, groupValue: groupValue, activeColor: Colors.purple, onChanged: (bool e) => radioFunction(e)),
-                                        Text(
-                                          'Female',
-                                          style: TextStyle(
-                                              color: Colors.purpleAccent[100]
-                                          ),
-                                        ),
-                                        Radio(value: false, groupValue: groupValue, activeColor: Colors.purple, onChanged: (bool e) => radioFunction(e)),
-                                      ],
-                                    ),
-                                  ),
+                            padding: const EdgeInsets.only(top: 13,bottom: 13),
+                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Gender:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                              Container(
+                                padding: EdgeInsets.only(left: 7,right: 7),
+                                margin: EdgeInsets.only(left: 10,right: 0),
+                                decoration: BoxDecoration(
+                                  color: Colors.deepPurpleAccent.withAlpha(40),
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-
-
+                                width: (width * .55) - 10,
+                                child: GenderDropDown(),
+                              ),
                             ],),
                           ),
                           Padding(
@@ -964,17 +949,7 @@ class _ProfileState extends State<ProfilePage> {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                     width: (width * .55) - 10,
-                                    child: DropdownButton(
-                                          value: _selectedCompany,
-                                          items: _dropdownMenuItemsActivities,
-                                          onChanged: onChangeDropdownItem,
-                                      isExpanded: true,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                      focusColor: Colors.grey.withOpacity(.5),
-                                        )
+                                    child: ActivityDropDown(),
                                   ),
                               ],),
                           ),
@@ -1094,8 +1069,8 @@ class _ProfileState extends State<ProfilePage> {
     });
   }
 
-  int InsertActivity (Activity activity){
-    switch(activity.name) {
+  int InsertActivity (ActivityDropDown activityDropp){
+    switch(activityDropp.createState().exposedActivity) {
       case 'Basal Metabolic Rate (BMR)': {
         return 1;
       }
@@ -1171,6 +1146,24 @@ class _ProfileState extends State<ProfilePage> {
       break;
 
       case 'Imperial': {
+        return false;
+      }
+      break;
+
+
+    }
+
+
+  }
+
+  bool InsertGender (GenderDropDown genderDropDowna){
+    switch(genderDropDowna.createState().exposedActivity) {
+      case 'Male': {
+        return true;
+      }
+      break;
+
+      case 'Female': {
         return false;
       }
       break;

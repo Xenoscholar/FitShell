@@ -38,6 +38,34 @@ class CalculationBloc extends Bloc<CalculationEvent, CalculationState> {
     }
 
 
+    //These are the extra calculations
+
+
+
+
+    else if (event is GetOneRepMax) {
+      yield OneRepMaxCalculation();
+    }else if (event is GetProteinIntake) {
+      yield ProteinIntakeCalculation();
+    }else if (event is GetCreatineIntake) {
+      yield CreatineIntakeCalculation();
+
+    }else if (event is GetCaloricDeficit) {
+      yield CalorieDeficitCalculation();
+
+    }else if (event is GetMacroSplit) {
+      yield MacroSplitCalculation();
+
+    }else if (event is GetMaxHeartRate) {
+      yield MaxHeartRateCalculation();
+
+    }
+    else if (event is GetTargetHeartRate) {
+      yield TargetHeartRateCalculation();
+
+    }
+
+
 
 
 

@@ -17,7 +17,6 @@ class Profiles extends Table {
   IntColumn get age => integer()();
   RealColumn get weight => real()();
   RealColumn get height => real()();
-
   IntColumn get activity => integer()();
   IntColumn get goal => integer()();
   RealColumn get neck => real().nullable()();
@@ -138,7 +137,7 @@ class AppDatabase extends _$AppDatabase {
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onUpgrade: (migrator, from, to) async {
-      if (from == 1) {
+      if (from != 2) {
         await migrator.addColumn(profiles, profiles.activity);
         await migrator.addColumn(profiles, profiles.goal);
         await migrator.addColumn(profiles, profiles.neck);
