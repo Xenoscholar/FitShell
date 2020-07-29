@@ -1,13 +1,12 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutterapp2/profile.dart';
+import 'package:flutterapp2/system_bloc/system_bloc.dart';
+import 'package:flutterapp2/system_bloc/system_event.dart';
 import 'package:flutterapp2/ui/bmi_page.dart';
-import 'package:rxdart/rxdart.dart';
 
-import '../sidebar/menu_item.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -53,6 +52,9 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
           onTap: (int index) {
             setState(() {
               _selectedTab = index;
+              if (_selectedTab == 3) {
+                BlocProvider.of<SystemBloc>(context).add(GetMetric());
+              }
             });
           },
           items: [

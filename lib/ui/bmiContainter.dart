@@ -28,10 +28,34 @@ class BmiContainer extends StatelessWidget {
     return (703 * (weight / (height * height))).toDouble();
   }
 
+  double idealWeight(bool isMetric, double height) {
+    if(isMetric == true) {
+
+    }else if (isMetric == false) {
+
+    }
+  }
+
   double roundDouble(double value, int places){
     double mod = pow(10.0, places);
     return ((value * mod).round().toDouble() / mod);
   }
+
+  double kgToPounds(double kilograms) {
+    return (kilograms * 2.205).roundToDouble();
+  }
+
+  double poundsToKg(double pounds) {
+    return (pounds / 2.205).roundToDouble();
+  }
+
+
+  /*Ideal Weight
+  B. J. Devine Formula (1974)
+  Male:	50.0 kg + 2.3 kg per inch over 5 feet
+  Female:	45.5 kg + 2.3 kg per inch over 5 feet*/
+
+
 
   Color calcCircleColor(double calculation) {
     
@@ -48,6 +72,32 @@ class BmiContainer extends StatelessWidget {
     }
     
   }
+
+  /*double calcIdealWeight(int age, bool gender, double height, bool system) {
+    switch (gender) {
+      case true:
+        {
+          if (system == true) {
+            return Color(0xFF000000).withAlpha(60);
+
+            //convert kg to lbs for final double
+          } else if (system == false) {
+            return Colors.transparent;
+          }
+        }
+        break;
+
+      case false:
+        {
+          if (system == true) {
+            return Color(0xFF000000).withAlpha(60);
+          } else if (system == false) {
+            return Colors.transparent;
+          }
+        }
+        break;
+    }
+  }*/
 
   Color calcHighlightleColor(double calculation, int tier) {
 
@@ -208,7 +258,7 @@ class BmiContainer extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         child: Column(children: <Widget>[
-                          Icon(Icons.whatshot, color: Colors.white30,),
+                          Icon(Icons.assignment_turned_in, color: Colors.grey,),
                           Text('Ideal Weight',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
                           Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
 /*margin: EdgeInsets.only(bottom: 50),*/
@@ -272,7 +322,7 @@ class BmiContainer extends StatelessWidget {
                                   ),
                                 ]),
                             child: Column(children: <Widget>[
-                              Icon(Icons.whatshot, color: Colors.white30,),
+                              Icon(Icons.whatshot, color: Colors.grey,),
                               Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
                               Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
                           ),
@@ -328,7 +378,7 @@ class BmiContainer extends StatelessWidget {
                       Container(
                         child: Container(
                           child: Column(children: <Widget>[
-                            Icon(Icons.whatshot, color: Colors.white30,),
+                            Icon(Icons.directions_run, color: Colors.grey,),
                             Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
                             Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
                             Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),

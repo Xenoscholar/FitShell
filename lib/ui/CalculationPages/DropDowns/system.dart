@@ -3,117 +3,66 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterapp2/calculation_bloc/calculation_bloc.dart';
-import 'package:flutterapp2/calculation_bloc/calculation_event.dart';
+import 'package:flutterapp2/system_bloc/system_bloc.dart';
+import 'package:flutterapp2/system_bloc/system_event.dart';
 
-class ExtraCalcDropDown extends StatefulWidget {
+class SystemDropDown extends StatefulWidget {
   @override
-  _ExtraCalcDropDownState createState() => _ExtraCalcDropDownState();
+  _SystemDropDownState createState() => _SystemDropDownState();
 
 
 }
 
-class ExtraCalc {
+class SystemDrop {
   int id;
   String name;
 
-  ExtraCalc(this.id, this.name);
+  SystemDrop(this.id, this.name);
 
-  static List<ExtraCalc> getCompanies() {
-    return <ExtraCalc>[
-      ExtraCalc(1, 'One Rep Max'),
-      ExtraCalc(2, 'Protein Intake'),
-      ExtraCalc(3, 'Creatine Intake'),
-      ExtraCalc(4, 'Calorie Deficit/Surplus'),
-      ExtraCalc(5, 'Macro Split'),
-      ExtraCalc(6, 'Max Heart Rate'),
-      ExtraCalc(7, 'Target Heart Rate'),
+  static List<SystemDrop> getCompanies() {
+    return <SystemDrop>[
+      SystemDrop(1, 'Metric'),
+      SystemDrop(2, 'Imperial'),
     ];
   }
 }
 
 
 
-class _ExtraCalcDropDownState extends State<ExtraCalcDropDown> {
+class _SystemDropDownState extends State<SystemDropDown> {
 
-  onChangeDropdownItem(ExtraCalc selectedCompany) {
+  onChangeDropdownItem(SystemDrop selectedCompany) {
     setState(() {
-      _selectedCalc = selectedCompany;
-
-      /*BlocProvider.of<CalculationBloc>(context)
-          .add(GetLeanBodyMass());*/
-
-      if(_selectedCalc.name == 'One Rep Max') {
-        BlocProvider.of<CalculationBloc>(context)
-            .add(GetLeanBodyMass());
+      _selectedGoal = selectedCompany;
+      if(_selectedGoal.name == 'Metric') {
+        BlocProvider.of<SystemBloc>(context).add(GetMetric());
+      } else if (_selectedGoal.name == 'Imperial') {
+        BlocProvider.of<SystemBloc>(context).add(GetImperial());
       }
-
-      switch(_selectedCalc.name) {
-        case 'One Rep Max': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetOneRepMax());
-        }
-        break;
-
-        case 'Protein Intake': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetProteinIntake());
-        }
-        break;
-
-        case 'Creatine Intake': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetCreatineIntake());
-        }
-        break;
-
-        case 'Calorie Deficit/Surplus': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetCaloricDeficit());
-        }
-        break;
-
-        case 'Macro Split': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetMacroSplit());
-        }
-        break;
-
-        case 'Max Heart Rate': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetMaxHeartRate());
-        }
-        break;
-
-        case 'Target Heart Rate': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetTargetHeartRate());
-        }
-        break;
-
-      }
-
-
     });
   }
 
-  List<ExtraCalc> _companies = ExtraCalc.getCompanies();
-  List<DropdownMenuItem<ExtraCalc>> _dropdownMenuItemsCalcs;
-  ExtraCalc _selectedCalc;
+  List<SystemDrop> _companies = SystemDrop.getCompanies();
+  List<DropdownMenuItem<SystemDrop>> _dropdownMenuItemsCalcs;
+  SystemDrop _selectedGoal;
+
+  String exposedSystem = 'Metric';
 
 
   @override
   void initState() {
     _dropdownMenuItemsCalcs = buildDropdownMenuItems(_companies);
-    _selectedCalc = _dropdownMenuItemsCalcs[0].value;
+    _selectedGoal = _dropdownMenuItemsCalcs[0].value;
+
+    exposedSystem = _selectedGoal.name;
 
     super.initState();
   }
 
 
-  List<DropdownMenuItem<ExtraCalc>> buildDropdownMenuItems(List companies) {
-    List<DropdownMenuItem<ExtraCalc>> items = List();
-    for (ExtraCalc company in companies) {
+  List<DropdownMenuItem<SystemDrop>> buildDropdownMenuItems(List companies) {
+    List<DropdownMenuItem<SystemDrop>> items = List();
+    for (SystemDrop company in companies) {
       items.add(
         DropdownMenuItem(
           value: company,
@@ -133,7 +82,7 @@ class _ExtraCalcDropDownState extends State<ExtraCalcDropDown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
-      value: _selectedCalc,
+      value: _selectedGoal,
       iconEnabledColor: Colors.deepPurpleAccent,
       iconSize: 30,
       underline: Text(''),

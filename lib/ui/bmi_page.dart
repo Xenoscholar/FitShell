@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:wasm';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,9 +8,6 @@ import 'package:flutterapp2/bloc/profile_state.dart';
 import 'package:flutterapp2/calculation_bloc/calculation_bloc.dart';
 import 'package:flutterapp2/calculation_bloc/calculation_event.dart';
 import 'package:flutterapp2/calculation_bloc/calculation_state.dart';
-import 'package:flutterapp2/definitnion_bloc/definition_bloc.dart';
-import 'package:flutterapp2/definitnion_bloc/definition_event.dart';
-import 'package:flutterapp2/definitnion_bloc/definition_state.dart';
 import 'package:flutterapp2/models/profile_model.dart';
 import 'package:flutterapp2/ui/CalculationPages/BodyFatContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/CaloricMaintinenceContainer.dart';
@@ -23,17 +18,11 @@ import 'package:flutterapp2/ui/CalculationPages/idealBodyMassContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/idealWeight.dart';
 import 'package:flutterapp2/ui/CalculationPages/initialPage.dart';
 import 'package:flutterapp2/ui/bmiContainter.dart';
-import 'package:flutterapp2/ui/ojk.dart';
 import 'package:flutterapp2/ui/unicornButton.dart';
-import 'package:provider/provider.dart';
 import 'dart:math';
 
-import '../data/moor_database.dart';
 
 class BmiPage extends StatelessWidget {
-
-
-
 
 
   @override
@@ -44,29 +33,35 @@ class BmiPage extends StatelessWidget {
 
     loadInitialPageViaData(context);
 
-    return Scaffold(
-      /*appBar: AppBar(
-        title: Text('Calculations'),
-        centerTitle: true,
-        backgroundColor: Colors.grey[850],
-      ),*/
-      body: Container(
-        color: Colors.grey[850],
-        /*padding: EdgeInsets.symmetric(vertical: 16),*/
-        alignment: Alignment.center,
-        child: BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, state) {
-            if (state is ProfileInitial) {
-              return buildInitialInput();
-            } else if (state is ProfileLoading) {
-              return buildLoading();
-            } else if (state is ProfileLoaded) {
-              return buildContainerWithData(
-                  context, state.profileModel, screenHeight, screenWidth);
-            } else if (state is ProfileError) {
-              return buildInitialInput();
-            }
-          },
+    return MaterialApp(
+      theme: ThemeData(
+          canvasColor: Colors.deepPurple.withAlpha(150),
+          primarySwatch: Colors.deepPurple
+      ),
+      home: Scaffold(
+        /*appBar: AppBar(
+          title: Text('Calculations'),
+          centerTitle: true,
+          backgroundColor: Colors.grey[850],
+        ),*/
+        body: Container(
+          color: Colors.grey[850],
+          /*padding: EdgeInsets.symmetric(vertical: 16),*/
+          alignment: Alignment.center,
+          child: BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (context, state) {
+              if (state is ProfileInitial) {
+                return buildInitialInput();
+              } else if (state is ProfileLoading) {
+                return buildLoading();
+              } else if (state is ProfileLoaded) {
+                return buildContainerWithData(
+                    context, state.profileModel, screenHeight, screenWidth);
+              } else if (state is ProfileError) {
+                return buildInitialInput();
+              }
+            },
+          ),
         ),
       ),
     );

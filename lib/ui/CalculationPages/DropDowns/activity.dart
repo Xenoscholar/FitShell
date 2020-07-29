@@ -2,9 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterapp2/calculation_bloc/calculation_bloc.dart';
-import 'package:flutterapp2/calculation_bloc/calculation_event.dart';
 
 class ActivityDropDown extends StatefulWidget {
   @override
@@ -81,6 +78,7 @@ class _ActivityDropDownState extends State<ActivityDropDown> {
 
   @override
   Widget build(BuildContext context) {
+
     return DropdownButton(
       value: _selectedActivity,
       iconEnabledColor: Colors.deepPurpleAccent,
