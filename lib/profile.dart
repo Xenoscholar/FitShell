@@ -500,6 +500,7 @@ import 'package:flutterapp2/bloc/profile_bloc.dart';
 import 'package:flutterapp2/system_bloc/system_bloc.dart';
 import 'package:flutterapp2/system_bloc/system_state.dart';
 import 'package:flutterapp2/ui/CalculationPages/DropDowns/activity.dart';
+import 'package:flutterapp2/ui/CalculationPages/DropDowns/exposeddropdown.dart';
 import 'package:flutterapp2/ui/CalculationPages/DropDowns/gender.dart';
 import 'package:flutterapp2/ui/CalculationPages/DropDowns/goal.dart';
 import 'package:flutterapp2/ui/CalculationPages/DropDowns/system.dart';
@@ -707,7 +708,7 @@ class _ProfileState extends State<ProfilePage> {
             height: double.parse(controller3.text),
           activity: InsertActivity(activitya),
           goal: InsertGoal(goalDropDownb),
-          isMetric: InsertMeasurement(systemDropDownb),
+          isMetric: InsertMeasurement(),
           hip: double.tryParse(controller4.text),
           neck: double.tryParse(controller5.text),
           waist: double.tryParse(controller6.text),
@@ -721,7 +722,7 @@ class _ProfileState extends State<ProfilePage> {
             height: double.parse(controller3.text),
           activity: InsertActivity(activitya),
           goal: InsertGoal(goalDropDownb),
-          isMetric: InsertMeasurement(systemDropDownb),
+          isMetric: InsertMeasurement(),
           hip: double.tryParse(controller4.text),
           neck: double.tryParse(controller5.text),
           waist: double.tryParse(controller6.text),
@@ -1184,7 +1185,7 @@ class _ProfileState extends State<ProfilePage> {
                                                   ),
                                                   style: TextStyle(
                                                       color: Colors.white
-                                                  ),
+                                                 ),
                                                   textAlign: TextAlign.center,
                                                 ),
                                               )],),
@@ -1241,7 +1242,7 @@ class _ProfileState extends State<ProfilePage> {
   }
 
   int InsertActivity (ActivityDropDown activityDropp){
-    switch(activityDropp.createState().exposedActivity) {
+    switch(Exposed.activity) {
       case 'Basal Metabolic Rate (BMR)': {
         return 1;
       }
@@ -1283,7 +1284,7 @@ class _ProfileState extends State<ProfilePage> {
   }
 
   int InsertGoal (GoalDropDown goalDropDownn){
-    switch(goalDropDownn.createState().exposedGoal) {
+    switch(Exposed.goal) {
       case 'Lose Weight': {
         return 1;
       }
@@ -1309,8 +1310,8 @@ class _ProfileState extends State<ProfilePage> {
 
   }
 
-  bool InsertMeasurement (SystemDropDown systemDropDownn){
-    switch(systemDropDownn.createState().exposedSystem) {
+  bool InsertMeasurement (){
+    switch(Exposed.systems) {
       case 'Metric': {
 
         return true;
@@ -1329,7 +1330,7 @@ class _ProfileState extends State<ProfilePage> {
   }
 
   bool InsertGender (GenderDropDown genderDropDowna){
-    switch(genderDropDowna.createState().exposedActivity) {
+    switch(Exposed.gender) {
       case 'Male': {
         return true;
       }

@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'exposeddropdown.dart';
+
 class GoalDropDown extends StatefulWidget {
   @override
   _GoalDropDownState createState() => _GoalDropDownState();
@@ -33,6 +35,17 @@ class _GoalDropDownState extends State<GoalDropDown> {
   onChangeDropdownItem(GoalDrop selectedCompany) {
     setState(() {
       _selectedGoal = selectedCompany;
+
+      if(_selectedGoal.name == 'Lose Weight') {
+        Exposed.goal = 'Lose Weight';
+      } else if (_selectedGoal.name == 'Maintain weight') {
+        Exposed.goal = 'Maintain weight';
+      } else if (_selectedGoal.name == 'Build Muscle') {
+        Exposed.goal = 'Build Muscle';
+      } else if (_selectedGoal.name == 'Recomposition (Gain Muscle + Lose Fat') {
+        Exposed.goal = 'Recomposition (Gain Muscle + Lose Fat';
+      }
+
     });
   }
 

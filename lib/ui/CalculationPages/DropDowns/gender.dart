@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'exposeddropdown.dart';
+
 class GenderDropDown extends StatefulWidget {
   @override
   _GenderDropDownState createState() => _GenderDropDownState();
@@ -31,6 +33,12 @@ class _GenderDropDownState extends State<GenderDropDown> {
   onChangeDropdownItem(GenderDrop selectedCompany) {
     setState(() {
       _selectedGender = selectedCompany;
+
+      if(_selectedGender.name == 'Male') {
+        Exposed.systems = 'Metric';
+      } else if (_selectedGender.name == 'Female') {
+        Exposed.systems = 'Imperial';
+      }
     });
   }
 

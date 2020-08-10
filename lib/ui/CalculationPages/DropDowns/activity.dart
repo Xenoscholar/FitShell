@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'exposeddropdown.dart';
+
 class ActivityDropDown extends StatefulWidget {
   @override
   _ActivityDropDownState createState() => _ActivityDropDownState();
@@ -36,6 +38,20 @@ class _ActivityDropDownState extends State<ActivityDropDown> {
   onChangeDropdownItem(ActivityDrop selectedCompany) {
     setState(() {
       _selectedActivity = selectedCompany;
+
+      if(_selectedActivity.name == 'Basal Metabolic Rate (BMR)') {
+        Exposed.activity = 'Basal Metabolic Rate (BMR)';
+      } else if (_selectedActivity.name == 'Sedentary: Little or no exercise') {
+        Exposed.activity = 'Sedentary: Little or no exercise';
+      } else if (_selectedActivity.name == 'Light: Exercise 1-3 times/week') {
+        Exposed.activity = 'Light: Exercise 1-3 times/week';
+      } else if (_selectedActivity.name == 'moderate: Exercise 4-5 times/week') {
+        Exposed.activity = 'moderate: Exercise 4-5 times/week';
+      } else if (_selectedActivity.name == 'Very Active: Intense exercise 6-7 times/week') {
+        Exposed.activity = 'Very Active: Intense exercise 6-7 times/week';
+      } else if (_selectedActivity.name == 'Extra Active: Intense Exercise daily') {
+        Exposed.activity = 'Extra Active: Intense Exercise daily';
+      }
     });
   }
 

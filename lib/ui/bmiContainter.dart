@@ -24,14 +24,67 @@ class BmiContainer extends StatelessWidget {
 
   const BmiContainer(this.context,this.profileModel);
 
-  double calculateBMI(double weight, double height) {
-    return (703 * (weight / (height * height))).toDouble();
-  }
+  double calculateBMI(double weight, double height, bool isMetric) {
 
-  double idealWeight(bool isMetric, double height) {
     if(isMetric == true) {
+      double metersHeight = (height / 100);
+      return weight / (metersHeight * metersHeight);
+
 
     }else if (isMetric == false) {
+      return (703 * (weight / (height * height)));
+
+    }
+
+  }
+
+  String calcIdealWeight(bool isMetric, double height, bool isMale) {
+    if(isMetric == true) {
+
+      if(isMale == true) {
+        double convertedHeight = cmToInch(height);
+        double addedHeight = convertedHeight - 60;
+        return poundsToKg( kgToPounds(((addedHeight * 2.3) + 50))).toString() + ' kgs';
+      } else if (isMale == false) {
+        double convertedHeight = cmToInch(height);
+        double addedHeight = convertedHeight - 60;
+        return poundsToKg( kgToPounds(((addedHeight * 2.3) + 45.5))).toString() + ' kgs';
+      }
+
+    }else if (isMetric == false) {
+      if(isMale == true) {
+        double addedHeight = height - 60;
+        return kgToPounds(((addedHeight * 2.3) + 50.00)).toInt().toString() + ' lbs';
+      } else if (isMale == false) {
+        double addedHeight = height - 60;
+        return kgToPounds(((addedHeight * 2.3) + 45.5)).toInt().toString() + ' lbs';
+      }
+    }
+  }
+
+  int calcBMR(double kgWeight, double cmHeight, int age, bool isMetric, bool isMale) {
+
+    /*For men:
+    BMR = 10W + 6.25H - 5A + 5
+    For women:
+    BMR = 10W + 6.25H - 5A - 161*/
+
+    if(isMetric == true){
+
+      if (isMale == true){
+        return ((10*kgWeight) + (6.25*cmHeight) - (5*age) + 5).toInt();
+      } else if (isMale == false){
+        return ((10*kgWeight) + (6.25*cmHeight) - (5*age) - 161).toInt();
+      }
+
+
+    } else if (isMetric == false) {
+
+      if (isMale == true){
+        return ((10*poundsToKg(kgWeight)) + (6.25*inchToCm(cmHeight)) - (5*age) + 5).toInt();
+      } else if (isMale == false){
+        return ((10*poundsToKg(kgWeight)) + (6.25*inchToCm(cmHeight)) - (5*age) - 161).toInt();
+      }
 
     }
   }
@@ -39,6 +92,14 @@ class BmiContainer extends StatelessWidget {
   double roundDouble(double value, int places){
     double mod = pow(10.0, places);
     return ((value * mod).round().toDouble() / mod);
+  }
+
+  double cmToInch(double cm) {
+    return cm / 2.54;
+  }
+
+  double inchToCm(double inch) {
+    return inch * 2.54;
   }
 
   double kgToPounds(double kilograms) {
@@ -71,6 +132,22 @@ class BmiContainer extends StatelessWidget {
       return Colors.red;
     }
     
+  }
+
+  String calcTextColor(double calculation) {
+
+    if ((calculation > 0) & (calculation < 18.5)) {
+      return 'Underweight';
+    } else if ((calculation >= 18.5) & (calculation < 25)) {
+      return 'Normal';
+    } else if ((calculation >= 25) & (calculation < 30)) {
+      return 'Overweight';
+    } else if ((calculation >= 30) & (calculation < 35)) {
+      return 'Obese';
+    } else if (calculation >= 35) {
+      return 'Very Obese';
+    }
+
   }
 
   /*double calcIdealWeight(int age, bool gender, double height, bool system) {
@@ -162,7 +239,17 @@ class BmiContainer extends StatelessWidget {
         profileModel
             .profileAttributes[
         profileModel.profileAttributes.length - 1]
-            .height), 2));
+            .height,
+        profileModel
+            .profileAttributes[
+        profileModel.profileAttributes.length - 1]
+            .isMetric), 2));
+    
+    String idealWeightScore = calcIdealWeight(
+      profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale
+    ).toString();
 
     return Column(
       children: <Widget>[
@@ -172,7 +259,7 @@ class BmiContainer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.deepPurpleAccent.withAlpha(30),
+                    color: Colors.transparent,
                   ),
                 ]
             ),
@@ -217,7 +304,7 @@ class BmiContainer extends StatelessWidget {
                                       fontSize: 15,
                                       fontWeight: FontWeight.w200),
                                 ),
-                                IconButton(icon: Icon(Icons.cancel), onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(RemoveDefinition())),
+                                IconButton(icon: Icon(Icons.cancel), onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(RemoveDefinition()), color: Colors.white.withAlpha(45),),
                               ],
                             ));
                       } else if (state is FalseDefinition) {
@@ -234,6 +321,7 @@ class BmiContainer extends StatelessWidget {
                                 IconButton(
                                   onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(GetDefinition()),
                                   icon: Icon(Icons.info),
+                                  color: Colors.white.withAlpha(45),
                                 )
                               ],
                             )
@@ -251,163 +339,34 @@ class BmiContainer extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.all(1),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: Column(children: <Widget>[
-                          Icon(Icons.assignment_turned_in, color: Colors.grey,),
-                          Text('Ideal Weight',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                          Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
-/*margin: EdgeInsets.only(bottom: 50),*/
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white10,
-                              width: 2,
-
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 6.0,
-                                spreadRadius: 0.0,
-                                color: Colors.transparent,
-
-                              ),
-                            ]),
-                        padding: EdgeInsets.all(12),
-                        margin: EdgeInsets.only(top: 5),
-
-
-                      ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      Column(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(15),
-                            margin: EdgeInsets.only(left: 2),
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white10,
-                                  width: 2,
-
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 6.0,
-                                    spreadRadius: 0.0,
-                                    color: Colors.transparent,
-
-                                  ),
-                                ]),
-                            child: Column(children: <Widget>[
-                              Icon(Icons.whatshot, color: Colors.grey,),
-                              Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
-                              Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
-                          ),
-
-                          Container(
-                              padding: EdgeInsets.all(40),
-                              margin: EdgeInsets.only(bottom: 1,top: 15),
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: calcCircleColor(bmiScore),
-                                    width: 2,
-
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 12.0,
-                                      spreadRadius: 13.0,
-                                      color: calcCircleColor(bmiScore).withAlpha(50),
-
-                                    ),
-                                  ]),
-                              child: Text(
-                                bmiScore.toString(),
-
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-                              )),
-                          Padding(child: Text('Normal',style: TextStyle(color: calcCircleColor(bmiScore)),),
-                            padding: EdgeInsets.only(top: 15),
-
-                          )
-
-                        ],
-                      ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      Container(
-                        child: Container(
-                          child: Column(children: <Widget>[
-                            Icon(Icons.directions_run, color: Colors.grey,),
-                            Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                            Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                            Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
+                    padding: EdgeInsets.all(40),
+                    margin: EdgeInsets.only(bottom: 1,top: 15),
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: calcCircleColor(bmiScore),
+                          width: 2,
 
                         ),
-/*margin: EdgeInsets.only(bottom: 50),*/
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white10,
-                              width: 2,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 12.0,
+                            spreadRadius: 13.0,
+                            color: calcCircleColor(bmiScore).withAlpha(50),
 
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 6.0,
-                                spreadRadius: 0.0,
-                                color: Colors.transparent,
+                          ),
+                        ]),
+                    child: Text(
+                      roundDouble(bmiScore, 2).toString(),
 
-                              ),
-                            ]),
-                        padding: EdgeInsets.all(7),
-                        margin: EdgeInsets.only(top: 4),
-                      ),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                    )),
+                Padding(child: Text('Normal',style: TextStyle(color: calcCircleColor(bmiScore)),),
+                  padding: EdgeInsets.only(top: 15),
 
-                    ],
-                  ),
                 ),
+
                 Container(
                   margin: EdgeInsets.only(top: 15),
                   height: 1,

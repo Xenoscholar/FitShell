@@ -126,43 +126,6 @@ class MacronutrientsContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        child: Column(children: <Widget>[
-                          Icon(Icons.whatshot, color: Colors.white30,),
-                          Text('Ideal Weight',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                          Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
-/*margin: EdgeInsets.only(bottom: 50),*/
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white10,
-                              width: 2,
-
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 6.0,
-                                spreadRadius: 0.0,
-                                color: Colors.transparent,
-
-                              ),
-                            ]),
-                        padding: EdgeInsets.all(12),
-                        margin: EdgeInsets.only(top: 5),
-
-
-                      ),
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -172,30 +135,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                       Column(
                         children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(15),
-                            margin: EdgeInsets.only(left: 2),
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white10,
-                                  width: 2,
 
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 6.0,
-                                    spreadRadius: 0.0,
-                                    color: Colors.transparent,
-
-                                  ),
-                                ]),
-                            child: Column(children: <Widget>[
-                              Icon(Icons.whatshot, color: Colors.white30,),
-                              Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
-                              Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
-                          ),
 
                           Container(
                               padding: EdgeInsets.all(40),
@@ -253,35 +193,6 @@ class MacronutrientsContainer extends StatelessWidget {
 
 
 
-                      Container(
-                        child: Container(
-                          child: Column(children: <Widget>[
-                            Icon(Icons.whatshot, color: Colors.white30,),
-                            Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                            Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                            Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
-
-                        ),
-/*margin: EdgeInsets.only(bottom: 50),*/
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white10,
-                              width: 2,
-
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 6.0,
-                                spreadRadius: 0.0,
-                                color: Colors.transparent,
-
-                              ),
-                            ]),
-                        padding: EdgeInsets.all(7),
-                        margin: EdgeInsets.only(top: 4),
-                      ),
 
                     ],
                   ),
