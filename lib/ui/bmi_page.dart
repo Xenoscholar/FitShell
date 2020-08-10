@@ -283,6 +283,25 @@ class BmiPage extends StatelessWidget {
       }
     }
 
+    int calcCaloricMaintinence(int BMR, int activityLevel) {
+
+      if(activityLevel == 1) {
+        return (BMR * 1.2).toInt();
+
+      } else if (activityLevel == 2) {
+        return (BMR * 1.375).toInt();
+      } else if (activityLevel == 3) {
+        return (BMR * 1.465).toInt();
+      } else if (activityLevel == 4) {
+        return (BMR * 1.55).toInt();
+      } else if (activityLevel == 5) {
+        return (BMR * 1.725).toInt();
+      } else if (activityLevel == 6) {
+        return (BMR * 1.9).toInt();
+      }
+
+    }
+
 
 
 
@@ -307,6 +326,13 @@ class BmiPage extends StatelessWidget {
         profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
         profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale
     ).toString();
+
+    int bmrScore = calcBMR(profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].age,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale
+    );
 
 
     return SingleChildScrollView(
@@ -606,7 +632,7 @@ class BmiPage extends StatelessWidget {
                                     Icon(Icons.directions_run, color: Colors.grey,),
                                     Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
                                     Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                                    Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
+                                    Text(calcCaloricMaintinence(bmrScore, profileModel.profileAttributes[profileModel.profileAttributes.length -1].activity,).toString(),style: TextStyle(color: Colors.white,fontSize: 10),)],),
 
                                 ),
 /*margin: EdgeInsets.only(bottom: 50),*/

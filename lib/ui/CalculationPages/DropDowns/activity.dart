@@ -20,13 +20,12 @@ class ActivityDrop {
 
   static List<ActivityDrop> getCompanies() {
     return <ActivityDrop>[
-      ActivityDrop(1, 'Basal Metabolic Rate (BMR)'),
-      ActivityDrop(2, 'Sedentary: Little or no exercise'),
-      ActivityDrop(3, 'Light: Exercise 1-3 times/week'),
-      ActivityDrop(4, 'moderate: Exercise 4-5 times/week'),
-      ActivityDrop(5, 'Active: Daily Exercise or intense exercise 3-4 times/week'),
-      ActivityDrop(6, 'Very Active: Intense exercise 6-7 times/week'),
-      ActivityDrop(7, 'Extra Active: Intense Exercise daily'),
+      ActivityDrop(1, 'Sedentary: Little or no exercise'),
+      ActivityDrop(2, 'Light: Exercise 1-3 times/week'),
+      ActivityDrop(3, 'moderate: Exercise 4-5 times/week'),
+      ActivityDrop(4, 'Active: Daily Exercise or intense exercise 3-4 times/week'),
+      ActivityDrop(5, 'Very Active: Intense exercise 6-7 times/week'),
+      ActivityDrop(6, 'Extra Active: Intense Exercise daily'),
     ];
   }
 }
@@ -39,8 +38,8 @@ class _ActivityDropDownState extends State<ActivityDropDown> {
     setState(() {
       _selectedActivity = selectedCompany;
 
-      if(_selectedActivity.name == 'Basal Metabolic Rate (BMR)') {
-        Exposed.activity = 'Basal Metabolic Rate (BMR)';
+      if(_selectedActivity.name == 'Active: Daily Exercise or intense exercise 3-4 times/week') {
+        Exposed.activity = 'Active: Daily Exercise or intense exercise 3-4 times/week';
       } else if (_selectedActivity.name == 'Sedentary: Little or no exercise') {
         Exposed.activity = 'Sedentary: Little or no exercise';
       } else if (_selectedActivity.name == 'Light: Exercise 1-3 times/week') {
@@ -59,7 +58,7 @@ class _ActivityDropDownState extends State<ActivityDropDown> {
   List<DropdownMenuItem<ActivityDrop>> _dropdownMenuItemsCalcs;
   ActivityDrop _selectedActivity;
 
-  String exposedActivity = 'Basal Metabolic Rate (BMR)';
+  String exposedActivity = 'Sedentary: Little or no exercise';
 
 
   @override

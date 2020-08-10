@@ -1243,38 +1243,34 @@ class _ProfileState extends State<ProfilePage> {
 
   int InsertActivity (ActivityDropDown activityDropp){
     switch(Exposed.activity) {
-      case 'Basal Metabolic Rate (BMR)': {
+
+      case 'Sedentary: Little or no exercise': {
         return 1;
       }
       break;
 
-      case 'Sedentary: Little or no exercise': {
+      case 'Light: Exercise 1-3 times/week': {
         return 2;
       }
       break;
 
-      case 'Light: Exercise 1-3 times/week': {
+      case 'moderate: Exercise 4-5 times/week': {
         return 3;
       }
       break;
 
-      case 'moderate: Exercise 4-5 times/week': {
+      case 'Active: Daily Exercise or intense exercise 3-4 times/week': {
         return 4;
       }
       break;
 
-      case 'Active: Daily Exercise or intense exercise 3-4 times/week': {
+      case 'Very Active: Intense exercise 6-7 times/week': {
         return 5;
       }
       break;
 
-      case 'Very Active: Intense exercise 6-7 times/week': {
-        return 6;
-      }
-      break;
-
       case 'Extra Active: Intense Exercise daily': {
-        return 7;
+        return 6;
       }
       break;
 
@@ -1285,23 +1281,33 @@ class _ProfileState extends State<ProfilePage> {
 
   int InsertGoal (GoalDropDown goalDropDownn){
     switch(Exposed.goal) {
-      case 'Lose Weight': {
+      case 'Mild Weight Loss (.5lb / .25kg per week)': {
         return 1;
       }
       break;
 
-      case 'Maintain weight': {
+      case 'Medium Weight Loss (1lb / .5kg per week)': {
         return 2;
       }
       break;
 
-      case 'Build Muscle': {
+      case 'Extreme Weight Loss (2lb / 1kg per week)': {
         return 3;
       }
       break;
 
-      case 'Recomposition (Gain Muscle + Lose Fat': {
+      case 'Mild Weight Gain (.5lb / .25kg per week)': {
         return 4;
+      }
+      break;
+
+      case 'Medium Weight Gain (1 lb / .5kg per week)': {
+        return 5;
+      }
+      break;
+
+      case 'Extreme Weight Gain (2 lb / 1kg per week)': {
+        return 6;
       }
       break;
 

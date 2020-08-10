@@ -20,10 +20,12 @@ class GoalDrop {
 
   static List<GoalDrop> getCompanies() {
     return <GoalDrop>[
-      GoalDrop(1, 'Lose Weight'),
-      GoalDrop(2, 'Maintain weight'),
-      GoalDrop(3, 'Build Muscle'),
-      GoalDrop(4, 'Recomposition (Gain Muscle + Lose Fat')
+      GoalDrop(1, 'Mild Weight Loss (.5lb / .25kg per week)'),
+      GoalDrop(2, 'Medium Weight Loss (1lb / .5kg per week)'),
+      GoalDrop(3, 'Extreme Weight Loss (2lb / 1kg per week)'),
+      GoalDrop(4, 'Mild Weight Gain (.5lb / .25kg per week)'),
+      GoalDrop(5, 'Medium Weight Gain (1 lb / .5kg per week)'),
+      GoalDrop(6, 'Extreme Weight Gain (2 lb / 1kg per week)'),
     ];
   }
 }
@@ -36,14 +38,18 @@ class _GoalDropDownState extends State<GoalDropDown> {
     setState(() {
       _selectedGoal = selectedCompany;
 
-      if(_selectedGoal.name == 'Lose Weight') {
-        Exposed.goal = 'Lose Weight';
-      } else if (_selectedGoal.name == 'Maintain weight') {
-        Exposed.goal = 'Maintain weight';
-      } else if (_selectedGoal.name == 'Build Muscle') {
-        Exposed.goal = 'Build Muscle';
-      } else if (_selectedGoal.name == 'Recomposition (Gain Muscle + Lose Fat') {
-        Exposed.goal = 'Recomposition (Gain Muscle + Lose Fat';
+      if(_selectedGoal.name == 'Mild Weight Loss (.5lb / .25kg per week)') {
+        Exposed.goal = 'Mild Weight Loss (.5lb / .25kg per week)';
+      } else if (_selectedGoal.name == 'Medium Weight Loss (1lb / .5kg per week)') {
+        Exposed.goal = 'Medium Weight Loss (1lb / .5kg per week)';
+      } else if (_selectedGoal.name == 'Extreme Weight Loss (2lb / 1kg per week)') {
+        Exposed.goal = 'Extreme Weight Loss (2lb / 1kg per week)';
+      } else if (_selectedGoal.name == 'Mild Weight Gain (.5lb / .25kg per week)') {
+        Exposed.goal = 'Mild Weight Gain (.5lb / .25kg per week)';
+      } else if (_selectedGoal.name == 'Medium Weight Gain (1 lb / .5kg per week)') {
+        Exposed.goal = 'Medium Weight Gain (1 lb / .5kg per week)';
+      } else if (_selectedGoal.name == 'Extreme Weight Gain (2 lb / 1kg per week)') {
+        Exposed.goal = 'Extreme Weight Gain (2 lb / 1kg per week)';
       }
 
     });
@@ -53,7 +59,7 @@ class _GoalDropDownState extends State<GoalDropDown> {
   List<DropdownMenuItem<GoalDrop>> _dropdownMenuItemsCalcs;
   GoalDrop _selectedGoal;
 
-  String exposedGoal = 'Lose Weight';
+  String exposedGoal = 'Mild Weight Loss (.5lb / .25kg per week)';
 
 
   @override
