@@ -377,18 +377,16 @@ class BmiPage extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Row(
-                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: Container(
-                                width: (width * .5) - 40,
+
+                                Container(
                                   child: UnicornOutlineButton(
                                       strokeWidth: 2,
                                       radius: 24,
                                       gradient: LinearGradient(
                                           colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
-                                      child: Text('          BMI          ',
+                                      child: Text('BMI',
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w100,
@@ -396,20 +394,21 @@ class BmiPage extends StatelessWidget {
                                       onPressed: () =>
                                           BlocProvider.of<CalculationBloc>(context)
                                               .add(GetBmi())),
+                                  width: width * .35,
                                 ),
-                              ),
 
 
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Container(
-                                    width: (width * .5) - 40,
+
+
+
+                                  Container(
+                                    width: width * .35,
                                     child: UnicornOutlineButton(
                                         strokeWidth: 2,
                                         radius: 24,
                                         gradient: LinearGradient(
                                             colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
-                                        child: Text('       Body Fat       ',
+                                        child: Text('Body Fat',
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w100,
@@ -418,7 +417,7 @@ class BmiPage extends StatelessWidget {
                                             BlocProvider.of<CalculationBloc>(context)
                                                 .add(GetBodyFat())),
                                   ),
-                                ),
+
 
 
                             ],
@@ -434,18 +433,16 @@ class BmiPage extends StatelessWidget {
                           ),
                         ),
                         Row(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: Container(
-                                width: (width * .5) - 30,
+                              Container(
+                                width: (width * .4),
                                 child: UnicornOutlineButton(
                                     strokeWidth: 2,
                                     radius: 24,
                                     gradient: LinearGradient(
                                         colors: [Colors.purpleAccent, Colors.deepPurpleAccent],),
-                                    child: Text('   Macronutrients   ',
+                                    child: Text('Macronutrients',
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w100,
@@ -454,11 +451,9 @@ class BmiPage extends StatelessWidget {
                                         BlocProvider.of<CalculationBloc>(context)
                                             .add(GetMacronutrients())),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Container(
-                                width: (width * .5) - 40,
+
+                            Container(
+                                width: (width * .4),
                                 child: UnicornOutlineButton(
                                     strokeWidth: 2,
                                     radius: 24,
@@ -473,7 +468,7 @@ class BmiPage extends StatelessWidget {
                                         BlocProvider.of<CalculationBloc>(context)
                                             .add(GetLeanBodyMass())),
                               ),
-                            ),
+
                           ],
                         ),
                         Padding(
@@ -632,7 +627,7 @@ class BmiPage extends StatelessWidget {
                                     Icon(Icons.directions_run, color: Colors.grey,),
                                     Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
                                     Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                                    Text(calcCaloricMaintinence(bmrScore, profileModel.profileAttributes[profileModel.profileAttributes.length -1].activity,).toString(),style: TextStyle(color: Colors.white,fontSize: 10),)],),
+                                    Text(calcCaloricMaintinence(bmrScore, profileModel.profileAttributes[profileModel.profileAttributes.length -1].activity,).toString() + ' Cal',style: TextStyle(color: Colors.white,fontSize: 10,fontWeight: FontWeight.w300),)],),
 
                                 ),
 /*margin: EdgeInsets.only(bottom: 50),*/
@@ -696,7 +691,7 @@ class BmiPage extends StatelessWidget {
             ),
           ),
         ),
-        Container(
+        /*Container(
           margin: EdgeInsets.only(top: 10),
 
           decoration: BoxDecoration(
@@ -713,7 +708,7 @@ class BmiPage extends StatelessWidget {
               Text('data')
             ],
           ),
-        ),
+        ),*/
       ],
     )
 

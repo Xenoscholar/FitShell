@@ -2,7 +2,11 @@ class Exposed {
 
   static String systems = "Metric";
   static String gender = "Male";
-  static String activity = "Basal Metabolic Rate (BMR)";
-  static String goal = "Lose Weight";
+  static String activity = 'Sedentary: Little or no exercise';
+  static String goal = 'Mild Weight Loss (.5lb / .25kg per week)';
+
+
+
+
 
 }

@@ -20,10 +20,97 @@ class IdealBodyMassContainer extends StatelessWidget {
   final BuildContext context;
   final ProfileModel profileModel;
 
+
   const IdealBodyMassContainer(this.context,this.profileModel);
 
-  double calculateBMI(double weight, double height) {
-    return (703 * (weight / (height * height))).toDouble();
+  double calculateBMI(double weight, double height, bool isMetric) {
+
+    if(isMetric == true) {
+      double metersHeight = (height / 100);
+      return weight / (metersHeight * metersHeight);
+
+
+    }else if (isMetric == false) {
+      return (703 * (weight / (height * height)));
+
+    }
+
+  }
+
+  String calcIdealWeight(bool isMetric, double height, bool isMale) {
+    if(isMetric == true) {
+
+      if(isMale == true) {
+        double convertedHeight = cmToInch(height);
+        double addedHeight = convertedHeight - 60;
+        return poundsToKg( kgToPounds(((addedHeight * 2.3) + 50))).toString() + ' kgs';
+      } else if (isMale == false) {
+        double convertedHeight = cmToInch(height);
+        double addedHeight = convertedHeight - 60;
+        return poundsToKg( kgToPounds(((addedHeight * 2.3) + 45.5))).toString() + ' kgs';
+      }
+
+    }else if (isMetric == false) {
+      if(isMale == true) {
+        double addedHeight = height - 60;
+        return kgToPounds(((addedHeight * 2.3) + 50.00)).toInt().toString() + ' lbs';
+      } else if (isMale == false) {
+        double addedHeight = height - 60;
+        return kgToPounds(((addedHeight * 2.3) + 45.5)).toInt().toString() + ' lbs';
+      }
+    }
+  }
+
+  int calcBMR(double kgWeight, double cmHeight, int age, bool isMetric, bool isMale) {
+
+    /*For men:
+    BMR = 10W + 6.25H - 5A + 5
+    For women:
+    BMR = 10W + 6.25H - 5A - 161*/
+
+    if(isMetric == true){
+
+      if (isMale == true){
+        return ((10*kgWeight) + (6.25*cmHeight) - (5*age) + 5).toInt();
+      } else if (isMale == false){
+        return ((10*kgWeight) + (6.25*cmHeight) - (5*age) - 161).toInt();
+      }
+
+
+    } else if (isMetric == false) {
+
+      if (isMale == true){
+        return ((10*poundsToKg(kgWeight)) + (6.25*inchToCm(cmHeight)) - (5*age) + 5).toInt();
+      } else if (isMale == false){
+        return ((10*poundsToKg(kgWeight)) + (6.25*inchToCm(cmHeight)) - (5*age) - 161).toInt();
+      }
+
+    }
+  }
+
+  double calcLeanBodyMass (double height,double weight, bool gender, isMetric) {
+    if(isMetric == true) {
+      if(gender == true) {
+        return roundDouble((0.407 * weight) + (0.267 * height) - 19.2,2);
+      } else if (gender == false) {
+        return roundDouble ((0.252 * weight) + (0.473 * height) - 48.3, 2);
+      }
+
+    } else if (isMetric == false) {
+      double newWeight = poundsToKg(weight);
+      double newHeight = inchToCm(height);
+
+      if(gender == true) {
+        return kgToPounds(roundDouble((0.407 * newWeight) + (0.267 * newHeight) - 19.2,2));
+      } else if (gender == false) {
+        return kgToPounds( roundDouble ((0.252 * newWeight) + (0.473 * newHeight) - 48.3, 2));
+      }
+
+    }
+  }
+
+  int calcLeanBodyPercentage(double weighttt, double leanBodyMass) {
+    return ((leanBodyMass / weighttt) * 100).round();
   }
 
   double roundDouble(double value, int places){
@@ -31,397 +118,374 @@ class IdealBodyMassContainer extends StatelessWidget {
     return ((value * mod).round().toDouble() / mod);
   }
 
+  double cmToInch(double cm) {
+    return cm / 2.54;
+  }
+
+  double inchToCm(double inch) {
+    return inch * 2.54;
+  }
+
+  double kgToPounds(double kilograms) {
+    return (kilograms * 2.205).roundToDouble();
+  }
+
+  double poundsToKg(double pounds) {
+    return (pounds / 2.205).roundToDouble();
+  }
+
+
+  /*Ideal Weight
+  B. J. Devine Formula (1974)
+  Male:	50.0 kg + 2.3 kg per inch over 5 feet
+  Female:	45.5 kg + 2.3 kg per inch over 5 feet*/
+
+
+
+  Color calcCircleColor(double calculation) {
+
+    if ((calculation > 0) & (calculation < 18.5)) {
+      return Colors.blue;
+    } else if ((calculation >= 18.5) & (calculation < 25)) {
+      return Colors.green;
+    } else if ((calculation >= 25) & (calculation < 30)) {
+      return Colors.orange;
+    } else if ((calculation >= 30) & (calculation < 35)) {
+      return Colors.deepOrange;
+    } else if (calculation >= 35) {
+      return Colors.red;
+    }
+
+  }
+
+  String calcTextColor(double calculation) {
+
+    if ((calculation > 0) & (calculation < 18.5)) {
+      return 'Underweight';
+    } else if ((calculation >= 18.5) & (calculation < 25)) {
+      return 'Normal';
+    } else if ((calculation >= 25) & (calculation < 30)) {
+      return 'Overweight';
+    } else if ((calculation >= 30) & (calculation < 35)) {
+      return 'Obese';
+    } else if (calculation >= 35) {
+      return 'Very Obese';
+    }
+
+  }
+
+  /*double calcIdealWeight(int age, bool gender, double height, bool system) {
+    switch (gender) {
+      case true:
+        {
+          if (system == true) {
+            return Color(0xFF000000).withAlpha(60);
+
+            //convert kg to lbs for final double
+          } else if (system == false) {
+            return Colors.transparent;
+          }
+        }
+        break;
+
+      case false:
+        {
+          if (system == true) {
+            return Color(0xFF000000).withAlpha(60);
+          } else if (system == false) {
+            return Colors.transparent;
+          }
+        }
+        break;
+    }
+  }*/
+
+  Color calcHighlightleColor(double calculation, int tier) {
+
+    switch(tier) {
+      case 1: {
+        if ((calculation > 0) & (calculation < 18.5)) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+
+      case 2: {
+        if ((calculation >= 18.5) & (calculation < 25)) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+
+      case 3: {
+        if ((calculation >= 25) & (calculation < 30)) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+
+      case 4: {
+        if ((calculation >= 30) & (calculation < 35)) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+
+      case 5: {
+        if (calculation >= 35) {
+          return Color(0xFF000000).withAlpha(60);
+        } else {
+          return Colors.transparent;
+        }
+      }
+      break;
+    }
+
+  }
+
 
   @override
   Column build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    double bmiScore = (roundDouble(calculateBMI(
+        profileModel
+            .profileAttributes[
+        profileModel.profileAttributes.length - 1]
+            .weight,
+        profileModel
+            .profileAttributes[
+        profileModel.profileAttributes.length - 1]
+            .height,
+        profileModel
+            .profileAttributes[
+        profileModel.profileAttributes.length - 1]
+            .isMetric), 2));
+
+    String idealWeightScore = calcIdealWeight(
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale
+    ).toString();
+
+    double leanBodyMassScore = (calcLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric));
+
+    String leanBodyMassPercentage = (calcLeanBodyPercentage(profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight, leanBodyMassScore)).toString();
 
     return Column(
       children: <Widget>[
-        Center(
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.deepPurpleAccent.withAlpha(30),
-                  ),
-                ]
-            ),
-            child: Column(
-              children: <Widget>[
-                BlocBuilder<DefinitionBloc, DefinitionState>(
-                    bloc: BlocProvider.of<DefinitionBloc>(context),
-                    builder: (context, state) {
-                      if(state is TrueDefinition) {
-                        return Container(
-                            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                            margin: EdgeInsets.only(bottom: 20),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xFF000000).withAlpha(60),
-                                    blurRadius: 6.0,
-                                    spreadRadius: 0.0,
-                                    offset: Offset(
-                                      0.0,
-                                      3.0,
+        Column(
+          children: <Widget>[
+            Center(
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.transparent,
+                      ),
+                    ]
+                ),
+                child: Column(
+                  children: <Widget>[
+                    BlocBuilder<DefinitionBloc, DefinitionState>(
+                        bloc: BlocProvider.of<DefinitionBloc>(context),
+                        builder: (context, state) {
+                          if(state is TrueDefinition) {
+                            return Container(
+                                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                                margin: EdgeInsets.only(bottom: 20),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0xFF000000).withAlpha(60),
+                                        blurRadius: 6.0,
+                                        spreadRadius: 0.0,
+                                        offset: Offset(
+                                          0.0,
+                                          3.0,
+                                        ),
+                                      ),
+                                    ]),
+                                child: Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 10, top: 10),
+                                      child: Text(
+                                        'What is Lean Body Mass?',
+                                        style: TextStyle(fontSize: 20,
+                                            color: Colors.white),
+                                      ),
                                     ),
-                                  ),
-                                ]),
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10, top: 10),
-                                  child: Text(
-                                    'What is Lean Body Mass?',
-                                    style: TextStyle(fontSize: 20,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                Text(
-                                  'Lean body mass, or fat-free mass, is a component of body composition, calculated by subtracting body fat weight from total body weight: total body weight is lean plus fat.',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w200),
-                                ),
-                                IconButton(icon: Icon(Icons.cancel), onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(RemoveDefinition())),
-                              ],
-                            ));
-                      } else if (state is FalseDefinition) {
+                                    Text(
+                                      'Lean body mass, or fat-free mass, is a component of body composition, calculated by subtracting body fat weight from total body weight: total body weight is lean plus fat.',
+                                      /*The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).*/
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w200),
+                                    ),
+                                    IconButton(icon: Icon(Icons.cancel), onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(RemoveDefinition()), color: Colors.white.withAlpha(45),),
+                                  ],
+                                ));
+                          } else if (state is FalseDefinition) {
 
-                        return Center(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text('What is Lean Body Mass?',
-                                  style: TextStyle(
-                                      color: Colors.white.withOpacity(.5)
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(GetDefinition()),
-                                  icon: Icon(Icons.info),
+                            return Center(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text('What is Lean Body Mass?',
+                                      style: TextStyle(
+                                          color: Colors.white.withOpacity(.5)
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () => BlocProvider.of<DefinitionBloc>(context).add(GetDefinition()),
+                                      icon: Icon(Icons.info),
+                                      color: Colors.white.withAlpha(45),
+                                    )
+                                  ],
                                 )
-                              ],
-                            )
-                        );
-                      } else if (state is LoadingDefinition) {
-                        return Container(
-                          color: Colors.yellow,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                            ),
-                          ),
-                        );
-                      }
-                    }
-                ),
-
-                Container(
-                  padding: EdgeInsets.all(1),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: Column(children: <Widget>[
-                          Icon(Icons.whatshot, color: Colors.white30,),
-                          Text('Ideal Weight',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                          Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
-/*margin: EdgeInsets.only(bottom: 50),*/
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white10,
-                              width: 2,
-
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 6.0,
-                                spreadRadius: 0.0,
-                                color: Colors.transparent,
-
-                              ),
-                            ]),
-                        padding: EdgeInsets.all(12),
-                        margin: EdgeInsets.only(top: 5),
-
-
-                      ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      Column(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(15),
-                            margin: EdgeInsets.only(left: 2),
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white10,
-                                  width: 2,
-
+                            );
+                          } else if (state is LoadingDefinition) {
+                            return Container(
+                              color: Colors.yellow,
+                              child: Center(
+                                child: CircularProgressIndicator(
                                 ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 6.0,
-                                    spreadRadius: 0.0,
-                                    color: Colors.transparent,
+                              ),
+                            );
+                          }
+                        }
+                    ),
 
-                                  ),
-                                ]),
-                            child: Column(children: <Widget>[
-                              Icon(Icons.whatshot, color: Colors.white30,),
-                              Text('BMR',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),),
-                              Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
-                          ),
 
-                          Container(
-                              padding: EdgeInsets.all(40),
-                              margin: EdgeInsets.only(bottom: 1,top: 15),
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.green,
-                                    width: 2,
 
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 12.0,
-                                      spreadRadius: 13.0,
-                                      color: Colors.green.withAlpha(50),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Text('Estimate',style: TextStyle(color: Colors.white.withAlpha(100)),),
+                            Container(
+                                padding: EdgeInsets.all(30),
+                                margin: EdgeInsets.only(bottom: 50,top: 15),
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white.withAlpha(50),
+                                      width: 2,
 
                                     ),
-                                  ]),
-                              child: Text(
-                                roundDouble(calculateBMI(
-                                    profileModel
-                                        .profileAttributes[
-                                    profileModel.profileAttributes.length - 1]
-                                        .weight,
-                                    profileModel
-                                        .profileAttributes[
-                                    profileModel.profileAttributes.length - 1]
-                                        .height), 2).toString(),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 12.0,
+                                        spreadRadius: 13.0,
+                                        color: Colors.white.withAlpha(50),
 
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-                              )),
-                          Padding(child: Text('Normal',style: TextStyle(color: Colors.greenAccent),),
-                            padding: EdgeInsets.only(top: 15),
+                                      ),
+                                    ]),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      leanBodyMassScore.toString(),
 
-                          )
+                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                                    ),
+                                    Text(
+                                      '( ' + leanBodyMassPercentage + '%' + ' )',
 
-                        ],
-                      ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      Container(
-                        child: Container(
-                          child: Column(children: <Widget>[
-                            Icon(Icons.whatshot, color: Colors.white30,),
-                            Text('Caloric',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                            Text('Maintenance',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),
-                            Text('1,717 Cal',style: TextStyle(color: Colors.white,fontSize: 10),)],),
-
+                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                                    )
+                                  ],
+                                )),
+                          ],
                         ),
-/*margin: EdgeInsets.only(bottom: 50),*/
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white10,
-                              width: 2,
 
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 6.0,
-                                spreadRadius: 0.0,
-                                color: Colors.transparent,
 
-                              ),
-                            ]),
-                        padding: EdgeInsets.all(7),
-                        margin: EdgeInsets.only(top: 4),
-                      ),
+                        Column(
+                          children: <Widget>[
+                            Text('Precise',style: TextStyle(color: Colors.white.withAlpha(100)),),
+                            Container(
+                                padding: EdgeInsets.all(40),
+                                margin: EdgeInsets.only(bottom: 50,top: 15),
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white.withAlpha(50),
+                                      width: 2,
 
-                    ],
-                  ),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 12.0,
+                                        spreadRadius: 13.0,
+                                        color: Colors.white.withAlpha(50),
+
+                                      ),
+                                    ]),
+                                child: Text(
+                                  roundDouble(bmiScore, 2).toString(),
+
+                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                                )),
+                          ],
+                        )
+                      ],
+                    ),
+
+
+
+                    /*Padding(child: Text('Normal',style: TextStyle(color: calcCircleColor(bmiScore)),),
+                      padding: EdgeInsets.only(top: 15),
+
+                    ),*/
+
+                    /*Container(
+                      margin: EdgeInsets.only(top: 15),
+                      height: 1,
+                      color: Colors.deepPurpleAccent.withAlpha(60),
+                    ),*/
+
+                  ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 15),
-                  height: 1,
-                  color: Colors.deepPurpleAccent.withAlpha(60),
-                ),
-
-
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    textDirection: TextDirection.ltr,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              color: Colors.blue,
-                              width: 20,
-                              height: 20,
-                              margin: EdgeInsets.only(right: 10),
-                            ),
-                            Text(
-                              'Underweight',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              '<18.5',
-                              textAlign: TextAlign.end,
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        color: Color(0xFF000000).withAlpha(60),
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              color: Colors.green,
-                              width: 20,
-                              height: 20,
-                              margin: EdgeInsets.only(right: 10),
-                            ),
-                            Text(
-                              'Normal',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              '18.5 - 24.9',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              color: Colors.orange,
-                              width: 20,
-                              height: 20,
-                              margin: EdgeInsets.only(right: 10),
-                            ),
-                            Text(
-                              'Overweight',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              '25 - 29.9',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              color: Colors.deepOrange,
-                              width: 20,
-                              height: 20,
-                              margin: EdgeInsets.only(right: 10),
-                            ),
-                            Text(
-                              'Obese',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              '<30 - 34.9',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          textDirection: TextDirection.ltr,
-                          children: <Widget>[
-                            Container(
-                              color: Colors.red,
-                              width: 20,
-                              height: 20,
-                              margin: EdgeInsets.only(right: 10),
-                            ),
-                            Text(
-                              'Very Obese',
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                            Text(
-                              '35 +',
-                              textDirection: TextDirection.ltr,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+            /*Container(
+              margin: EdgeInsets.only(top: 10),
+
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.deepPurpleAccent.withAlpha(30),
+                    ),
+                  ]
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text('data')
+                ],
+              ),
+            ),*/
+          ],
         ),
-        Container(
+        /*Container(
           margin: EdgeInsets.only(top: 10),
 
           decoration: BoxDecoration(
@@ -438,7 +502,7 @@ class IdealBodyMassContainer extends StatelessWidget {
               Text('data')
             ],
           ),
-        ),
+        ),*/
       ],
     );
   }
