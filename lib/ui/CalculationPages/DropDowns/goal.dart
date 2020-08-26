@@ -20,12 +20,13 @@ class GoalDrop {
 
   static List<GoalDrop> getCompanies() {
     return <GoalDrop>[
-      GoalDrop(1, 'Mild Weight Loss (.5lb / .25kg per week)'),
-      GoalDrop(2, 'Medium Weight Loss (1lb / .5kg per week)'),
-      GoalDrop(3, 'Extreme Weight Loss (2lb / 1kg per week)'),
-      GoalDrop(4, 'Mild Weight Gain (.5lb / .25kg per week)'),
-      GoalDrop(5, 'Medium Weight Gain (1 lb / .5kg per week)'),
-      GoalDrop(6, 'Extreme Weight Gain (2 lb / 1kg per week)'),
+      GoalDrop(1, 'Maintain Weight'),
+      GoalDrop(2, 'Mild Weight Loss (.5lb / .25kg per week)'),
+      GoalDrop(3, 'Medium Weight Loss (1lb / .5kg per week)'),
+      GoalDrop(4, 'Extreme Weight Loss (2lb / 1kg per week)'),
+      GoalDrop(5, 'Mild Weight Gain (.5lb / .25kg per week)'),
+      GoalDrop(6, 'Medium Weight Gain (1 lb / .5kg per week)'),
+      GoalDrop(7, 'Extreme Weight Gain (2 lb / 1kg per week)'),
     ];
   }
 }
@@ -40,9 +41,11 @@ class _GoalDropDownState extends State<GoalDropDown> {
 
       if(_selectedGoal.name == 'Mild Weight Loss (.5lb / .25kg per week)') {
         Exposed.goal = 'Mild Weight Loss (.5lb / .25kg per week)';
+      } else if (_selectedGoal.name == 'Maintain Weight') {
+        Exposed.goal = 'Maintain Weight';
       } else if (_selectedGoal.name == 'Medium Weight Loss (1lb / .5kg per week)') {
         Exposed.goal = 'Medium Weight Loss (1lb / .5kg per week)';
-      } else if (_selectedGoal.name == 'Extreme Weight Loss (2lb / 1kg per week)') {
+      }else if (_selectedGoal.name == 'Extreme Weight Loss (2lb / 1kg per week)') {
         Exposed.goal = 'Extreme Weight Loss (2lb / 1kg per week)';
       } else if (_selectedGoal.name == 'Mild Weight Gain (.5lb / .25kg per week)') {
         Exposed.goal = 'Mild Weight Gain (.5lb / .25kg per week)';
@@ -59,7 +62,7 @@ class _GoalDropDownState extends State<GoalDropDown> {
   List<DropdownMenuItem<GoalDrop>> _dropdownMenuItemsCalcs;
   GoalDrop _selectedGoal;
 
-  String exposedGoal = 'Mild Weight Loss (.5lb / .25kg per week)';
+  String exposedGoal = 'Maintain Weight';
 
 
   @override

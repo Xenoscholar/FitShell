@@ -962,8 +962,6 @@ class _ProfileState extends State<ProfilePage> {
                                   } else if (state is MetricSystem) {
                                     return Column(
                                       children: <Widget>[
-
-
                                         Padding(
                                           padding: const EdgeInsets.only(top: 13,bottom: 13),
                                           child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Weight: ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
@@ -1281,33 +1279,38 @@ class _ProfileState extends State<ProfilePage> {
 
   int InsertGoal (GoalDropDown goalDropDownn){
     switch(Exposed.goal) {
-      case 'Mild Weight Loss (.5lb / .25kg per week)': {
+      case 'Maintain Weight': {
         return 1;
       }
       break;
 
-      case 'Medium Weight Loss (1lb / .5kg per week)': {
+      case 'Mild Weight Loss (.5lb / .25kg per week)': {
         return 2;
       }
       break;
 
-      case 'Extreme Weight Loss (2lb / 1kg per week)': {
+      case 'Medium Weight Loss (1lb / .5kg per week)': {
         return 3;
       }
       break;
 
-      case 'Mild Weight Gain (.5lb / .25kg per week)': {
+      case 'Extreme Weight Loss (2lb / 1kg per week)': {
         return 4;
       }
       break;
 
-      case 'Medium Weight Gain (1 lb / .5kg per week)': {
+      case 'Mild Weight Gain (.5lb / .25kg per week)': {
         return 5;
       }
       break;
 
-      case 'Extreme Weight Gain (2 lb / 1kg per week)': {
+      case 'Medium Weight Gain (1 lb / .5kg per week)': {
         return 6;
+      }
+      break;
+
+      case 'Extreme Weight Gain (2 lb / 1kg per week)': {
+        return 7;
       }
       break;
 

@@ -10,6 +10,12 @@ class GetBalancedDiet extends DietEvent {
   List<Object> get props => [];
 }
 
+class GetKetoDiet extends DietEvent {
+  const GetKetoDiet();
+  @override
+  List<Object> get props => [];
+}
+
 
 class GetLowFatDiet extends DietEvent {
   const GetLowFatDiet();

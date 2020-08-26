@@ -27,6 +27,12 @@ class LowFatDietState extends DietState {
   List<Object> get props => [];
 }
 
+class KetoDietState extends DietState {
+  const KetoDietState();
+  @override
+  List<Object> get props => [];
+}
+
 class LowCarbDietState extends DietState {
   const LowCarbDietState();
   @override

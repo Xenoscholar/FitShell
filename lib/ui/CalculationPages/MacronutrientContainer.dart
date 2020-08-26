@@ -12,6 +12,7 @@ import 'package:flutterapp2/definitnion_bloc/definition_event.dart';
 import 'package:flutterapp2/definitnion_bloc/definition_state.dart';
 import 'package:flutterapp2/diet_bloc/diet_bloc.dart';
 import 'package:flutterapp2/diet_bloc/diet_event.dart';
+import 'package:flutterapp2/diet_bloc/diet_state.dart';
 import 'package:flutterapp2/models/profile_model.dart';
 import 'dart:math';
 
@@ -284,6 +285,137 @@ class MacronutrientsContainer extends StatelessWidget {
 
     String leanBodyMassPercentage = (calcLeanBodyPercentage(profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight, leanBodyMassScore)).toString();
 
+
+
+
+    int calcCaloricMaintinence(int BMR, int activityLevel,int goal ) {
+
+      double goalLevel;
+
+      switch(goal) {
+        case 1: {  goalLevel = 0; }
+        break;
+
+        case 2: {  goalLevel = .88; }
+        break;
+
+        case 3: {  goalLevel = .76; }
+        break;
+
+        case 4: {  goalLevel = .52; }
+        break;
+
+        case 5: {  goalLevel = 1.12; }
+        break;
+
+        case 6: {  goalLevel = 1.24; }
+        break;
+
+        case 7: {  goalLevel = 1.48; }
+        break;
+      }
+
+      if(activityLevel == 1) {
+        return ((BMR * 1.2)*goalLevel).toInt();
+
+      } else if (activityLevel == 2) {
+        return ((BMR * 1.375)*goalLevel).toInt();
+      } else if (activityLevel == 3) {
+        return ((BMR * 1.465)*goalLevel).toInt();
+      } else if (activityLevel == 4) {
+        return ((BMR * 1.55)*goalLevel).toInt();
+      } else if (activityLevel == 5) {
+        return ((BMR * 1.725)*goalLevel).toInt();
+      } else if (activityLevel == 6) {
+        return ((BMR * 1.9)*goalLevel).toInt();
+      }
+
+    }
+
+    int calcBMR(double kgWeight, double cmHeight, int age, bool isMetric, bool isMale) {
+
+      /*For men:
+    BMR = 10W + 6.25H - 5A + 5
+    For women:
+    BMR = 10W + 6.25H - 5A - 161*/
+
+      if(isMetric == true){
+
+        if (isMale == true){
+          return ((10*kgWeight) + (6.25*cmHeight) - (5*age) + 5).toInt();
+        } else if (isMale == false){
+          return ((10*kgWeight) + (6.25*cmHeight) - (5*age) - 161).toInt();
+        }
+
+
+      } else if (isMetric == false) {
+
+        if (isMale == true){
+          return ((10*poundsToKg(kgWeight)) + (6.25*inchToCm(cmHeight)) - (5*age) + 5).toInt();
+        } else if (isMale == false){
+          return ((10*poundsToKg(kgWeight)) + (6.25*inchToCm(cmHeight)) - (5*age) - 161).toInt();
+        }
+
+      }
+    }
+
+    String weightGoal(int goal) {
+      switch(goal) {
+        case 1: {
+          return 'Maintain Weight';
+        }
+        break;
+
+        case 2: {
+          return 'Mild Weight Loss (.5lb / .25kg per week)';
+        }
+        break;
+
+        case 3: {
+          return 'Medium Weight Loss (1lb / .5kg per week)';
+        }
+        break;
+
+        case 4: {
+          return 'Extreme Weight Loss (2lb / 1kg per week)';
+        }
+        break;
+
+        case 5: {
+          return 'Mild Weight Gain (.5lb / .25kg per week)';
+        }
+        break;
+
+        case 6: {
+          return 'Medium Weight Gain (1 lb / .5kg per week)';
+        }
+        break;
+
+        case 7: {
+          return 'Extreme Weight Gain (2 lb / 1kg per week)';
+        }
+        break;
+
+      }
+    }
+
+    int Macrograms(int dailyCal, double percentage, int MacroFactor ) {
+      int cal = (dailyCal * percentage).toInt();
+
+      return (cal / MacroFactor).toInt();
+    }
+
+    int bmrScore = calcBMR(profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].age,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
+        profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale
+    );
+
+    int dailyCalorieScore = calcCaloricMaintinence(bmrScore, profileModel.profileAttributes[profileModel.profileAttributes.length -1].activity,profileModel.profileAttributes[profileModel.profileAttributes.length -1].goal);
+
+
+
     return Column(
       children: <Widget>[
         Column(
@@ -303,6 +435,7 @@ class MacronutrientsContainer extends StatelessWidget {
                     BlocBuilder<DefinitionBloc, DefinitionState>(
                         bloc: BlocProvider.of<DefinitionBloc>(context),
                         builder: (context, state) {
+
                           if(state is TrueDefinition) {
                             return Container(
                                 padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -387,7 +520,19 @@ class MacronutrientsContainer extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20),
-                          child: RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetBalancedDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                                Padding(
+                                  padding:  EdgeInsets.only(right: width * .02 ),
+                                  child: RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetBalancedDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),),
+                                ),
+                              Padding(
+                                padding:  EdgeInsets.only(left: width * .02),
+                                child: RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetKetoDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Keto',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),),
+                              )
+                            ],
+                          ),
                         ),
 
 
@@ -397,234 +542,766 @@ class MacronutrientsContainer extends StatelessWidget {
 
                       ],
                     ),
+                    Text('Goal:',style: TextStyle(color:Colors.white.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.w300 ),),
+                    Container(
+                      padding: EdgeInsets.only(top: 25,bottom: 25,left:(width * .05) ,right:(width * .05) ),
+                      margin: EdgeInsets.only(top: 25,bottom: 25),
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurpleAccent.withAlpha(30),
+                        borderRadius: BorderRadius.circular(30),
+                        shape: BoxShape.rectangle,
+
+                      ),
+                      child: Text(weightGoal( profileModel.profileAttributes[profileModel.profileAttributes.length -1].goal),style: TextStyle(color:Colors.white,fontSize: 15,fontWeight: FontWeight.w200 ),),
+                    ),
+                    Text('Recommended Daily Intake:',style: TextStyle(color:Colors.white.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.w300 ),),
 
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.deepPurpleAccent.withAlpha(30),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(30),
                         shape: BoxShape.rectangle,
 
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      padding: EdgeInsets.only(top: 15,bottom: 15),
+                      margin: EdgeInsets.only(bottom: 30,top: 20),
+                      child: Column(
                         children: <Widget>[
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-
-                                ),
-                                child: Text(
-                                  '',
-
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
-
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.white10,
-                                    width: 2,
-
-                                  ),
-                                ),
-                                child: Text(
-                                  ' Grams  ',
-
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
-
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.white10,
-                                    width: 2,
-
-                                  ),
-                                ),
-                                child: Text(
-                                  'Calories',
-
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
-
-                              ),
-                            ],
+                          Text('Calorie Intake:',style: TextStyle(color:Colors.white.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.w300 ),),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 25,bottom: 25),
+                            child: Text(dailyCalorieScore.toString() +' Cal',style: TextStyle(color:Colors.white,fontSize: 20,fontWeight: FontWeight.w200 ),),
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.white10,
-                                    width: 2,
-
-                                  ),
-                                ),
-                                child: Text(
-                                  'Protein',
-
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
-
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-
-                                ),
-                                child: Text(
-                                  '124g',
-
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
-
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-
-                                ),
-                                child: Text(
-                                  '496',
-
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
-
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 25),
+                            child: Text('Macronutrients Intake:',style: TextStyle(color:Colors.white.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.w300 ),),
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.white10,
-                                    width: 2,
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                      borderRadius: BorderRadius.circular(10),
+                                      shape: BoxShape.rectangle,
+
+                                    ),
+                                    child: Text(
+                                      '',
+
+                                      style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                    ),
 
                                   ),
-                                ),
-                                child: Text(
-                                  ' Carbs ',
+                                  Container(
+                                    padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                      borderRadius: BorderRadius.circular(10),
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: Colors.white10,
+                                        width: 2,
 
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      ' Grams  ',
 
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-
-                                ),
-                                child: Text(
-                                  '200g',
-
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
-
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-
-                                ),
-                                child: Text(
-                                  '800',
-
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
-
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.white10,
-                                    width: 2,
+                                      style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                    ),
 
                                   ),
-                                ),
-                                child: Text(
-                                  '   Fats  ',
+                                  Container(
+                                    padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                      borderRadius: BorderRadius.circular(10),
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: Colors.white10,
+                                        width: 2,
 
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      'Calories',
+                                      style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                    ),
 
+                                  ),
+                                ],
                               ),
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                      borderRadius: BorderRadius.circular(10),
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: Colors.white10,
+                                        width: 2,
 
-                                ),
-                                child: Text(
-                                  '131g',
+                                      ),
+                                    ),
+                                    child: Text(
+                                      'Protein',
 
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
+                                      style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                    ),
 
+                                  ),
+
+                                  BlocBuilder<DietBloc, DietState>(
+                                      bloc: BlocProvider.of<DietBloc>(context),
+                                      builder: (context, state) {
+                                        if(state is LoadingDiet) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+
+                                        } else if (state is LowFatDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .26, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .26, 4) * 4).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+                                        } else if (state is HighProteinDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .34, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .34, 4) * 4).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+
+                                        } else if (state is LowCarbDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .29, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .29, 4) * 4).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+
+                                        } else if (state is BalancedDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .24, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .24, 4)*4).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+
+                                        } else if (state is KetoDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .35, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .35, 4) * 4).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                      }
+                                  ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                ],
                               ),
-                              Container(
-                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                                  borderRadius: BorderRadius.circular(10),
-                                  shape: BoxShape.rectangle,
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                      borderRadius: BorderRadius.circular(10),
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: Colors.white10,
+                                        width: 2,
 
-                                ),
-                                child: Text(
-                                  '524',
+                                      ),
+                                    ),
+                                    child: Text(
+                                      ' Carbs ',
 
-                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
-                                ),
+                                      style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                    ),
 
+                                  ),
+                                  BlocBuilder<DietBloc, DietState>(
+                                      bloc: BlocProvider.of<DietBloc>(context),
+                                      builder: (context, state) {
+                                        if(state is LoadingDiet) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+
+                                        } else if (state is LowFatDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .56, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .56, 4) *4).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+                                        } else if (state is HighProteinDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .45, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .45, 4) * 4).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+
+                                        } else if (state is LowCarbDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .42, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .42, 4) *4).toString() ,
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+
+                                        } else if (state is BalancedDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .53, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .53, 4) *4).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+
+                                        } else if (state is KetoDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .05, 4).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .05, 4) * 4).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                      }
+                                  ),
+                                ],
+                              ),
+
+
+
+
+
+
+
+
+
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                      borderRadius: BorderRadius.circular(10),
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: Colors.white10,
+                                        width: 2,
+
+                                      ),
+                                    ),
+                                    child: Text(
+                                      '   Fats  ',
+
+                                      style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                    ),
+
+                                  ),
+                                  BlocBuilder<DietBloc, DietState>(
+                                      bloc: BlocProvider.of<DietBloc>(context),
+                                      builder: (context, state) {
+                                        if(state is LoadingDiet) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+
+                                        } else if (state is LowFatDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .18, 9).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .18, 9)*9).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+                                        } else if (state is HighProteinDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .21, 9).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .21, 9)*9).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+
+                                        } else if (state is LowCarbDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .29, 9).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .29, 9)*9).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+
+                                        } else if (state is BalancedDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .23, 9).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .23, 9)*9).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+
+                                        } else if (state is KetoDietState) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  Macrograms(dailyCalorieScore, .60, 9).toString() + 'g',
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(right: 5,left:5 ,top:5 ,bottom:5 ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  shape: BoxShape.rectangle,
+
+                                                ),
+                                                child: Text(
+                                                  (Macrograms(dailyCalorieScore, .60, 9) * 9).toString(),
+
+                                                  style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
+                                                ),
+
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                      }
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -691,3 +1368,4 @@ class MacronutrientsContainer extends StatelessWidget {
     );
   }
 }
+

@@ -12,6 +12,8 @@ class DietBloc extends Bloc<DietEvent, DietState> {
   ) async* {
     // TODO: Add Logic
 
+    yield LoadingDiet();
+
     if (event is GetBalancedDiet) {
       yield BalancedDietState();
       // Emit either Loaded or Error
@@ -21,6 +23,8 @@ class DietBloc extends Bloc<DietEvent, DietState> {
       yield LowFatDietState();
     } else if (event is GetHighProteinDiet) {
       yield HighProteinDietState();
+    } else if (event is GetKetoDiet) {
+      yield KetoDietState();
     }
 
 
