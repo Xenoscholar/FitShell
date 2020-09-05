@@ -399,7 +399,7 @@ class MacronutrientsContainer extends StatelessWidget {
       }
     }
 
-    int Macrograms(int dailyCal, double percentage, int MacroFactor ) {
+    int Macrograms(int dailyCal, double percentage, double MacroFactor ) {
       int cal = (dailyCal * percentage).toInt();
 
       return (cal / MacroFactor).toInt();
@@ -513,9 +513,45 @@ class MacronutrientsContainer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             /*RaisedButton(onPressed: null,disabledColor: Colors.deepOrange,child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),),*/
-                            RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowFatDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Fat',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),),
-                            RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowCarbDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Carb',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),),
-                            RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetHighProteinDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('High Protein',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),),
+    BlocBuilder<DietBloc, DietState>(
+    bloc: BlocProvider.of<DietBloc>(context),
+    builder: (context, state) {
+    if(state is  LowFatDietState) {
+                           return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowFatDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Fat',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+    } else {
+      return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowFatDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Fat',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+
+    };
+    }
+    ),
+
+                            BlocBuilder<DietBloc, DietState>(
+                                bloc: BlocProvider.of<DietBloc>(context),
+                                builder: (context, state) {
+                                  if(state is LowCarbDietState) {
+                                    return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowCarbDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Carb',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                } else {
+                                    return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowCarbDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Carb',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                  };
+                                }
+                            ),
+
+
+                            BlocBuilder<DietBloc, DietState>(
+                                bloc: BlocProvider.of<DietBloc>(context),
+                                builder: (context, state) {
+                                  if(state is HighProteinDietState) {
+                                   return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetHighProteinDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('High Protein',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                } else{
+                                    return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetHighProteinDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('High Protein',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                  };
+                                }
+                            ),
+
+
+
+
+
                           ],
                         ),
                         Padding(
@@ -525,11 +561,30 @@ class MacronutrientsContainer extends StatelessWidget {
                             children: <Widget>[
                                 Padding(
                                   padding:  EdgeInsets.only(right: width * .02 ),
-                                  child: RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetBalancedDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),),
+                                  child: BlocBuilder<DietBloc, DietState>(
+                                      bloc: BlocProvider.of<DietBloc>(context),
+                                      builder: (context, state) {
+                                        if(state is BalancedDietState) {
+                                          return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetBalancedDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                        } else{
+                                          return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetBalancedDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+
+                                        }
+                                      }
+                                  ),
                                 ),
                               Padding(
                                 padding:  EdgeInsets.only(left: width * .02),
-                                child: RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetKetoDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Keto',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),),
+                                child: BlocBuilder<DietBloc, DietState>(
+                                    bloc: BlocProvider.of<DietBloc>(context),
+                                    builder: (context, state) {
+                                      if(state is KetoDietState) {
+                                        return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetKetoDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Keto',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                    } else{
+                                        return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetKetoDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Keto',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                      };
+                                    }
+                                ),
                               )
                             ],
                           ),
@@ -1132,7 +1187,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  Macrograms(dailyCalorieScore, .18, 9).toString() + 'g',
+                                                  Macrograms(dailyCalorieScore, .18, 9.11224).toString() + 'g',
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
@@ -1147,7 +1202,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  (Macrograms(dailyCalorieScore, .18, 9)*9).toString(),
+                                                  (Macrograms(dailyCalorieScore, .18, 9.11224)*9.11224).toInt().toString(),
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
@@ -1167,7 +1222,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  Macrograms(dailyCalorieScore, .21, 9).toString() + 'g',
+                                                  Macrograms(dailyCalorieScore, .21, 9.11224).toString() + 'g',
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
@@ -1182,7 +1237,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  (Macrograms(dailyCalorieScore, .21, 9)*9).toString(),
+                                                  (Macrograms(dailyCalorieScore, .21, 9.11224)*9.11224).toInt().toString(),
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
@@ -1203,7 +1258,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  Macrograms(dailyCalorieScore, .29, 9).toString() + 'g',
+                                                  Macrograms(dailyCalorieScore, .29, 9.11224).toInt().toString() + 'g',
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
@@ -1218,7 +1273,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  (Macrograms(dailyCalorieScore, .29, 9)*9).toString(),
+                                                  (Macrograms(dailyCalorieScore, .29, 9.11224)*9.11224).toInt().toString(),
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
@@ -1239,7 +1294,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  Macrograms(dailyCalorieScore, .23, 9).toString() + 'g',
+                                                  Macrograms(dailyCalorieScore, .23, 9.11224).toInt().toString() + 'g',
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
@@ -1254,7 +1309,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  (Macrograms(dailyCalorieScore, .23, 9)*9).toString(),
+                                                  (Macrograms(dailyCalorieScore, .23, 9.11224)*9.11224).toInt().toString(),
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
@@ -1275,7 +1330,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  Macrograms(dailyCalorieScore, .60, 9).toString() + 'g',
+                                                  Macrograms(dailyCalorieScore, .60, 9.11224).toString() + 'g',
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
@@ -1290,7 +1345,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                                                 ),
                                                 child: Text(
-                                                  (Macrograms(dailyCalorieScore, .60, 9) * 9).toString(),
+                                                  (Macrograms(dailyCalorieScore, .60, 9.11224) * 9.11224).toInt().toString(),
 
                                                   style: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.w300),
                                                 ),
