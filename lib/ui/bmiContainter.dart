@@ -28,7 +28,7 @@ class BmiContainer extends StatelessWidget {
 
     if(isMetric == true) {
       double metersHeight = (height / 100);
-      return weight / (metersHeight * metersHeight);
+      return (weight / (metersHeight * metersHeight));
 
 
     }else if (isMetric == false) {

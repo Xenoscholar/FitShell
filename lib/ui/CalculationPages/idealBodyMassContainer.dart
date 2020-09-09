@@ -251,6 +251,74 @@ class IdealBodyMassContainer extends StatelessWidget {
 
   }
 
+  String calcPreciseLeanBodyMass(bool gender, bool system ,double waist , double hip, double neck, double height) {
+
+    try {
+      if (system == true) {
+        if (gender == true) {
+          return roundDouble(495 / 1.0324 - 0.19077 * (log(waist - neck) / ln10) +
+              0.15456 * (log(height) / ln10), 2).toString();
+        } else if (gender == false) {
+          return roundDouble(495 / 1.29579 - 0.35004 * (log(waist - neck) / ln10) +
+              0.22100 * (log(height) / ln10), 2).toString();
+        }
+      } else if (system == false) {
+        if (gender == true) {
+          return roundDouble(
+              (86.010 * (log(waist - neck) / ln10) - 70.041 * (log(height) / ln10) + 36.76)
+                  .toDouble(), 2).toString();
+        } else if (gender == false) {
+          return roundDouble(
+              (163.205 * (log(waist + hip - neck) / ln10) - 97.684 * (log(height) / ln10) +
+                  36.76), 2).toString();
+        }
+      }
+    }on Error{
+      return 'no';
+    }
+
+
+
+
+
+  }
+
+  /*String calcPreciseLeanBodyMass(bool gender, bool system ,double waist , double hip, double neck, double height) {
+
+    try {
+      if (system == true) {
+        if (gender == true) {
+          return roundDouble(495 / 1.0324 - 0.19077 * log(waist - neck) +
+              0.15456 * log(height), 2).toString();
+        } else if (gender == false) {
+          return roundDouble(495 / 1.29579 - 0.35004 * log(waist - neck) +
+              0.22100 * log(height), 2).toString();
+        }
+      } else if (system == false) {
+        if (gender == true) {
+          double wn = log(waist - neck) / ln10;
+          double h = log(height) / ln10;
+          return roundDouble(
+              (86.010 * (log(waist - neck) / ln10) - 70.041 * (log(height) / ln10) + 36.76)
+                  .toDouble(), 2).toString();
+        } else if (gender == false) {
+          return roundDouble(
+              (163.205 * log(waist + hip - neck) - 97.684 * (log(height)) +
+                  36.76), 2).toString();
+        }
+      }
+    }on Error{
+      return 'no';
+    }
+
+
+
+
+
+  }*/
+
+
+
 
   @override
   Column build(BuildContext context) {
@@ -416,6 +484,11 @@ class IdealBodyMassContainer extends StatelessWidget {
                         ),
 
 
+
+
+
+
+
                         Column(
                           children: <Widget>[
                             Text('Precise',style: TextStyle(color: Colors.white.withAlpha(100)),),
@@ -439,12 +512,23 @@ class IdealBodyMassContainer extends StatelessWidget {
                                       ),
                                     ]),
                                 child: Text(
-                                  roundDouble(bmiScore, 2).toString(),
+                                  calcPreciseLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
+                                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
+                                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].waist,
+                                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].hip,
+                                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].neck,
+                                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].height),
+
+
 
                                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
                                 )),
                           ],
                         )
+
+
+
+
                       ],
                     ),
 

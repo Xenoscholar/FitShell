@@ -293,7 +293,7 @@ class MacronutrientsContainer extends StatelessWidget {
       double goalLevel;
 
       switch(goal) {
-        case 1: {  goalLevel = 0; }
+        case 1: {  goalLevel = 1; }
         break;
 
         case 2: {  goalLevel = .88; }

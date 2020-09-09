@@ -708,10 +708,10 @@ class _ProfileState extends State<ProfilePage> {
             height: double.parse(controller3.text),
           activity: InsertActivity(activitya),
           goal: InsertGoal(goalDropDownb),
-          isMetric: InsertMeasurement(),
-          hip: double.tryParse(controller4.text),
-          neck: double.tryParse(controller5.text),
-          waist: double.tryParse(controller6.text),
+          isMetric: InsertMeasurement(systemDropDownb),
+          hip: double.tryParse(controller6.text),
+          neck: double.tryParse(controller4.text),
+          waist: double.tryParse(controller5.text),
         ));
 
       }on Error{
@@ -722,10 +722,10 @@ class _ProfileState extends State<ProfilePage> {
             height: double.parse(controller3.text),
           activity: InsertActivity(activitya),
           goal: InsertGoal(goalDropDownb),
-          isMetric: InsertMeasurement(),
-          hip: double.tryParse(controller4.text),
-          neck: double.tryParse(controller5.text),
-          waist: double.tryParse(controller6.text),
+          isMetric: InsertMeasurement(systemDropDownb),
+          hip: double.tryParse(controller6.text),
+          neck: double.tryParse(controller4.text),
+          waist: double.tryParse(controller5.text),
         ));
       }
     }
@@ -832,7 +832,7 @@ class _ProfileState extends State<ProfilePage> {
                                                 color: Colors.white)),
                                       ],
                                     ),
-                                    onPressed: () => putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase, myController1, myController2, myController3, myController4, myController4, myController6, activityDrop, genderDropDown, goalDropDown, systemDropDown),
+                                    onPressed: () => putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase, myController1, myController2, myController3, myController4, myController5, myController6, activityDrop, genderDropDown, goalDropDown, systemDropDown),
                                     /*onPressed: () =>
                                         BlocProvider.of<CalculationBloc>(context)
                                             .add(GetMacronutrients())*/),
@@ -1319,7 +1319,7 @@ class _ProfileState extends State<ProfilePage> {
 
   }
 
-  bool InsertMeasurement (){
+  bool InsertMeasurement (SystemDropDown systemDropDownn  ){
     switch(Exposed.systems) {
       case 'Metric': {
 
