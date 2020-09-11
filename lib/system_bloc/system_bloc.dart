@@ -4,7 +4,7 @@ import './bloc.dart';
 
 class SystemBloc extends Bloc<SystemEvent, SystemState> {
   @override
-  SystemState get initialState => InitialSystemState();
+  SystemState get initialState => MetricSystem();
 
   @override
   Stream<SystemState> mapEventToState(

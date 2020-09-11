@@ -35,11 +35,11 @@ class _SystemDropDownState extends State<SystemDropDown> {
 
   onChangeDropdownItem(SystemDrop selectedCompany) {
     setState(() {
-      selectedSystem = selectedCompany;
-      if(selectedSystem.name == 'Metric') {
+      _selectedSystem = selectedCompany;
+      if(_selectedSystem.name == 'Metric') {
         BlocProvider.of<SystemBloc>(context).add(GetMetric());
         Exposed.systems = 'Metric';
-      } else if (selectedSystem.name == 'Imperial') {
+      } else if (_selectedSystem.name == 'Imperial') {
         BlocProvider.of<SystemBloc>(context).add(GetImperial());
         Exposed.systems = 'Imperial';
       }
@@ -48,7 +48,10 @@ class _SystemDropDownState extends State<SystemDropDown> {
 
   List<SystemDrop> _companies = SystemDrop.getCompanies();
   List<DropdownMenuItem<SystemDrop>> _dropdownMenuItemsCalcs;
-  static SystemDrop selectedSystem;
+  SystemDrop _selectedSystem;
+
+  String exposedSystem = 'Metric';
+
 
   /* String exposedSystem = selectedSystem.name;*/
 
@@ -57,7 +60,14 @@ class _SystemDropDownState extends State<SystemDropDown> {
   @override
   void initState() {
     _dropdownMenuItemsCalcs = buildDropdownMenuItems(_companies);
-    selectedSystem = _dropdownMenuItemsCalcs[0].value;
+    _selectedSystem = _dropdownMenuItemsCalcs[0].value;
+
+    /*exposedSystem = _selectedSystem.name;*/
+
+    /*BlocProvider.of<SystemBloc>(context).add(GetMetric());*/
+
+    /*selectedSystem.name = Exposed.systems;
+    selectedSystem.id = 1;*/
 
     /*exposedSystem = selectedSystem.name;*/
 
@@ -87,7 +97,7 @@ class _SystemDropDownState extends State<SystemDropDown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
-      value: selectedSystem,
+      value: _selectedSystem,
       iconEnabledColor: Colors.deepPurpleAccent,
       iconSize: 30,
       underline: Text(''),

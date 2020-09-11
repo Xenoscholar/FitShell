@@ -5,8 +5,4 @@ class Exposed {
   static String activity = 'Sedentary: Little or no exercise';
   static String goal = 'Maintain Weight';
 
-
-
-
-
 }

@@ -35,9 +35,9 @@ class _GenderDropDownState extends State<GenderDropDown> {
       _selectedGender = selectedCompany;
 
       if(_selectedGender.name == 'Male') {
-        Exposed.systems = 'Metric';
+        Exposed.gender = 'Male';
       } else if (_selectedGender.name == 'Female') {
-        Exposed.systems = 'Imperial';
+        Exposed.gender = 'Female';
       }
     });
   }

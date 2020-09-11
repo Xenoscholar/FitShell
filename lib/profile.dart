@@ -498,6 +498,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/bloc/profile_bloc.dart';
 import 'package:flutterapp2/system_bloc/system_bloc.dart';
+import 'package:flutterapp2/system_bloc/system_event.dart';
 import 'package:flutterapp2/system_bloc/system_state.dart';
 import 'package:flutterapp2/ui/CalculationPages/DropDowns/activity.dart';
 import 'package:flutterapp2/ui/CalculationPages/DropDowns/exposeddropdown.dart';
@@ -667,6 +668,7 @@ class _ProfileState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    BlocProvider.of<SystemBloc>(context).add(GetMetric());
 
 
     final myController1 = TextEditingController();
@@ -1322,7 +1324,6 @@ class _ProfileState extends State<ProfilePage> {
   bool InsertMeasurement (SystemDropDown systemDropDownn  ){
     switch(Exposed.systems) {
       case 'Metric': {
-
         return true;
       }
       break;
