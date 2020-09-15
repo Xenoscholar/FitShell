@@ -138,6 +138,7 @@ class BmiPage extends StatelessWidget {
           primarySwatch: Colors.deepPurple
       ),
       home: Scaffold(
+        resizeToAvoidBottomPadding: false,
         /*appBar: AppBar(
           title: Text('Calculations'),
           centerTitle: true,
@@ -354,7 +355,7 @@ class BmiPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 10,top: 10),
                   child: Text(
                     'Calculations',
                     style: TextStyle(color: Colors.white, fontSize: 20),

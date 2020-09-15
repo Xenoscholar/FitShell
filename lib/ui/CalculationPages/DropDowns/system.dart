@@ -1,5 +1,7 @@
 
 
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +48,14 @@ class _SystemDropDownState extends State<SystemDropDown> {
     });
   }
 
+  int initialSys() {
+    if(Exposed.systems  == 'Metric') {
+      return 0;
+    } else if (Exposed.systems == 'Imperial') {
+      return 1;
+    }
+  }
+
   List<SystemDrop> _companies = SystemDrop.getCompanies();
   List<DropdownMenuItem<SystemDrop>> _dropdownMenuItemsCalcs;
   SystemDrop _selectedSystem;
@@ -60,9 +70,9 @@ class _SystemDropDownState extends State<SystemDropDown> {
   @override
   void initState() {
     _dropdownMenuItemsCalcs = buildDropdownMenuItems(_companies);
-    _selectedSystem = _dropdownMenuItemsCalcs[0].value;
+    _selectedSystem = _dropdownMenuItemsCalcs[initialSys()].value;
 
-    /*exposedSystem = _selectedSystem.name;*/
+    /*_selectedSystem.name = exposedSystem;*/
 
     /*BlocProvider.of<SystemBloc>(context).add(GetMetric());*/
 

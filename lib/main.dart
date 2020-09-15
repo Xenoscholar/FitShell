@@ -18,12 +18,22 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: SideBarLayout()
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+
+      },
+      child: MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.deepPurple,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: SideBarLayout()
+      ),
     );
   }
 }

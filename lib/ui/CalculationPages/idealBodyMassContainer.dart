@@ -282,6 +282,14 @@ class IdealBodyMassContainer extends StatelessWidget {
 
 
   }
+  
+  String systemUnits(bool ssystem) {
+    if(ssystem == true) {
+      return ' Kgs';
+    }else if (ssystem == false ) {
+      return ' Lbs';
+    }
+  }
 
   /*String calcPreciseLeanBodyMass(bool gender, bool system ,double waist , double hip, double neck, double height) {
 
@@ -468,10 +476,13 @@ class IdealBodyMassContainer extends StatelessWidget {
                                     ]),
                                 child: Column(
                                   children: <Widget>[
-                                    Text(
-                                      leanBodyMassScore.toString(),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: Text(
+                                        leanBodyMassScore.toString() + systemUnits(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric),
 
-                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                                      ),
                                     ),
                                     Text(
                                       '( ' + leanBodyMassPercentage + '%' + ' )',

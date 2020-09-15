@@ -609,6 +609,22 @@ class MacronutrientsContainer extends StatelessWidget {
                       ),
                       child: Text(weightGoal( profileModel.profileAttributes[profileModel.profileAttributes.length -1].goal),style: TextStyle(color:Colors.white,fontSize: 15,fontWeight: FontWeight.w200 ),),
                     ),
+
+                    Text('Activity:',style: TextStyle(color:Colors.white.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.w300 ),),
+                    Container(
+                      padding: EdgeInsets.only(top: 25,bottom: 25,left:(width * .05) ,right:(width * .05) ),
+                      margin: EdgeInsets.only(top: 25,bottom: 25),
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurpleAccent.withAlpha(30),
+                        borderRadius: BorderRadius.circular(30),
+                        shape: BoxShape.rectangle,
+
+                      ),
+                      child: Text(weightGoal( profileModel.profileAttributes[profileModel.profileAttributes.length -1].activity),style: TextStyle(color:Colors.white,fontSize: 15,fontWeight: FontWeight.w200 ),),
+                    ),
+
+
+
                     Text('Recommended Daily Intake:',style: TextStyle(color:Colors.white.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.w300 ),),
 
                     Container(

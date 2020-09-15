@@ -13,6 +13,7 @@ class SideBarLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: MultiBlocProvider(
         providers: [
           BlocProvider<ProfileBloc>(

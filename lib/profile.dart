@@ -664,20 +664,25 @@ class _ProfileState extends State<ProfilePage> {
 
   bool groupValue;
 
+  final myController1 = TextEditingController();
+  final myController2 = TextEditingController();
+  final myController3 = TextEditingController();
+
+  final myController4 = TextEditingController();
+  final myController5 = TextEditingController();
+  final myController6 = TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    BlocProvider.of<SystemBloc>(context).add(GetMetric());
+    /*BlocProvider.of<SystemBloc>(context).add(GetMetric());*/
 
 
-    final myController1 = TextEditingController();
-    final myController2 = TextEditingController();
-    final myController3 = TextEditingController();
 
-    final myController4 = TextEditingController();
-    final myController5 = TextEditingController();
-    final myController6 = TextEditingController();
+
 
     ActivityDropDown activityDrop = ActivityDropDown();
     GenderDropDown genderDropDown = GenderDropDown();
@@ -744,321 +749,175 @@ class _ProfileState extends State<ProfilePage> {
 
     return MaterialApp(
       theme: ThemeData(
-        canvasColor: Colors.deepPurple.withAlpha(150),
-        primarySwatch: Colors.deepPurple
+          canvasColor: Colors.deepPurple.withAlpha(150),
+          primarySwatch: Colors.deepPurple
       ),
       home: Scaffold(
-          backgroundColor: Colors.grey[850],
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: 40),
-                  child: Center(
-                    child: Text('Profile',style: TextStyle(color: Colors.white,fontSize: 20),),
+          backgroundColor: Colors.black,
+
+          body: Container(
+            color: Colors.deepPurpleAccent.withAlpha(45),
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(top: 40),
+                    child: Center(
+                      child: Text('Profile',style: TextStyle(color: Colors.white,fontSize: 20),),
+                    ),
                   ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    /*color: Color(0xff4a4a4a)*/
-                    color: Colors.deepPurpleAccent.withAlpha(30)
-                  ),
-                  width: width,
-                  margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.only(top: 20),
-                  child: Column(
-                    children: <Widget>[
-                      /*Container(
-                      this is the profile box for profile
-                        height: 200,
-                        color: Colors.orange,
-                        margin: EdgeInsets.only(bottom: 20),
-                      ),*/
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.only(left: 10,right: 10),
-                            height: 50,
-                            width: (width * .5) - 30,
-                            margin: EdgeInsets.only(left: 5,right: 5,),
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(20),
-
-                            ),
-                            child: UnicornOutlineButton(
-                              strokeWidth: 2,
-                              radius: 24,
-                              gradient: LinearGradient(
-                                  colors: [Colors.white, Colors.white12]),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Text('Edit',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w200,
-                                          color: Colors.white)),
-                                ],
-                              ),
-                              /*onPressed: () =>
-                                        BlocProvider.of<CalculationBloc>(context)
-                                            .add(GetMacronutrients())*/),
-
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 10,right: 10),
-                            margin: EdgeInsets.only(left: 5,right: 5),
-                            height: 50,
-                            width: (width * .5) - 30,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(20),
-
-                            ),
-                            child: UnicornOutlineButton(
-                                    strokeWidth: 2,
-                                    radius: 24,
-                                    gradient: LinearGradient(
-                                      colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-
-                                      children: <Widget>[
-                                        Text('Save',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w200,
-                                                color: Colors.white)),
-                                      ],
-                                    ),
-                                    onPressed: () => putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase, myController1, myController2, myController3, myController4, myController5, myController6, activityDrop, genderDropDown, goalDropDown, systemDropDown),
-                                    /*onPressed: () =>
-                                        BlocProvider.of<CalculationBloc>(context)
-                                            .add(GetMacronutrients())*/),
-
-                          )
-                        ],
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(20),
-                        child: Column(
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      /*color: Color(0xff4a4a4a)*/
+                      color: Colors.deepPurpleAccent.withAlpha(30)
+                    ),
+                    width: width,
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.only(top: 20),
+                    child: Column(
+                      children: <Widget>[
+                        /*Container(
+                        this is the profile box for profile
+                          height: 200,
+                          color: Colors.orange,
+                          margin: EdgeInsets.only(bottom: 20),
+                        ),*/
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(top: 13,bottom: 13),
-                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Gender:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                Container(
-                                  padding: EdgeInsets.only(left: 7,right: 7),
-                                  margin: EdgeInsets.only(left: 10,right: 0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.deepPurpleAccent.withAlpha(40),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  width: (width * .55) - 10,
-                                  child: GenderDropDown(),
+                            /*Container(
+                              padding: EdgeInsets.only(left: 10,right: 10),
+                              height: 50,
+                              width: (width * .5) - 30,
+                              margin: EdgeInsets.only(left: 5,right: 5,),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(20),
+
+                              ),
+                              child: UnicornOutlineButton(
+                                strokeWidth: 2,
+                                radius: 24,
+                                gradient: LinearGradient(
+                                    colors: [Colors.white, Colors.white12]),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text('Edit',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w200,
+                                            color: Colors.white)),
+                                  ],
                                 ),
-                              ],),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 13,bottom: 13),
-                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('System:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                Container(
+                                *//*onPressed: () =>
+                                          BlocProvider.of<CalculationBloc>(context)
+                                              .add(GetMacronutrients())*//*),
+
+                            ),*/
+                            Container(
+                              padding: EdgeInsets.only(left: 10,right: 10),
+                              margin: EdgeInsets.only(left: 5,right: 5),
+                              height: 50,
+                              width: (width * .5) - 30,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(20),
+
+                              ),
+                              child: UnicornOutlineButton(
+                                      strokeWidth: 2,
+                                      radius: 24,
+                                      gradient: LinearGradient(
+                                        colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+
+                                        children: <Widget>[
+                                          Text('Save',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w200,
+                                                  color: Colors.white)),
+                                        ],
+                                      ),
+                                      onPressed: () => putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase, myController1, myController2, myController3, myController4, myController5, myController6, activityDrop, genderDropDown, goalDropDown, systemDropDown),
+                                      /*onPressed: () =>
+                                          BlocProvider.of<CalculationBloc>(context)
+                                              .add(GetMacronutrients())*/),
+
+                            )
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(20),
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Gender:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                  Container(
                                     padding: EdgeInsets.only(left: 7,right: 7),
                                     margin: EdgeInsets.only(left: 10,right: 0),
-                                    width: (width * .55) - 10,
                                     decoration: BoxDecoration(
                                       color: Colors.deepPurpleAccent.withAlpha(40),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child: SystemDropDown()
-                                ), ],),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 13,bottom: 13),
-                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Age:       ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                Container(
-                                  width: width -150,
-                                  child: CupertinoTextField(
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      WhitelistingTextInputFormatter.digitsOnly
-                                    ],
-                                    controller: myController1,
-                                    maxLength: 3,
-                                    maxLengthEnforced: true,
-                                    decoration: BoxDecoration(
-                                        color: Colors.deepPurpleAccent.withAlpha(40),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    style: TextStyle(
-                                        color: Colors.white
-                                    ),
-                                    textAlign: TextAlign.center,
+                                    width: (width * .55) - 10,
+                                    child: GenderDropDown(),
                                   ),
-                                ),],),
-                            ),
-                            BlocBuilder<SystemBloc, SystemState>(
-                                bloc: BlocProvider.of<SystemBloc>(context),
-                                builder: (context, state) {
-                                  if(state is ImperialSystem) {
-                                    return Column(
-                                      children: <Widget>[
-
-
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                          child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Weight: ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                            Container(
-                                              width: width -150,
-                                              child: CupertinoTextField(
-                                                keyboardType: TextInputType.number,
-                                                inputFormatters: <TextInputFormatter>[
-                                                  WhitelistingTextInputFormatter.digitsOnly
-                                                ],
-                                                controller: myController2,
-                                                maxLength: 3,
-                                                maxLengthEnforced: true,
-                                                placeholder: 'pounds',
-                                                placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.deepPurpleAccent.withAlpha(40),
-                                                  borderRadius: BorderRadius.circular(20),
-                                                ),
-                                                style: TextStyle(
-                                                    color: Colors.white
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            )],),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                          child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Height:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                            Container(
-                                              width: width -150,
-                                              child: CupertinoTextField(
-                                                keyboardType: TextInputType.number,
-                                                inputFormatters: <TextInputFormatter>[
-                                                  WhitelistingTextInputFormatter.digitsOnly
-                                                ],
-                                                controller: myController3,
-                                                maxLength: 3,
-                                                placeholder: 'Inches',
-                                                placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
-                                                maxLengthEnforced: true,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.deepPurpleAccent.withAlpha(40),
-                                                  borderRadius: BorderRadius.circular(20),
-                                                ),
-                                                style: TextStyle(
-                                                    color: Colors.white
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            )],),
-                                        )
-                                      ],
-                                    );
-                                  } else if (state is MetricSystem) {
-                                    return Column(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                          child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Weight: ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                            Container(
-                                              width: width -150,
-                                              child: CupertinoTextField(
-                                                keyboardType: TextInputType.number,
-                                                inputFormatters: <TextInputFormatter>[
-                                                  WhitelistingTextInputFormatter.digitsOnly
-                                                ],
-                                                controller: myController2,
-                                                maxLength: 3,
-                                                maxLengthEnforced: true,
-                                                placeholder: 'Kilograms',
-                                                placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.deepPurpleAccent.withAlpha(40),
-                                                  borderRadius: BorderRadius.circular(20),
-                                                ),
-                                                style: TextStyle(
-                                                    color: Colors.white
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            )],),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                          child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Height:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                            Container(
-                                              width: width -150,
-                                              child: CupertinoTextField(
-                                                keyboardType: TextInputType.number,
-                                                inputFormatters: <TextInputFormatter>[
-                                                  WhitelistingTextInputFormatter.digitsOnly
-                                                ],
-                                                controller: myController3,
-                                                maxLength: 3,
-                                                placeholder: 'Centimeters',
-                                                placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
-                                                maxLengthEnforced: true,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.deepPurpleAccent.withAlpha(40),
-                                                  borderRadius: BorderRadius.circular(20),
-                                                ),
-                                                style: TextStyle(
-                                                    color: Colors.white
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            )],),
-                                        )
-                                      ],
-                                    );
-                                  }
-                                }
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 13,bottom: 13),
-                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Activity:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                    Container(
+                                ],),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('System:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                  Container(
                                       padding: EdgeInsets.only(left: 7,right: 7),
                                       margin: EdgeInsets.only(left: 10,right: 0),
-                                      decoration: BoxDecoration(
-                                    color: Colors.deepPurpleAccent.withAlpha(40),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
                                       width: (width * .55) - 10,
-                                      child: ActivityDropDown(),
-                                    ),
-                                ],),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 13,bottom: 13),
-                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Goal:     ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                Container(
-                                    padding: EdgeInsets.only(left: 7,right: 7),
-                                    margin: EdgeInsets.only(left: 10,right: 0),
-                                    width: (width * .55) - 10,
                                       decoration: BoxDecoration(
                                         color: Colors.deepPurpleAccent.withAlpha(40),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
-                                      child: GoalDropDown(),
+                                      child: SystemDropDown()
                                   ), ],),
-                            ),
-                            BlocBuilder<SystemBloc, SystemState>(
-                                bloc: BlocProvider.of<SystemBloc>(context),
-                                builder: (context, state) {
-                                  if(state is MetricSystem) {
-                                    return Column(
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Age:       ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                  Container(
+                                    width: width -150,
+                                    child: CupertinoTextField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: <TextInputFormatter>[
+                                        WhitelistingTextInputFormatter.digitsOnly
+                                      ],
+                                      controller: myController1,
+                                      maxLength: 3,
+                                      maxLengthEnforced: true,
+                                      decoration: BoxDecoration(
+                                          color: Colors.deepPurpleAccent.withAlpha(40),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      style: TextStyle(
+                                          color: Colors.white
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),],),
+                              ),
+                              BlocBuilder<SystemBloc, SystemState>(
+                                  bloc: BlocProvider.of<SystemBloc>(context),
+                                  builder: (context, state) {
+                                    if(state is ImperialSystem) {
+                                      return Column(
                                         children: <Widget>[
+
+
                                           Padding(
                                             padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Neck:    ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Weight: ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                               Container(
                                                 width: width -150,
                                                 child: CupertinoTextField(
@@ -1066,37 +925,11 @@ class _ProfileState extends State<ProfilePage> {
                                                   inputFormatters: <TextInputFormatter>[
                                                     WhitelistingTextInputFormatter.digitsOnly
                                                   ],
-                                                  controller: myController4,
+                                                  controller: myController2,
                                                   maxLength: 3,
-                                                  placeholder: 'Centimeters',
-                                                  placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
                                                   maxLengthEnforced: true,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.deepPurpleAccent.withAlpha(40),
-                                                    borderRadius: BorderRadius.circular(20),
-                                                  ),
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              )],),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Waist:   ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                              Container(
-                                                width: width -150,
-                                                child: CupertinoTextField(
-                                                  keyboardType: TextInputType.number,
-                                                  inputFormatters: <TextInputFormatter>[
-                                                    WhitelistingTextInputFormatter.digitsOnly
-                                                  ],
-                                                  controller: myController5,
-                                                  maxLength: 3,
-                                                  placeholder: 'Centimeters',
+                                                  placeholder: 'pounds',
                                                   placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
-                                                  maxLengthEnforced: true,
                                                   decoration: BoxDecoration(
                                                     color: Colors.deepPurpleAccent.withAlpha(40),
                                                     borderRadius: BorderRadius.circular(20),
@@ -1110,7 +943,7 @@ class _ProfileState extends State<ProfilePage> {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Hip:       ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Height:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                               Container(
                                                 width: width -150,
                                                 child: CupertinoTextField(
@@ -1118,89 +951,7 @@ class _ProfileState extends State<ProfilePage> {
                                                   inputFormatters: <TextInputFormatter>[
                                                     WhitelistingTextInputFormatter.digitsOnly
                                                   ],
-                                                  controller: myController6,
-                                                  maxLength: 3,
-                                                  placeholder: 'Centimeters',
-                                                  placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
-                                                  maxLengthEnforced: true,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.deepPurpleAccent.withAlpha(40),
-                                                    borderRadius: BorderRadius.circular(20),
-                                                  ),
-                                                  style: TextStyle(
-                                                      color: Colors.white
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              )],),
-                                          )
-                                        ]);
-                                  } else if (state is ImperialSystem) {
-                                    return Column(
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Neck:    ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                              Container(
-                                                width: width -150,
-                                                child: CupertinoTextField(
-                                                  keyboardType: TextInputType.number,
-                                                  inputFormatters: <TextInputFormatter>[
-                                                    WhitelistingTextInputFormatter.digitsOnly
-                                                  ],
-                                                  controller: myController4,
-                                                  maxLength: 3,
-                                                  placeholder: 'Inches',
-                                                  placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
-                                                  maxLengthEnforced: true,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.deepPurpleAccent.withAlpha(40),
-                                                    borderRadius: BorderRadius.circular(20),
-                                                  ),
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              )],),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Waist:   ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                              Container(
-                                                width: width -150,
-                                                child: CupertinoTextField(
-                                                  keyboardType: TextInputType.number,
-                                                  inputFormatters: <TextInputFormatter>[
-                                                    WhitelistingTextInputFormatter.digitsOnly
-                                                  ],
-                                                  controller: myController5,
-                                                  maxLength: 3,
-                                                  placeholder: 'Inches',
-                                                  placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
-                                                  maxLengthEnforced: true,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.deepPurpleAccent.withAlpha(40),
-                                                    borderRadius: BorderRadius.circular(20),
-                                                  ),
-                                                  style: TextStyle(
-                                                      color: Colors.white
-                                                 ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              )],),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Hip:       ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
-                                              Container(
-                                                width: width -150,
-                                                child: CupertinoTextField(
-                                                  keyboardType: TextInputType.number,
-                                                  inputFormatters: <TextInputFormatter>[
-                                                    WhitelistingTextInputFormatter.digitsOnly
-                                                  ],
-                                                  controller: myController6,
+                                                  controller: myController3,
                                                   maxLength: 3,
                                                   placeholder: 'Inches',
                                                   placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
@@ -1216,17 +967,275 @@ class _ProfileState extends State<ProfilePage> {
                                                 ),
                                               )],),
                                           )
-                                        ]);
+                                        ],
+                                      );
+                                    } else if (state is MetricSystem) {
+                                      return Column(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Weight: ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                              Container(
+                                                width: width -150,
+                                                child: CupertinoTextField(
+                                                  keyboardType: TextInputType.number,
+                                                  inputFormatters: <TextInputFormatter>[
+                                                    WhitelistingTextInputFormatter.digitsOnly
+                                                  ],
+                                                  controller: myController2,
+                                                  maxLength: 3,
+                                                  maxLengthEnforced: true,
+                                                  placeholder: 'Kilograms',
+                                                  placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.deepPurpleAccent.withAlpha(40),
+                                                    borderRadius: BorderRadius.circular(20),
+                                                  ),
+                                                  style: TextStyle(
+                                                      color: Colors.white
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              )],),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Height:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                              Container(
+                                                width: width -150,
+                                                child: CupertinoTextField(
+                                                  keyboardType: TextInputType.number,
+                                                  inputFormatters: <TextInputFormatter>[
+                                                    WhitelistingTextInputFormatter.digitsOnly
+                                                  ],
+                                                  controller: myController3,
+                                                  maxLength: 3,
+                                                  placeholder: 'Centimeters',
+                                                  placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
+                                                  maxLengthEnforced: true,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.deepPurpleAccent.withAlpha(40),
+                                                    borderRadius: BorderRadius.circular(20),
+                                                  ),
+                                                  style: TextStyle(
+                                                      color: Colors.white
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              )],),
+                                          )
+                                        ],
+                                      );
+                                    }
                                   }
-                                }
-                            ),
-                          ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Activity:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                      Container(
+                                        padding: EdgeInsets.only(left: 7,right: 7),
+                                        margin: EdgeInsets.only(left: 10,right: 0),
+                                        decoration: BoxDecoration(
+                                      color: Colors.deepPurpleAccent.withAlpha(40),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                        width: (width * .55) - 10,
+                                        child: ActivityDropDown(),
+                                      ),
+                                  ],),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Goal:     ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                  Container(
+                                      padding: EdgeInsets.only(left: 7,right: 7),
+                                      margin: EdgeInsets.only(left: 10,right: 0),
+                                      width: (width * .55) - 10,
+                                        decoration: BoxDecoration(
+                                          color: Colors.deepPurpleAccent.withAlpha(40),
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        child: GoalDropDown(),
+                                    ), ],),
+                              ),
+                              BlocBuilder<SystemBloc, SystemState>(
+                                  bloc: BlocProvider.of<SystemBloc>(context),
+                                  builder: (context, state) {
+                                    if(state is MetricSystem) {
+                                      return Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Neck:    ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                                Container(
+                                                  width: width -150,
+                                                  child: CupertinoTextField(
+                                                    keyboardType: TextInputType.number,
+                                                    inputFormatters: <TextInputFormatter>[
+                                                      WhitelistingTextInputFormatter.digitsOnly
+                                                    ],
+                                                    controller: myController4,
+                                                    maxLength: 3,
+                                                    placeholder: 'Centimeters',
+                                                    placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
+                                                    maxLengthEnforced: true,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.deepPurpleAccent.withAlpha(40),
+                                                      borderRadius: BorderRadius.circular(20),
+                                                    ),
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )],),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Waist:   ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                                Container(
+                                                  width: width -150,
+                                                  child: CupertinoTextField(
+                                                    keyboardType: TextInputType.number,
+                                                    inputFormatters: <TextInputFormatter>[
+                                                      WhitelistingTextInputFormatter.digitsOnly
+                                                    ],
+                                                    controller: myController5,
+                                                    maxLength: 3,
+                                                    placeholder: 'Centimeters',
+                                                    placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
+                                                    maxLengthEnforced: true,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.deepPurpleAccent.withAlpha(40),
+                                                      borderRadius: BorderRadius.circular(20),
+                                                    ),
+                                                    style: TextStyle(
+                                                        color: Colors.white
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )],),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Hip:       ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                                Container(
+                                                  width: width -150,
+                                                  child: CupertinoTextField(
+                                                    keyboardType: TextInputType.number,
+                                                    inputFormatters: <TextInputFormatter>[
+                                                      WhitelistingTextInputFormatter.digitsOnly
+                                                    ],
+                                                    controller: myController6,
+                                                    maxLength: 3,
+                                                    placeholder: 'Centimeters',
+                                                    placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
+                                                    maxLengthEnforced: true,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.deepPurpleAccent.withAlpha(40),
+                                                      borderRadius: BorderRadius.circular(20),
+                                                    ),
+                                                    style: TextStyle(
+                                                        color: Colors.white
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )],),
+                                            )
+                                          ]);
+                                    } else if (state is ImperialSystem) {
+                                      return Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Neck:    ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                                Container(
+                                                  width: width -150,
+                                                  child: CupertinoTextField(
+                                                    keyboardType: TextInputType.number,
+                                                    inputFormatters: <TextInputFormatter>[
+                                                      WhitelistingTextInputFormatter.digitsOnly
+                                                    ],
+                                                    controller: myController4,
+                                                    maxLength: 3,
+                                                    placeholder: 'Inches',
+                                                    placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
+                                                    maxLengthEnforced: true,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.deepPurpleAccent.withAlpha(40),
+                                                      borderRadius: BorderRadius.circular(20),
+                                                    ),
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )],),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Waist:   ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                                Container(
+                                                  width: width -150,
+                                                  child: CupertinoTextField(
+                                                    keyboardType: TextInputType.number,
+                                                    inputFormatters: <TextInputFormatter>[
+                                                      WhitelistingTextInputFormatter.digitsOnly
+                                                    ],
+                                                    controller: myController5,
+                                                    maxLength: 3,
+                                                    placeholder: 'Inches',
+                                                    placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
+                                                    maxLengthEnforced: true,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.deepPurpleAccent.withAlpha(40),
+                                                      borderRadius: BorderRadius.circular(20),
+                                                    ),
+                                                    style: TextStyle(
+                                                        color: Colors.white
+                                                   ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )],),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 13,bottom: 13),
+                                              child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Hip:       ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                                Container(
+                                                  width: width -150,
+                                                  child: CupertinoTextField(
+                                                    keyboardType: TextInputType.number,
+                                                    inputFormatters: <TextInputFormatter>[
+                                                      WhitelistingTextInputFormatter.digitsOnly
+                                                    ],
+                                                    controller: myController6,
+                                                    maxLength: 3,
+                                                    placeholder: 'Inches',
+                                                    placeholderStyle: TextStyle(color: Colors.white.withOpacity(.35),fontWeight: FontWeight.w300),
+                                                    maxLengthEnforced: true,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.deepPurpleAccent.withAlpha(40),
+                                                      borderRadius: BorderRadius.circular(20),
+                                                    ),
+                                                    style: TextStyle(
+                                                        color: Colors.white
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )],),
+                                            )
+                                          ]);
+                                    }
+                                  }
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
       ),

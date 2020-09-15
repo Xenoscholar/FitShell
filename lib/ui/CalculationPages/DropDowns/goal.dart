@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'exposeddropdown.dart';
 
 class GoalDropDown extends StatefulWidget {
+
   @override
-  _GoalDropDownState createState() => _GoalDropDownState();
+  _GoalDropDownState createState() =>  _GoalDropDownState();
+
 
 
 }
@@ -33,7 +35,12 @@ class GoalDrop {
 
 
 
+
+
 class _GoalDropDownState extends State<GoalDropDown> {
+
+
+
 
   onChangeDropdownItem(GoalDrop selectedCompany) {
     setState(() {

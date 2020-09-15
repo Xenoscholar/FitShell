@@ -18,8 +18,8 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
   int _selectedTab = 0;
 
   final _pageOptions = [
-    BmiPage(),
-    ProfilePage(),
+    /*BmiPage(),
+    ProfilePage(),*/
     BmiPage(),
     ProfilePage(),
     BmiPage(),
@@ -33,10 +33,11 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomPadding: false,
         body: _pageOptions[_selectedTab],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.grey[850],
+          backgroundColor: Colors.black,
           selectedItemColor: Colors.white,
           unselectedFontSize: 10,
           selectedFontSize: 10,
@@ -58,25 +59,25 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
             });
           },
           items: [
-            BottomNavigationBarItem(
+            /*BottomNavigationBarItem(
               icon: Icon(Icons.home,color: Colors.grey,),
               title: Text('Home',style: TextStyle(color: Colors.grey)),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.assessment,color: Colors.grey),
               title: Text('Progress',style: TextStyle(color: Colors.grey)),
+            ),*/
+            BottomNavigationBarItem(
+              icon: Icon(Icons.assignment,color: Colors.white),
+              title: Text('Calculate',style: TextStyle(color: Colors.white)),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.headset,color: Colors.grey),
-              title: Text('Calculate',style: TextStyle(color: Colors.grey)),
+              icon: Icon(Icons.person,color: Colors.white),
+              title: Text('Profile',style: TextStyle(color: Colors.white)),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person,color: Colors.grey),
-              title: Text('Profile',style: TextStyle(color: Colors.grey)),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.more_vert,color: Colors.grey),
-              title: Text('More',style: TextStyle(color: Colors.grey)),
+              icon: Icon(Icons.more_vert,color: Colors.white),
+              title: Text('More',style: TextStyle(color: Colors.white)),
             )
           ],
         ),

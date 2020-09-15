@@ -364,7 +364,7 @@ class BmiContainer extends StatelessWidget {
 
                           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
                         )),
-                    Padding(child: Text('Normal',style: TextStyle(color: calcCircleColor(bmiScore)),),
+                    Padding(child: Text(calcTextColor(bmiScore),style: TextStyle(color: calcCircleColor(bmiScore)),),
                       padding: EdgeInsets.only(top: 15),
 
                     ),
