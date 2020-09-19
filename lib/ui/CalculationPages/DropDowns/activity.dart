@@ -60,13 +60,29 @@ class _ActivityDropDownState extends State<ActivityDropDown> {
 
   String exposedActivity = 'Sedentary: Little or no exercise';
 
+  int initialActivi() {
+    if(Exposed.activity  == 'Sedentary: Little or no exercise') {
+      return 0;
+    }  else if (Exposed.activity == 'Light: Exercise 1-3 times/week') {
+      return 1;
+    } else if (Exposed.activity == 'moderate: Exercise 4-5 times/week') {
+      return 2;
+    } else if (Exposed.activity == 'Active: Daily Exercise or intense exercise 3-4 times/week') {
+      return 3;
+    } else if (Exposed.activity == 'Very Active: Intense exercise 6-7 times/week') {
+      return 4;
+    } else if (Exposed.activity == 'Extra Active: Intense Exercise daily') {
+      return 5;
+    }
+  }
+
 
   @override
   void initState() {
     _dropdownMenuItemsCalcs = buildDropdownMenuItems(_companies);
-    _selectedActivity = _dropdownMenuItemsCalcs[0].value;
+    _selectedActivity = _dropdownMenuItemsCalcs[initialActivi()].value;
 
-    exposedActivity = _selectedActivity.name;
+   /* exposedActivity = _selectedActivity.name;*/
 
     super.initState();
   }

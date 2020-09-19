@@ -29,7 +29,8 @@ class _MyAppState extends State<MyApp> {
       },
       child: MaterialApp(
           theme: ThemeData(
-            primarySwatch: Colors.deepPurple,
+              canvasColor: Colors.deepPurple.withAlpha(150),
+              primarySwatch: Colors.deepPurple
           ),
           debugShowCheckedModeBanner: false,
           home: SideBarLayout()

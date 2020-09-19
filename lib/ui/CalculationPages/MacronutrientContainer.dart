@@ -399,6 +399,42 @@ class MacronutrientsContainer extends StatelessWidget {
       }
     }
 
+    String weightActivity(int activity) {
+      switch(activity) {
+        case 1: {
+          return 'Sedentary: Little or no exercise';
+        }
+        break;
+
+        case 2: {
+          return 'Light: Exercise 1-3 times/week';
+        }
+        break;
+
+        case 3: {
+          return 'moderate: Exercise 4-5 times/week';
+        }
+        break;
+
+        case 4: {
+          return 'Active: Daily Exercise or intense exercise 3-4 times/week';
+        }
+        break;
+
+        case 5: {
+          return 'Very Active: Intense exercise 6-7 times/week';
+        }
+        break;
+
+        case 6: {
+          return 'Extra Active: Intense Exercise daily';
+        }
+        break;
+
+
+      }
+    }
+
     int Macrograms(int dailyCal, double percentage, double MacroFactor ) {
       int cal = (dailyCal * percentage).toInt();
 
@@ -620,7 +656,7 @@ class MacronutrientsContainer extends StatelessWidget {
                         shape: BoxShape.rectangle,
 
                       ),
-                      child: Text(weightGoal( profileModel.profileAttributes[profileModel.profileAttributes.length -1].activity),style: TextStyle(color:Colors.white,fontSize: 15,fontWeight: FontWeight.w200 ),),
+                      child: Text(weightActivity( profileModel.profileAttributes[profileModel.profileAttributes.length -1].activity),style: TextStyle(color:Colors.white,fontSize: 15,fontWeight: FontWeight.w200 ),),
                     ),
 
 

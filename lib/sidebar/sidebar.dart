@@ -29,11 +29,13 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+          canvasColor: Colors.deepPurple.withAlpha(150),
+          primarySwatch: Colors.deepPurple
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
+        backgroundColor: Colors.black,
         body: _pageOptions[_selectedTab],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

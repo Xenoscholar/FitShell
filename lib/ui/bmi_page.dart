@@ -139,13 +139,14 @@ class BmiPage extends StatelessWidget {
       ),
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
+        backgroundColor: Colors.black,
         /*appBar: AppBar(
           title: Text('Calculations'),
           centerTitle: true,
           backgroundColor: Colors.grey[850],
         ),*/
         body: Container(
-          color: Colors.grey[850],
+          color: Colors.deepPurpleAccent.withAlpha(45),
           /*padding: EdgeInsets.symmetric(vertical: 16),*/
           alignment: Alignment.center,
           child: BlocBuilder<ProfileBloc, ProfileState>(

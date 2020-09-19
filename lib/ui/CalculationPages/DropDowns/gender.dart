@@ -48,13 +48,20 @@ class _GenderDropDownState extends State<GenderDropDown> {
 
   String exposedActivity = 'Male';
 
+  int initialGen() {
+    if(Exposed.gender  == 'Male') {
+      return 0;
+    } else if (Exposed.gender == 'Female') {
+      return 1;
+    }
+  }
+
 
   @override
   void initState() {
     _dropdownMenuItemsCalcs = buildDropdownMenuItems(_companies);
-    _selectedGender = _dropdownMenuItemsCalcs[0].value;
+    _selectedGender = _dropdownMenuItemsCalcs[initialGen()].value;
 
-    exposedActivity = _selectedGender.name;
 
     super.initState();
   }

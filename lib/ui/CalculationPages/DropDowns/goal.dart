@@ -71,13 +71,31 @@ class _GoalDropDownState extends State<GoalDropDown> {
 
   String exposedGoal = 'Maintain Weight';
 
+  int initialGoal() {
+    if(Exposed.goal  == 'Maintain Weight') {
+      return 0;
+    } else if (Exposed.goal == 'Mild Weight Loss (.5lb / .25kg per week)') {
+      return 1;
+    } else if (Exposed.goal == 'Medium Weight Loss (1lb / .5kg per week)') {
+      return 2;
+    } else if (Exposed.goal == 'Extreme Weight Loss (2lb / 1kg per week)') {
+      return 3;
+    } else if (Exposed.goal == 'Mild Weight Gain (.5lb / .25kg per week)') {
+      return 4;
+    } else if (Exposed.goal == 'Medium Weight Gain (1 lb / .5kg per week)') {
+      return 5;
+    } else if (Exposed.goal == 'Extreme Weight Gain (2 lb / 1kg per week)') {
+      return 6;
+    }
+  }
+
 
   @override
   void initState() {
     _dropdownMenuItemsCalcs = buildDropdownMenuItems(_companies);
-    _selectedGoal = _dropdownMenuItemsCalcs[0].value;
+    _selectedGoal = _dropdownMenuItemsCalcs[initialGoal()].value;
 
-    exposedGoal = _selectedGoal.name;
+    /*exposedGoal = _selectedGoal.name;*/
 
     super.initState();
   }
