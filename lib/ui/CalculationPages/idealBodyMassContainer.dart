@@ -59,18 +59,27 @@ class IdealBodyMassContainer extends StatelessWidget {
 
                   ),
                 ]),
-            child: Text(
+            child: Column(
+              children: <Widget>[
+            Text(
               calcPreciseLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
                   profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
                   profileModel.profileAttributes[profileModel.profileAttributes.length -1].waist,
                   profileModel.profileAttributes[profileModel.profileAttributes.length -1].hip,
                   profileModel.profileAttributes[profileModel.profileAttributes.length -1].neck,
-                  profileModel.profileAttributes[profileModel.profileAttributes.length -1].height),
+                  profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
+                  profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight).toString() +systemUnits(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric),
 
 
 
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-            )) ; //lean body mass
+            ),
+                Text(
+                  '( ' + "leanBodyMassPercentage" + '%' + ' )',
+
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                )
+              ],)) ; //lean body mass
       } else {
         return Container(
             padding: EdgeInsets.only(left: 20, right: 20, bottom: 20,top: 20),
@@ -119,18 +128,33 @@ class IdealBodyMassContainer extends StatelessWidget {
 
                   ),
                 ]),
-            child: Text(
+            child: Column(
+              children: <Widget>[
+          Text(
               calcPreciseLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
                   profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
                   profileModel.profileAttributes[profileModel.profileAttributes.length -1].waist,
                   profileModel.profileAttributes[profileModel.profileAttributes.length -1].hip,
                   profileModel.profileAttributes[profileModel.profileAttributes.length -1].neck,
-                  profileModel.profileAttributes[profileModel.profileAttributes.length -1].height),
+                  profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
+                  profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight).toString() +systemUnits(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric),
 
 
 
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-            )); //lean body mass
+            ),
+                Text(
+                  '( ' + calcLeanBodyPercentage(profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight, calcPreciseLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
+                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
+                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].waist,
+                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].hip,
+                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].neck,
+                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
+                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight)).toString() + '%' + ' )',
+
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                )
+          ],)); //lean body mass
       } else {
         return Container(
             padding: EdgeInsets.only(left: 20, right: 20, bottom: 20,top: 20),
@@ -159,6 +183,17 @@ class IdealBodyMassContainer extends StatelessWidget {
       }
     }
   }
+
+
+
+
+
+
+
+
+
+
+
 
   String calcIdealWeight(bool isMetric, double height, bool isMale) {
     if(isMetric == true) {
@@ -374,17 +409,83 @@ class IdealBodyMassContainer extends StatelessWidget {
 
   }
 
-  String calcPreciseLeanBodyMass(bool gender, bool system ,double waist , double hip, double neck, double height) {
+  double calcPreciseLeanBodyMass(bool gender, bool system ,double waist , double hip, double neck, double height, double weight) {
+
+      if (system == true) {
+
+
+        if (gender == true) {
+
+          double waistt = cmToInch(waist);
+          double neckk = cmToInch(neck);
+          double heightt = cmToInch(height);
+
+          return roundDouble(
+              (((100 - (86.010 * (log(waistt - neckk) / ln10) - 70.041 * (log(heightt) / ln10) + 36.76)) / 100) * weight)
+                  .toDouble(), 2);
+        } else if (gender == false) {
+          double waistt = cmToInch(waist);
+          double hipp = cmToInch(hip);
+          double neckk = cmToInch(neck);
+          double heightt = cmToInch(height);
+
+          return roundDouble(
+              (((100 - (163.205 * (log(waistt + hipp - neckk) / ln10) - 97.684 * (log(heightt) / ln10) - 78.387)) / 100) * weight).toDouble(), 2);
+
+          /*163.205×log10(waist+hip-neck) - 97.684×(log10(height)) + 36.76*/
+
+        }
+
+      } else if (system == false) {
+        if (gender == true) {
+          return roundDouble(
+              (((100 -(86.010 * (log(waist - neck) / ln10) - 70.041 * (log(height) / ln10) + 36.76)) / 100 )* weight)
+                  .toDouble(), 2);
+        } else if (gender == false) {
+          return roundDouble(
+              (((100 -(163.205 * (log(waist + hip - neck) / ln10) - 97.684 * (log(height) / ln10) - 78.387)) / 100 )* weight).toDouble(), 2);
+
+          /*163.205×log10(waist+hip-neck) - 97.684×(log10(height)) + 36.76*/
+
+        }
+      }
+
+
+
+
+
+
+  }
+
+
+  /*String calcPreciseLeanBodyMass(bool gender, bool system ,double waist , double hip, double neck, double height) {
 
     try {
       if (system == true) {
+
+
         if (gender == true) {
-          return roundDouble((495 / (1.0324 - 0.19077 * ln10) * (log(waist - neck) / ln10) +
-              0.15456 * (log(height) / ln10)) - 450, 2).toString();
+
+          double waistt = cmToInch(waist);
+          double neckk = cmToInch(neck);
+          double heightt = cmToInch(height);
+
+          return roundDouble(
+              (86.010 * (log(waistt - neckk) / ln10) - 70.041 * (log(heightt) / ln10) + 36.76)
+                  .toDouble(), 2).toString();
         } else if (gender == false) {
-          return roundDouble(495 / 1.29579 - 0.35004 * (log(waist - neck) / ln10) +
-              0.22100 * (log(height) / ln10), 2).toString();
+          double waistt = cmToInch(waist);
+          double hipp = cmToInch(hip);
+          double neckk = cmToInch(neck);
+          double heightt = cmToInch(height);
+
+          return roundDouble(
+              (163.205 * (log(waistt + hipp - neckk) / ln10) - 97.684 * (log(heightt) / ln10) - 78.387).toDouble(), 2).toString();
+
+          *//*163.205×log10(waist+hip-neck) - 97.684×(log10(height)) + 36.76*//*
+
         }
+
       } else if (system == false) {
         if (gender == true) {
           return roundDouble(
@@ -394,7 +495,7 @@ class IdealBodyMassContainer extends StatelessWidget {
           return roundDouble(
               (163.205 * (log(waist + hip - neck) / ln10) - 97.684 * (log(height) / ln10) - 78.387).toDouble(), 2).toString();
 
-          /*163.205×log10(waist+hip-neck) - 97.684×(log10(height)) + 36.76*/
+          *//*163.205×log10(waist+hip-neck) - 97.684×(log10(height)) + 36.76*//*
 
         }
       }
@@ -406,7 +507,8 @@ class IdealBodyMassContainer extends StatelessWidget {
 
 
 
-  }
+  }*/
+
   
   String systemUnits(bool ssystem) {
     if(ssystem == true) {
@@ -579,7 +681,7 @@ class IdealBodyMassContainer extends StatelessWidget {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            Text('Estimate',style: TextStyle(color: Colors.white.withAlpha(100)),),
+                            Text('Bmi Estimate',style: TextStyle(color: Colors.white.withAlpha(100)),),
                             Container(
                                 padding: EdgeInsets.all(30),
                                 margin: EdgeInsets.only(bottom: 50,top: 15),
