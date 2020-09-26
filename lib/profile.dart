@@ -819,33 +819,8 @@ class _ProfileState extends State<ProfilePage> {
                             Container(
                               padding: EdgeInsets.only(left: 10,right: 10),
                               margin: EdgeInsets.only(left: 5,right: 5),
-                              height: 50,
-                              width: (width * .5) - 30,
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(20),
 
-                              ),
-                              child: UnicornOutlineButton(
-                                      strokeWidth: 2,
-                                      radius: 24,
-                                      gradient: LinearGradient(
-                                        colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-
-                                        children: <Widget>[
-                                          Text('Save',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w200,
-                                                  color: Colors.white)),
-                                        ],
-                                      ),
-                                      onPressed: () => putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase, myController1, myController2, myController3, myController4, myController5, myController6, activityDrop, genderDropDown, goalDropDown, systemDropDown),
-                                      /*onPressed: () =>
-                                          BlocProvider.of<CalculationBloc>(context)
-                                              .add(GetMacronutrients())*/),
+                              child: Text('"Fields marked with * are required"',style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic),),
 
                             )
                           ],
@@ -856,7 +831,7 @@ class _ProfileState extends State<ProfilePage> {
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Gender:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('*Gender:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                   Container(
                                     padding: EdgeInsets.only(left: 7,right: 7),
                                     margin: EdgeInsets.only(left: 10,right: 0),
@@ -871,7 +846,7 @@ class _ProfileState extends State<ProfilePage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('System:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('*System:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                   Container(
                                       padding: EdgeInsets.only(left: 7,right: 7),
                                       margin: EdgeInsets.only(left: 10,right: 0),
@@ -885,7 +860,7 @@ class _ProfileState extends State<ProfilePage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Age:       ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('*Age:       ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                   Container(
                                     width: width -150,
                                     child: CupertinoTextField(
@@ -917,7 +892,7 @@ class _ProfileState extends State<ProfilePage> {
 
                                           Padding(
                                             padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Weight: ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('*Weight: ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                               Container(
                                                 width: width -150,
                                                 child: CupertinoTextField(
@@ -943,7 +918,7 @@ class _ProfileState extends State<ProfilePage> {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Height:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('*Height:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                               Container(
                                                 width: width -150,
                                                 child: CupertinoTextField(
@@ -974,7 +949,7 @@ class _ProfileState extends State<ProfilePage> {
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Weight: ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('*Weight: ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                               Container(
                                                 width: width -150,
                                                 child: CupertinoTextField(
@@ -1000,7 +975,7 @@ class _ProfileState extends State<ProfilePage> {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Height:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('*Height:  ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                               Container(
                                                 width: width -150,
                                                 child: CupertinoTextField(
@@ -1031,7 +1006,7 @@ class _ProfileState extends State<ProfilePage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Activity:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('*Activity:',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                       Container(
                                         padding: EdgeInsets.only(left: 7,right: 7),
                                         margin: EdgeInsets.only(left: 10,right: 0),
@@ -1046,7 +1021,7 @@ class _ProfileState extends State<ProfilePage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 13,bottom: 13),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('Goal:     ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[Text('*Goal:     ',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300)),
                                   Container(
                                       padding: EdgeInsets.only(left: 7,right: 7),
                                       margin: EdgeInsets.only(left: 10,right: 0),
@@ -1228,6 +1203,38 @@ class _ProfileState extends State<ProfilePage> {
                                     }
                                   }
                               ),
+                              Container(
+                                padding: EdgeInsets.only(left: 10,right: 10),
+                                margin: EdgeInsets.only(left: 5,right: 5,top: 12),
+                                height: 50,
+                                width: (width * .5) - 30,
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(20),
+
+                                ),
+                                child: UnicornOutlineButton(
+                                  strokeWidth: 2,
+                                  radius: 24,
+                                  gradient: LinearGradient(
+                                      colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+
+                                    children: <Widget>[
+                                      Text('Save',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w200,
+                                              color: Colors.white)),
+                                    ],
+                                  ),
+                                  onPressed: () => putIntoo(BlocProvider.of<ProfileBloc>(context).appDatabase, myController1, myController2, myController3, myController4, myController5, myController6, activityDrop, genderDropDown, goalDropDown, systemDropDown),
+                                  /*onPressed: () =>
+                                          BlocProvider.of<CalculationBloc>(context)
+                                              .add(GetMacronutrients())*/),
+
+                              )
                             ],
                           ),
                         ),

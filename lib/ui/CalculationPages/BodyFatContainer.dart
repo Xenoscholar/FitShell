@@ -903,7 +903,7 @@ class BodyFatContainer extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            /*Container(
               margin: EdgeInsets.only(top: 10),
 
               decoration: BoxDecoration(
@@ -920,10 +920,10 @@ class BodyFatContainer extends StatelessWidget {
                   Text('data')
                 ],
               ),
-            ),
+            ),*/
           ],
         ),
-        Container(
+        /*Container(
           margin: EdgeInsets.only(top: 10),
 
           decoration: BoxDecoration(
@@ -940,7 +940,7 @@ class BodyFatContainer extends StatelessWidget {
               Text('data')
             ],
           ),
-        ),
+        ),*/
       ],
     );
   }

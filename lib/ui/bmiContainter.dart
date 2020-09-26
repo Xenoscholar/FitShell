@@ -508,7 +508,7 @@ class BmiContainer extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            /*Container(
               margin: EdgeInsets.only(top: 10),
 
               decoration: BoxDecoration(
@@ -525,10 +525,10 @@ class BmiContainer extends StatelessWidget {
                   Text('data')
                 ],
               ),
-            ),
+            ),*/
           ],
         ),
-        Container(
+        /*Container(
           margin: EdgeInsets.only(top: 10),
 
           decoration: BoxDecoration(
@@ -545,7 +545,7 @@ class BmiContainer extends StatelessWidget {
               Text('data')
             ],
           ),
-        ),
+        ),*/
       ],
     );
   }
