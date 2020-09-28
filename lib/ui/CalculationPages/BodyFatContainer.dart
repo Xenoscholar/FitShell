@@ -221,33 +221,37 @@ class BodyFatContainer extends StatelessWidget {
 
   String calcTextColor(double calculation, bool gender) {
 
-    if(gender == true) {
-      if ((calculation > 0) & (calculation < 6)) {
-        return "Essential Fat";
-      } else if ((calculation >= 6) & (calculation < 14)) {
-        return "Athletes";
-      } else if ((calculation >= 14) & (calculation < 18)) {
-        return "Fitness";
-      } else if ((calculation >= 18) & (calculation < 26)) {
-        return "Average";
-      } else if ((calculation >= 26)) {
-        return "Obese";
+    if(calculation != 101.23) {
+      if (gender == true) {
+        if ((calculation > 0) & (calculation < 6)) {
+          return "Essential Fat";
+        } else if ((calculation >= 6) & (calculation < 14)) {
+          return "Athletes";
+        } else if ((calculation >= 14) & (calculation < 18)) {
+          return "Fitness";
+        } else if ((calculation >= 18) & (calculation < 26)) {
+          return "Average";
+        } else if ((calculation >= 26)) {
+          return "Obese";
+        }
+      } else if (gender == false) {
+        if ((calculation > 0) & (calculation < 14)) {
+          return "Essential";
+        } else if ((calculation >= 14) & (calculation < 21)) {
+          return "Athletes";
+        } else if ((calculation >= 21) & (calculation < 25)) {
+          return "Fitness";
+        } else if ((calculation >= 25) & (calculation < 32)) {
+          return "Average";
+        } else if ((calculation >= 32)) {
+          return "Obese";
+        }
       }
-
-
-    } else if(gender == false) {
-      if ((calculation > 0) & (calculation < 14)) {
-        return "Essential";
-      } else if ((calculation >= 14) & (calculation < 21)) {
-        return "Athletes";
-      } else if ((calculation >= 21) & (calculation < 25)) {
-        return "Fitness";
-      } else if ((calculation >= 25) & (calculation < 32)) {
-        return "Average";
-      } else if ((calculation >= 32)) {
-        return "Obese";
-      }
+    } else if(calculation == 101.23) {
+      return'';
     }
+
+
 
   }
 
@@ -278,112 +282,114 @@ class BodyFatContainer extends StatelessWidget {
   }*/
 
   Color calcHighlightleColor(double calculation, int tier, bool gender) {
-    if (gender == true) {
-      switch (tier) {
-        case 1:
-          {
-            if ((calculation > 0) & (calculation < 6)) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
+    if(calculation != 101.23) {
+      if (gender == true) {
+        switch (tier) {
+          case 1:
+            {
+              if ((calculation > 0) & (calculation < 6)) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
             }
-          }
-          break;
+            break;
 
-        case 2:
-          {
-            if ((calculation >= 6) & (calculation < 14)) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
+          case 2:
+            {
+              if ((calculation >= 6) & (calculation < 14)) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
             }
-          }
-          break;
+            break;
 
-        case 3:
-          {
-            if ((calculation >= 14) & (calculation < 18)) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
+          case 3:
+            {
+              if ((calculation >= 14) & (calculation < 18)) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
             }
-          }
-          break;
+            break;
 
-        case 4:
-          {
-            if ((calculation >= 18) & (calculation < 26)) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
+          case 4:
+            {
+              if ((calculation >= 18) & (calculation < 26)) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
             }
-          }
-          break;
+            break;
 
-        case 5:
-          {
-            if (calculation >= 26) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
+          case 5:
+            {
+              if (calculation >= 26) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
             }
-          }
-          break;
+            break;
+        }
+      } else if (gender == false) {
+        switch (tier) {
+          case 1:
+            {
+              if ((calculation > 0) & (calculation < 14)) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
+            }
+            break;
+
+          case 2:
+            {
+              if ((calculation >= 14) & (calculation < 21)) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
+            }
+            break;
+
+          case 3:
+            {
+              if ((calculation >= 21) & (calculation < 25)) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
+            }
+            break;
+
+          case 4:
+            {
+              if ((calculation >= 25) & (calculation < 32)) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
+            }
+            break;
+
+          case 5:
+            {
+              if (calculation >= 32) {
+                return Color(0xFF000000).withAlpha(60);
+              } else {
+                return Colors.transparent;
+              }
+            }
+            break;
+        }
       }
-  } else if (gender == false) {
-
-      switch (tier) {
-        case 1:
-          {
-            if ((calculation > 0) & (calculation < 14)) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
-            }
-          }
-          break;
-
-        case 2:
-          {
-            if ((calculation >= 14) & (calculation < 21)) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
-            }
-          }
-          break;
-
-        case 3:
-          {
-            if ((calculation >= 21) & (calculation < 25)) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
-            }
-          }
-          break;
-
-        case 4:
-          {
-            if ((calculation >= 25) & (calculation < 32)) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
-            }
-          }
-          break;
-
-        case 5:
-          {
-            if (calculation >= 32) {
-              return Color(0xFF000000).withAlpha(60);
-            } else {
-              return Colors.transparent;
-            }
-          }
-          break;
-      }
-
+    } else if(calculation == 101.23){
+      return Colors.transparent;
     }
 
 
@@ -404,44 +410,47 @@ class BodyFatContainer extends StatelessWidget {
 
 
   double calcPreciseLeanBodyMass(bool gender, bool system ,double waist , double hip, double neck, double height, double weight) {
+    try {
+      if (system == true) {
+        if (gender == true) {
+          double waistt = cmToInch(waist);
+          double neckk = cmToInch(neck);
+          double heightt = cmToInch(height);
 
-    if (system == true) {
+          return roundDouble(
+              (86.010 * (log(waistt - neckk) / ln10) -
+                  70.041 * (log(heightt) / ln10) + 36.76)
+                  .toDouble(), 2);
+        } else if (gender == false) {
+          double waistt = cmToInch(waist);
+          double hipp = cmToInch(hip);
+          double neckk = cmToInch(neck);
+          double heightt = cmToInch(height);
 
+          return roundDouble(
+              (163.205 * (log(waistt + hipp - neckk) / ln10) -
+                  97.684 * (log(heightt) / ln10) - 78.387).toDouble(), 2);
 
-      if (gender == true) {
+          /*163.205×log10(waist+hip-neck) - 97.684×(log10(height)) + 36.76*/
 
-        double waistt = cmToInch(waist);
-        double neckk = cmToInch(neck);
-        double heightt = cmToInch(height);
+        }
+      } else if (system == false) {
+        if (gender == true) {
+          return roundDouble(
+              (86.010 * (log(waist - neck) / ln10) -
+                  70.041 * (log(height) / ln10) + 36.76)
+                  .toDouble(), 2);
+        } else if (gender == false) {
+          return roundDouble(
+              (163.205 * (log(waist + hip - neck) / ln10) -
+                  97.684 * (log(height) / ln10) - 78.387).toDouble(), 2);
 
-        return roundDouble(
-            (86.010 * (log(waistt - neckk) / ln10) - 70.041 * (log(heightt) / ln10) + 36.76)
-                .toDouble(), 2);
-      } else if (gender == false) {
-        double waistt = cmToInch(waist);
-        double hipp = cmToInch(hip);
-        double neckk = cmToInch(neck);
-        double heightt = cmToInch(height);
+          /*163.205×log10(waist+hip-neck) - 97.684×(log10(height)) + 36.76*/
 
-        return roundDouble(
-            (163.205 * (log(waistt + hipp - neckk) / ln10) - 97.684 * (log(heightt) / ln10) - 78.387).toDouble(), 2);
-
-        /*163.205×log10(waist+hip-neck) - 97.684×(log10(height)) + 36.76*/
-
+        }
       }
-
-    } else if (system == false) {
-      if (gender == true) {
-        return roundDouble(
-            (86.010 * (log(waist - neck) / ln10) - 70.041 * (log(height) / ln10) + 36.76)
-                .toDouble(), 2);
-      } else if (gender == false) {
-        return roundDouble(
-            (163.205 * (log(waist + hip - neck) / ln10) - 97.684 * (log(height) / ln10) - 78.387).toDouble(), 2);
-
-        /*163.205×log10(waist+hip-neck) - 97.684×(log10(height)) + 36.76*/
-
-      }
+    }on Error {
+      return 101.23;
     }
 
 
@@ -461,155 +470,233 @@ class BodyFatContainer extends StatelessWidget {
 
 
   Widget preciseYesNo(double waist , double hip, double neck, bool gender,double bodyfat) {
-    if(gender == false) {
-      if( waist != null && neck != null && hip != null) {
-        return Container(
-            padding: EdgeInsets.all(40),
-            margin: EdgeInsets.only(bottom: 18,top: 15),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: calcCircleColor(bodyfat,gender),
-                  width: 2,
+    if (bodyfat != 101.23) {
+      if (gender == false) {
+        if (waist != null && neck != null && hip != null) {
+          return Container(
+              padding: EdgeInsets.all(40),
+              margin: EdgeInsets.only(bottom: 18, top: 15),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Colors.transparent, Colors.transparent]),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: calcCircleColor(bodyfat, gender),
+                    width: 2,
 
-                ),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 12.0,
+                      spreadRadius: 13.0,
+                      color: calcCircleColor(bodyfat, gender).withAlpha(50),
+
+                    ),
+                  ]),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    calcPreciseLeanBodyMass(
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].isMale,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].isMetric,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].waist,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].hip,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].neck,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].height,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].weight).toString() +
+                        '%',
+
+
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w300),
+                  ),
+                  Text(
+                    '( ' + ((calcLeanBodyPercentage(
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].weight,
+                        calcPreciseLeanBodyMass(
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].isMale,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].isMetric,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].waist,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].hip,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].neck,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].height,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].weight)) / 100) *
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].weight).toString() +
+                        systemUnits(profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].isMetric) + ' )',
+
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w300),
+                  )
+                ],)); //lean body mass
+        } else {
+          return Container(
+            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 20),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
                 boxShadow: [
                   BoxShadow(
-                    blurRadius: 12.0,
-                    spreadRadius: 13.0,
-                    color: calcCircleColor(bodyfat,gender).withAlpha(50),
-
+                    color: Color(0xFF000000).withAlpha(60),
+                    blurRadius: 6.0,
+                    spreadRadius: 0.0,
+                    offset: Offset(
+                      0.0,
+                      3.0,
+                    ),
                   ),
                 ]),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  calcPreciseLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].waist,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].hip,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].neck,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight).toString() + '%',
+            child: Text(
+              'Please add neck,\n waist, and hip \nmeasurements',
+              /*The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).*/
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w200),
+            ),
+          );
+        }
+      } else if (gender == true) {
+        if (waist != null && neck != null) {
+          return Container(
+              padding: EdgeInsets.all(40),
+              margin: EdgeInsets.only(bottom: 18, top: 15),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Colors.transparent, Colors.transparent]),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: calcCircleColor(bodyfat, gender),
+                    width: 2,
 
-
-
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-                ),
-                Text(
-                  '( ' + (( calcLeanBodyPercentage(profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight, calcPreciseLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].waist,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].hip,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].neck,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight)) / 100) * profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight) .toString() + systemUnits(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric)  +' )',
-
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-                )
-              ],)) ; //lean body mass
-      } else {
-        return Container(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 20,top: 20),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0xFF000000).withAlpha(60),
-                  blurRadius: 6.0,
-                  spreadRadius: 0.0,
-                  offset: Offset(
-                    0.0,
-                    3.0,
                   ),
-                ),
-              ]),
-          child: Text(
-            'Please add neck,\n waist, and hip \nmeasurements',
-            /*The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).*/
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w200),
-          ),
-        );
-      }
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 12.0,
+                      spreadRadius: 13.0,
+                      color: calcCircleColor(bodyfat, gender).withAlpha(50),
 
-    }else if (gender == true) {
-      if( waist != null && neck != null) {
-        return Container(
-            padding: EdgeInsets.all(40),
-            margin: EdgeInsets.only(bottom: 18,top: 15),
+                    ),
+                  ]),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    calcPreciseLeanBodyMass(
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].isMale,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].isMetric,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].waist,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].hip,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].neck,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].height,
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].weight).toString() +
+                        '%',
+
+
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w300),
+                  ),
+                  Text(
+                    '( ' + ((calcLeanBodyPercentage(
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].weight,
+                        calcPreciseLeanBodyMass(
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].isMale,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].isMetric,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].waist,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].hip,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].neck,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].height,
+                            profileModel.profileAttributes[profileModel
+                                .profileAttributes.length - 1].weight)) / 100) *
+                        profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].weight).toString() +
+                        systemUnits(profileModel.profileAttributes[profileModel
+                            .profileAttributes.length - 1].isMetric) + ' )',
+
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w300),
+                  )
+                ],)); //lean body mass
+        } else {
+          return Container(
+            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 20),
             decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [Colors.transparent, Colors.transparent]),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: calcCircleColor(bodyfat,gender),
-                  width: 2,
-
-                ),
+                borderRadius: BorderRadius.circular(50),
                 boxShadow: [
                   BoxShadow(
-                    blurRadius: 12.0,
-                    spreadRadius: 13.0,
-                    color: calcCircleColor(bodyfat,gender).withAlpha(50),
-
+                    color: Color(0xFF000000).withAlpha(60),
+                    blurRadius: 6.0,
+                    spreadRadius: 0.0,
+                    offset: Offset(
+                      0.0,
+                      3.0,
+                    ),
                   ),
                 ]),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  calcPreciseLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].waist,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].hip,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].neck,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight).toString() + '%',
-
-
-
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-                ),
-                Text(
-                  '( ' + (( calcLeanBodyPercentage(profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight, calcPreciseLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].waist,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].hip,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].neck,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
-                      profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight)) / 100) * profileModel.profileAttributes[profileModel.profileAttributes.length -1].weight) .toString() + systemUnits(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMetric)  +' )',
-
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-                )
-              ],)); //lean body mass
-      } else {
-        return Container(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 20,top: 20),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0xFF000000).withAlpha(60),
-                  blurRadius: 6.0,
-                  spreadRadius: 0.0,
-                  offset: Offset(
-                    0.0,
-                    3.0,
-                  ),
-                ),
-              ]),
-          child: Text(
-            'Please add neck,\n waist, and hip \nmeasurements',
-            /*The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).*/
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w200),
-          ),
-        );
+            child: Text(
+              'Please add neck,\n waist, and hip \nmeasurements',
+              /*The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).*/
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w200),
+            ),
+          );
+        }
       }
+    } else if (bodyfat == 101.23) {
+      return Container(
+        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20,top: 20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xFF000000).withAlpha(60),
+                blurRadius: 6.0,
+                spreadRadius: 0.0,
+                offset: Offset(
+                  0.0,
+                  3.0,
+                ),
+              ),
+            ]),
+        child: Text(
+          'Please add neck,\n waist, and hip \nmeasurements',
+          /*The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).*/
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.w200),
+        ),
+      );
     }
   }
 
@@ -636,6 +723,7 @@ class BodyFatContainer extends StatelessWidget {
         profileModel.profileAttributes[profileModel.profileAttributes.length -1].height,
         profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale
     ).toString();
+
 
 
     double bodyFatPercentageScore = calcPreciseLeanBodyMass(profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,
@@ -759,7 +847,7 @@ class BodyFatContainer extends StatelessWidget {
 
                           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
                         ))*/preciseYesNo(profileModel.profileAttributes[profileModel.profileAttributes.length -1].waist, profileModel.profileAttributes[profileModel.profileAttributes.length -1].hip, profileModel.profileAttributes[profileModel.profileAttributes.length -1].neck, profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale,bodyFatPercentageScore),
-                    Padding(child: Text(calcTextColor(bmiScore, profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale),style: TextStyle(color: calcCircleColor(bodyFatPercentageScore,profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale)),),
+                    Padding(child: Text(calcTextColor(bodyFatPercentageScore, profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale),style: TextStyle(color: calcCircleColor(bodyFatPercentageScore,profileModel.profileAttributes[profileModel.profileAttributes.length -1].isMale)),),
                       padding: EdgeInsets.only(top: 5),
 
                     ),

@@ -11,7 +11,9 @@ import 'package:flutterapp2/calculation_bloc/calculation_state.dart';
 import 'package:flutterapp2/models/profile_model.dart';
 import 'package:flutterapp2/ui/CalculationPages/BodyFatContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/CaloricMaintinenceContainer.dart';
+import 'package:flutterapp2/ui/CalculationPages/HeartContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/MacronutrientContainer.dart';
+import 'package:flutterapp2/ui/CalculationPages/OneRepMaxContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/bmrContainer.dart';
 import 'package:flutterapp2/ui/CalculationPages/extra_calc_dropdown.dart';
 import 'package:flutterapp2/ui/CalculationPages/idealBodyMassContainer.dart';
@@ -20,6 +22,8 @@ import 'package:flutterapp2/ui/CalculationPages/initialPage.dart';
 import 'package:flutterapp2/ui/bmiContainter.dart';
 import 'package:flutterapp2/ui/unicornButton.dart';
 import 'dart:math';
+
+import 'CalculationPages/CreatineContainer.dart';
 
 
 class BmiPage extends StatelessWidget {
@@ -438,7 +442,7 @@ class BmiPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                               Container(
-                                width: (width * .4),
+                                width: (width * .37),
                                 child: UnicornOutlineButton(
                                     strokeWidth: 2,
                                     radius: 24,
@@ -455,13 +459,13 @@ class BmiPage extends StatelessWidget {
                               ),
 
                             Container(
-                                width: (width * .4),
+                                width: (width * .35),
                                 child: UnicornOutlineButton(
                                     strokeWidth: 2,
                                     radius: 24,
                                     gradient: LinearGradient(
                                         colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
-                                    child: Text('Lean Body Mass',
+                                    child: Text('Lean Mass',
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w100,
@@ -685,6 +689,15 @@ class BmiPage extends StatelessWidget {
                       return Center(
                         child: CircularProgressIndicator(),
                       );
+                    } else if (state is TargetHeartRateCalculation) {
+                      /* return macronutrientgoodJob4;*/
+                      return HeartContainer(context, profileModel);
+                    } else if (state is CreatineIntakeCalculation) {
+                      /* return macronutrientgoodJob4;*/
+                      return CreatineContainer(context, profileModel);
+                    } else if (state is OneRepMaxCalculation) {
+                      /* return macronutrientgoodJob4;*/
+                      return OneRepMaxContainer(context, profileModel);
                     }
                   },
                 ),

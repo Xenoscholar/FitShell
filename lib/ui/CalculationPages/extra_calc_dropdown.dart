@@ -22,12 +22,11 @@ class ExtraCalc {
   static List<ExtraCalc> getCompanies() {
     return <ExtraCalc>[
       ExtraCalc(1, 'One Rep Max'),
-      ExtraCalc(2, 'Protein Intake'),
-      ExtraCalc(3, 'Creatine Intake'),
-      ExtraCalc(4, 'Calorie Deficit/Surplus'),
-      ExtraCalc(5, 'Macro Split'),
-      ExtraCalc(6, 'Max Heart Rate'),
-      ExtraCalc(7, 'Target Heart Rate'),
+      /*ExtraCalc(2, 'Protein Intake'),*/
+      ExtraCalc(2, 'Creatine Intake'),
+      /*ExtraCalc(4, 'Calorie Deficit/Surplus'),
+      ExtraCalc(5, 'Macro Split'),*/
+      ExtraCalc(3, 'Heart Rate'),
     ];
   }
 }
@@ -43,10 +42,10 @@ class _ExtraCalcDropDownState extends State<ExtraCalcDropDown> {
       /*BlocProvider.of<CalculationBloc>(context)
           .add(GetLeanBodyMass());*/
 
-      if(_selectedCalc.name == 'One Rep Max') {
+      /*if(_selectedCalc.name == 'One Rep Max') {
         BlocProvider.of<CalculationBloc>(context)
             .add(GetLeanBodyMass());
-      }
+      }*/
 
       switch(_selectedCalc.name) {
         case 'One Rep Max': {
@@ -55,11 +54,6 @@ class _ExtraCalcDropDownState extends State<ExtraCalcDropDown> {
         }
         break;
 
-        case 'Protein Intake': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetProteinIntake());
-        }
-        break;
 
         case 'Creatine Intake': {
           BlocProvider.of<CalculationBloc>(context)
@@ -67,25 +61,7 @@ class _ExtraCalcDropDownState extends State<ExtraCalcDropDown> {
         }
         break;
 
-        case 'Calorie Deficit/Surplus': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetCaloricDeficit());
-        }
-        break;
-
-        case 'Macro Split': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetMacroSplit());
-        }
-        break;
-
-        case 'Max Heart Rate': {
-          BlocProvider.of<CalculationBloc>(context)
-              .add(GetMaxHeartRate());
-        }
-        break;
-
-        case 'Target Heart Rate': {
+        case 'Heart Rate': {
           BlocProvider.of<CalculationBloc>(context)
               .add(GetTargetHeartRate());
         }
