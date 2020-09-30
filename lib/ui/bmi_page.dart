@@ -173,8 +173,35 @@ class BmiPage extends StatelessWidget {
   }
 
   Widget buildInitialInput() {
-    return Center(
-        child: Text('There was an error. Be sure to complete your profile.'));
+    return Container(
+        padding: EdgeInsets.only(left: 20, right: 20),
+        height: 200,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            color: Colors.deepPurpleAccent.withAlpha(30)
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(Icons.warning,color: Colors.yellow,size: 40,),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10, top: 10),
+              child: Text(
+                'Unable to Retrieve Profile Data',
+                style: TextStyle(fontSize: 20,
+                    color: Colors.white),
+              ),
+            ),
+            Text(
+              'Please be sure to complete your profile.',
+              /*The Basal Metabolic Rate (BMR) is an estimate of the amount of energy expended while at rest in a neutral environment, and in a post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of fasting).*/
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w200),
+            ),
+          ],
+        ));
   }
 
   Widget buildLoading() {

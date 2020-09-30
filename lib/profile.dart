@@ -506,6 +506,7 @@ import 'package:flutterapp2/ui/CalculationPages/DropDowns/gender.dart';
 import 'package:flutterapp2/ui/CalculationPages/DropDowns/goal.dart';
 import 'package:flutterapp2/ui/CalculationPages/DropDowns/system.dart';
 import 'package:flutterapp2/ui/unicornButton.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 import 'package:flutterapp2/data/moor_database.dart';
@@ -672,6 +673,22 @@ class _ProfileState extends State<ProfilePage> {
   final myController5 = TextEditingController();
   final myController6 = TextEditingController();
 
+  void showCenterToast() {
+    Fluttertoast.showToast(
+        msg: "Profile Saved!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }
+
+
+
+
+
 
 
   @override
@@ -735,6 +752,8 @@ class _ProfileState extends State<ProfilePage> {
           waist: double.tryParse(controller5.text),
         ));
       }
+
+      showCenterToast();
     }
 
     String hints(int calc) {

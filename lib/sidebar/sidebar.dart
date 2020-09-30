@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapp2/profile.dart';
 import 'package:flutterapp2/system_bloc/system_bloc.dart';
 import 'package:flutterapp2/system_bloc/system_event.dart';
+import 'package:flutterapp2/ui/MoreContainer.dart';
 import 'package:flutterapp2/ui/bmi_page.dart';
 
 
@@ -22,7 +23,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
     ProfilePage(),*/
     BmiPage(),
     ProfilePage(),
-    BmiPage(),
+    MorePage(),
   ];
 
   @override
@@ -47,8 +48,6 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
             unselectedFontSize: 10,
             selectedFontSize: 10,
             iconSize: 20,
-
-
             selectedIconTheme: IconThemeData(
               color: Colors.purple,
             ),
