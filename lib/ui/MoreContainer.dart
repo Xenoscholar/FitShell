@@ -52,6 +52,7 @@ class _MoreState extends State<MorePage> {
 
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           canvasColor: Colors.deepPurple.withAlpha(150),
           primarySwatch: Colors.deepPurple

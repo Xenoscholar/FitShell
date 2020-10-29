@@ -14,6 +14,8 @@ import 'package:flutterapp2/diet_bloc/diet_bloc.dart';
 import 'package:flutterapp2/diet_bloc/diet_event.dart';
 import 'package:flutterapp2/diet_bloc/diet_state.dart';
 import 'package:flutterapp2/models/profile_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'dart:math';
 
 
@@ -252,6 +254,48 @@ class MacronutrientsContainer extends StatelessWidget {
       break;
     }
 
+  }
+
+  void showCenterToast(String diet) {
+    Fluttertoast.showToast(
+        msg: diett(diet),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }
+
+  String diett(String foodie) {
+    switch(foodie) {
+      case 'keto': {
+        return 'Keto Diet';
+      }
+      break;
+
+      case 'low carb': {
+        return 'Low Carb Diet';
+      }
+      break;
+
+      case 'high protein': {
+        return 'High Protein Diet';
+      }
+      break;
+
+      case 'low fat': {
+        return 'Low Fat Diet';
+      }
+      break;
+
+      case 'balanced': {
+        return 'Balanced Diet';
+      }
+      break;
+
+    }
   }
 
 
@@ -553,9 +597,15 @@ class MacronutrientsContainer extends StatelessWidget {
     bloc: BlocProvider.of<DietBloc>(context),
     builder: (context, state) {
     if(state is  LowFatDietState) {
-                           return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowFatDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Fat',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                           return RaisedButton(onPressed: () {
+                             BlocProvider.of<DietBloc>(context).add(GetLowFatDiet());
+                             showCenterToast('low fat');
+                           },disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Fat',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
     } else {
-      return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowFatDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Fat',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+      return RaisedButton(onPressed: () {
+        BlocProvider.of<DietBloc>(context).add(GetLowFatDiet());
+        showCenterToast('low fat');
+        },disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Fat',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
 
     };
     }
@@ -565,9 +615,9 @@ class MacronutrientsContainer extends StatelessWidget {
                                 bloc: BlocProvider.of<DietBloc>(context),
                                 builder: (context, state) {
                                   if(state is LowCarbDietState) {
-                                    return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowCarbDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Carb',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                    return RaisedButton(onPressed: () { BlocProvider.of<DietBloc>(context).add(GetLowCarbDiet()); showCenterToast('low carb');},disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Carb',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
                                 } else {
-                                    return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetLowCarbDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Carb',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                    return RaisedButton(onPressed: () { BlocProvider.of<DietBloc>(context).add(GetLowCarbDiet()); showCenterToast('low carb');},disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Low Carb',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
                                   };
                                 }
                             ),
@@ -577,9 +627,9 @@ class MacronutrientsContainer extends StatelessWidget {
                                 bloc: BlocProvider.of<DietBloc>(context),
                                 builder: (context, state) {
                                   if(state is HighProteinDietState) {
-                                   return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetHighProteinDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('High Protein',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                   return RaisedButton(onPressed: () { BlocProvider.of<DietBloc>(context).add(GetHighProteinDiet()); showCenterToast('high protein');},disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('High Protein',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
                                 } else{
-                                    return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetHighProteinDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('High Protein',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                    return RaisedButton(onPressed: () { BlocProvider.of<DietBloc>(context).add(GetHighProteinDiet()); showCenterToast('high protein');},disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('High Protein',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
                                   };
                                 }
                             ),
@@ -601,9 +651,9 @@ class MacronutrientsContainer extends StatelessWidget {
                                       bloc: BlocProvider.of<DietBloc>(context),
                                       builder: (context, state) {
                                         if(state is BalancedDietState) {
-                                          return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetBalancedDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                          return RaisedButton(onPressed: () { BlocProvider.of<DietBloc>(context).add(GetBalancedDiet()); showCenterToast('balanced');},disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
                                         } else{
-                                          return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetBalancedDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                          return RaisedButton(onPressed: () { BlocProvider.of<DietBloc>(context).add(GetBalancedDiet()); showCenterToast('balanced');},disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Balanced',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
 
                                         }
                                       }
@@ -615,9 +665,9 @@ class MacronutrientsContainer extends StatelessWidget {
                                     bloc: BlocProvider.of<DietBloc>(context),
                                     builder: (context, state) {
                                       if(state is KetoDietState) {
-                                        return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetKetoDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Keto',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                        return RaisedButton(onPressed: () { BlocProvider.of<DietBloc>(context).add(GetKetoDiet()); showCenterToast('keto');},disabledColor: Colors.deepPurpleAccent.withAlpha(50),color: Colors.deepPurpleAccent.withAlpha(50),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Keto',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
                                     } else{
-                                        return RaisedButton(onPressed: () => BlocProvider.of<DietBloc>(context).add(GetKetoDiet()),disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Keto',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
+                                        return RaisedButton(onPressed: () { BlocProvider.of<DietBloc>(context).add(GetKetoDiet()); showCenterToast('keto');},disabledColor: Colors.deepPurpleAccent.withAlpha(200),color: Colors.deepPurpleAccent.withAlpha(200),splashColor:Colors.deepPurpleAccent.withOpacity(1),child: Text('Keto',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 10),),);
                                       };
                                     }
                                 ),
@@ -641,7 +691,7 @@ class MacronutrientsContainer extends StatelessWidget {
 
                       ),
                       padding: EdgeInsets.only(top: 15,bottom: 15),
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 20,bottom: 10),
                       child: Column(
                         children: <Widget>[
                           Text('Calorie Intake:',style: TextStyle(color:Colors.white.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.w300 ),),
@@ -1388,7 +1438,7 @@ class MacronutrientsContainer extends StatelessWidget {
                     Text('Goal:',style: TextStyle(color:Colors.white.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.w300 ),),
                     Container(
                       padding: EdgeInsets.only(top: 25,bottom: 25,left:(width * .05) ,right:(width * .05) ),
-                      margin: EdgeInsets.only(top: 25,bottom: 25),
+                      margin: EdgeInsets.only(top: 10,bottom: 10),
                       decoration: BoxDecoration(
                         color: Colors.deepPurpleAccent.withAlpha(30),
                         borderRadius: BorderRadius.circular(30),
@@ -1401,7 +1451,7 @@ class MacronutrientsContainer extends StatelessWidget {
                     Text('Activity:',style: TextStyle(color:Colors.white.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.w300 ),),
                     Container(
                       padding: EdgeInsets.only(top: 25,bottom: 25,left:(width * .05) ,right:(width * .05) ),
-                      margin: EdgeInsets.only(top: 25,bottom: 25),
+                      margin: EdgeInsets.only(top: 10,bottom: 25),
                       decoration: BoxDecoration(
                         color: Colors.deepPurpleAccent.withAlpha(30),
                         borderRadius: BorderRadius.circular(30),

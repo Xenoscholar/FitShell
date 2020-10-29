@@ -73,7 +73,6 @@ class OneRepMaxContainer extends StatelessWidget {
                 ),
                 Text(
                   '( ' + "leanBodyMassPercentage" + '%' + ' )',
-
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
                 )
               ],)) ; //lean body mass

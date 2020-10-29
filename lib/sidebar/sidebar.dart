@@ -38,9 +38,8 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.black,
         body: _pageOptions[_selectedTab],
-        bottomNavigationBar: SizedBox(
-          height: 48,
-          child: BottomNavigationBar(
+        bottomNavigationBar:
+          BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.grey[900],
             selectedItemColor: Colors.white,
@@ -87,7 +86,6 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
               )
             ],
           ),
-        ),
       ),
     );
   }

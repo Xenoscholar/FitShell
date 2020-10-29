@@ -767,6 +767,7 @@ class _ProfileState extends State<ProfilePage> {
 
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           canvasColor: Colors.deepPurple.withAlpha(150),
           primarySwatch: Colors.deepPurple

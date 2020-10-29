@@ -518,7 +518,7 @@ class BodyFatContainer extends StatelessWidget {
                         color: Colors.white, fontWeight: FontWeight.w300),
                   ),
                   Text(
-                    '( ' + ((calcLeanBodyPercentage(
+                    '( ' + roundDouble(((calcLeanBodyPercentage(
                         profileModel.profileAttributes[profileModel
                             .profileAttributes.length - 1].weight,
                         calcPreciseLeanBodyMass(
@@ -537,7 +537,7 @@ class BodyFatContainer extends StatelessWidget {
                             profileModel.profileAttributes[profileModel
                                 .profileAttributes.length - 1].weight)) / 100) *
                         profileModel.profileAttributes[profileModel
-                            .profileAttributes.length - 1].weight).toString() +
+                            .profileAttributes.length - 1].weight),2).toString() +
                         systemUnits(profileModel.profileAttributes[profileModel
                             .profileAttributes.length - 1].isMetric) + ' )',
 
@@ -618,7 +618,7 @@ class BodyFatContainer extends StatelessWidget {
                         color: Colors.white, fontWeight: FontWeight.w300),
                   ),
                   Text(
-                    '( ' + ((calcLeanBodyPercentage(
+                    '( ' + roundDouble(((calcLeanBodyPercentage(
                         profileModel.profileAttributes[profileModel
                             .profileAttributes.length - 1].weight,
                         calcPreciseLeanBodyMass(
@@ -637,7 +637,7 @@ class BodyFatContainer extends StatelessWidget {
                             profileModel.profileAttributes[profileModel
                                 .profileAttributes.length - 1].weight)) / 100) *
                         profileModel.profileAttributes[profileModel
-                            .profileAttributes.length - 1].weight).toString() +
+                            .profileAttributes.length - 1].weight),2).toString() +
                         systemUnits(profileModel.profileAttributes[profileModel
                             .profileAttributes.length - 1].isMetric) + ' )',
 
