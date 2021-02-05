@@ -1,1 +1,7 @@
-https://play-lh.googleusercontent.com/cR1AE3VKkBdrombMw3v-E2_nq5W6DletDItdrqXpkOsLKMgKOQ8Cts1th2tQ4EDrBRqI=w1280-h737
+Link to FitShell on the Play Store:  https://play.google.com/store/apps/details?id=com.fitshell.FitShell&hl=en
+
+
+
+
+
+FitShell is a personal project created entirely by myself as a stepping stone to get me very familiar with the Flutter framework.
